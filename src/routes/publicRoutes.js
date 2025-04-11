@@ -1,0 +1,1 @@
+// route dành cho client
