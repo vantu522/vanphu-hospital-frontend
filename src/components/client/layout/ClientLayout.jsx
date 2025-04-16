@@ -5,11 +5,11 @@ import Footer from "./Footer";
 const ClientLayout = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main className="p-1">
         <Outlet />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
