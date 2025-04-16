@@ -4,7 +4,7 @@ import dichvu from "../../assets/images/dichvu.png";
 const Service = () => {
   return (
     <div className="max-w-7xl mx-auto  relative">
-      {/* ảnh bg */}
+      {/* ảnh bg  */}
       <div className="relative">
         <img src={dichvu} alt="Các bác sĩ" className="w-full object-contain" />
         
@@ -25,11 +25,11 @@ const Service = () => {
         </div>
       </div>
 
-
+   
 
       <div className="serviceContent">
         <div className="main">
-            
+
         </div>
       </div>
     </div>
