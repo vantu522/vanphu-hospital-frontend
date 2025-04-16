@@ -1,26 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import uh from "../../../assets/images/dvt_2.png";
 import { FiChevronDown } from "react-icons/fi";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { FaAmbulance } from "react-icons/fa";
+
 const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Effect to handle scroll events
+  useEffect(() => {
+    const handleScroll = () => {
+      // Get the height of the topbar to determine when to make the navbar sticky
+      const topBarHeight = document.querySelector('.topbar')?.offsetHeight || 0;
+      
+      if (window.scrollY > topBarHeight) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <header className="w-full">
       {/* Thanh trên (Top bar) */}
-      <div className="bg-green-700 text-white">
+      <div className="bg-green-700 text-white topbar">
         <div className="container mx-auto flex justify-between items-center py-2 px-4">
           {/* Thông tin liên hệ bên trái */}
           <div className="flex gap-6 items-center">
-          <span className="flex items-center gap-2 text-sm text-white font-medium">
-            <TfiHeadphoneAlt className="text-lg" />
-            Hotline: <strong>0277 3630 000</strong>
-          </span>
-          <span className="flex items-center gap-2 text-sm text-white font-medium">
-            <FaAmbulance className="text-lg" />
-            Cấp cứu: <strong>0900 555 555</strong>
-          </span>
-        </div>
+            <span className="flex items-center gap-2 text-sm text-white font-medium">
+              <TfiHeadphoneAlt className="text-lg" />
+              Hotline: <strong>0277 3630 000</strong>
+            </span>
+            <span className="flex items-center gap-2 text-sm text-white font-medium">
+              <FaAmbulance className="text-lg" />
+              Cấp cứu: <strong>0900 555 555</strong>
+            </span>
+          </div>
 
           {/* Đăng nhập/Đăng ký/Languages bên phải */}
           <div className="flex items-center gap-4 text-sm">
@@ -38,12 +63,22 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Thanh dưới (Main header) */}
-      <div className="bg-white shadow-md">
-        <div className="container mx-auto flex justify-between items-center  px-10">
-          {/* Logo */}
+      {/* Thanh dưới (Main header) - sẽ được giữ cố định khi scroll */}
+      <div 
+        className={`bg-white shadow-md w-full ${
+          isScrolled ? 'fixed top-0 left-0 z-50 transition-all duration-300' : ''
+        }`}
+      >
+        <div className="container mx-auto flex justify-between items-center px-10 py-2">
+          {/* Logo với animation kích thước */}
           <div className="flex items-center">
-            <img src={uh} alt="Logo" className="w-25 h-25 object-contain" />
+            <img 
+              src={uh} 
+              alt="Logo" 
+              className={`object-contain transition-all duration-300 ${
+                isScrolled ? 'w-10 h-10' : 'h-20 w-20'
+              }`} 
+            />
           </div>
 
           {/* Nav menu */}
@@ -56,13 +91,13 @@ const Header = () => {
                 className="flex items-center gap-1 hover:text-green-700 transition-all duration-200 hover:scale-105 font-medium"
               >
                 <span>Giới thiệu</span>
-                <FiChevronDown className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180" />
+                <FiChevronDown className="w-4 h-4 transition-transform duration-400 group-hover:rotate-180" />
               </Link>
 
               {/* Subnav (dropdown) */}
               <div
                 className="hidden group-hover:block absolute top-full left-0 min-w-[200px]
-                  bg-white shadow-lg z-10 text-sm mt-2"
+                  bg-white shadow-lg z-10 text-sm pt-2 line-clamp-1"
               >
                 <Link
                   to="/gioi-thieu/ve-hong-ngoc"
@@ -161,6 +196,11 @@ const Header = () => {
           </div>
         </div>
       </div>
+      
+      {/* Phần này tạo không gian trống khi header dưới được fixed để tránh content bị đẩy lên */}
+      {isScrolled && (
+        <div style={{ height: document.querySelector('.bg-white.shadow-md')?.offsetHeight || 0 }}></div>
+      )}
     </header>
   );
 };
