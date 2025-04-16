@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import dichvu from "../../assets/images/dichvu.png";
-import hi from "../../assets/images/hi.png";
+import dichvu from "../../../assets/images/dichvu.png";
+import hi from "../../../assets/images/hi.png";
 import { HiSearch } from "react-icons/hi";
-import Button from "../../components/client/ui/button";
+import Button from "../../../components/client/ui/button";
 
 const Service = () => {
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
@@ -176,12 +176,9 @@ const Service = () => {
             <div className="w-60 shrink-0">
               <form className="p-2 space-y-4">
                 <div className="relative">
-               
-
-                 
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-4">
                   {faqCategories.map((item, i) => {
                     const isActive = selectedCategory === item.name;
                     return (
@@ -211,7 +208,7 @@ const Service = () => {
             </div>
 
             {/* Accordion FAQ */}
-            <div className="flex-1">
+            <div className="flex-1 pl-10">
               {(faqData[selectedCategory] || []).map((item, i) => (
                 <div
                   key={i}

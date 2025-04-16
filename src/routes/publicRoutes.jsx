@@ -1,6 +1,7 @@
 import ClientLayout from "../components/client/layout/ClientLayout";
 import Home from "../pages/client/Home";
-import Service from "../pages/client/Service";
+import Service from "../pages/client/Services/Service";
+import ServiceDetail from "../pages/client/Services/ServiceDetail";
 
 
 const publicRoutes = [
@@ -9,7 +10,8 @@ const publicRoutes = [
         element:<ClientLayout/>,
         children: [
         {index:true, element:<Home/>},
-        {path:'dich-vu', element: <Service/>}
+        {path:'dich-vu', element: <Service/>},
+        {path:'chi-tiet-dich-vu',element:<ServiceDetail/>}
        ]
     },
 
