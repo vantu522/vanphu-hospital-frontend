@@ -10,10 +10,10 @@ const Button = ({
   ...rest
 }) => {
   const base =
-    "group relative overflow-hidden px-6 py-2 rounded-full font-bold focus:outline-none transition duration-150";
+    "group relative overflow-hidden px-6 py-2 rounded-full  focus:outline-none transition duration-300";
 
   const variants = {
-    primary: "bg-blue-600 text-white border border-blue-600 hover:text-blue-600",
+    primary: "bg-emerald-700  text-white border border-blue-600 hover:text-emerald-700 ",
     outline: "border border-gray-400 text-gray-800 hover:bg-gray-100",
     danger: "bg-red-600 text-white hover:bg-red-700",
   };
