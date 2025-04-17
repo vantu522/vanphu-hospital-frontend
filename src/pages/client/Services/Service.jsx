@@ -8,9 +8,8 @@ const Service = () => {
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [activeIndex, setActiveIndex] = useState(0);
   const [showAllServices, setShowAllServices] = useState(false);
-    const serviceList = [...Array(20)]; // Giả lập có 20 dịch vụ
-    const visibleServices = showAllServices ? serviceList : serviceList.slice(0, 9);
-
+  const serviceList = [...Array(20)];
+  const visibleServices = showAllServices ? serviceList : serviceList.slice(0, 9);
 
   const categories = [
     "Tất cả",
@@ -62,12 +61,12 @@ const Service = () => {
           alt="Các bác sĩ"
           className="w-full object-contain"
         />
-        <div className="absolute inset-0 flex items-center px-20">
+        <div className="absolute inset-0 flex flex-col md:flex-row items-center px-4 md:px-20 text-center md:text-left">
           <div>
-            <h1 className="text-5xl font-bold text-gray-900">
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-900">
               Danh sách dịch vụ
             </h1>
-            <div className="flex items-center space-x-2 mt-3 text-gray-600 text-sm">
+            <div className="flex flex-wrap justify-center md:justify-start items-center space-x-2 mt-3 text-gray-600 text-sm">
               <a href="/" className="hover:underline">
                 Trang chủ
               </a>
@@ -79,17 +78,17 @@ const Service = () => {
       </div>
 
       {/* Nội dung dịch vụ */}
-      <div className="p-20 max-w-screen-xl mx-auto">
-        <div className="flex items-start gap-6">
+      <div className="px-4 md:px-20 py-10 max-w-screen-xl mx-auto">
+        <div className="flex flex-col md:flex-row items-start gap-6">
           {/* Sidebar dịch vụ */}
-          <div className="w-60 shrink-0">
+          <div className="w-full md:w-60 shrink-0 mb-6 md:mb-0">
             <form className="p-2 space-y-4">
               <div className="relative">
-              <input
-                    type="text"
-                    className="w-full border border-gray-300 rounded pl-10 pr-4 py-2 text-sm focus:border-gray-200 focus:outline-none"
-                    placeholder="Tìm kiếm..."
-                    />
+                <input
+                  type="text"
+                  className="w-full border border-gray-300 rounded pl-10 pr-4 py-2 text-sm focus:border-gray-200 focus:outline-none"
+                  placeholder="Tìm kiếm..."
+                />
                 <HiSearch
                   className="absolute top-2.5 left-2.5 text-gray-500"
                   size={20}
@@ -126,58 +125,56 @@ const Service = () => {
           </div>
 
           {/* Grid dịch vụ */}
-          <div className="w-full grid grid-cols-3 gap-6 pl-10">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleServices.map((_, index) => (
-                <div key={index} className="border border-gray-200 rounded hover:border-black transition">
-                <a href="#">
-                    <div className="overflow-hidden rounded-t">
+              <div
+                key={index}
+                className="border border-gray-200 rounded hover:border-black transition"
+              >
+                <a href="/chi-tiet-dich-vu">
+                  <div className="overflow-hidden rounded-t">
                     <img
-                        src={hi}
-                        alt=""
-                        className="transition-transform duration-500 hover:scale-110"
+                      src={hi}
+                      alt=""
+                      className="transition-transform duration-500 hover:scale-110"
                     />
-                    </div>
-                    <div className="p-3">
+                  </div>
+                  <div className="p-3">
                     <h2 className="font-semibold mb-2 text-base">
-                        Tiêm Cồn Diệt Hạch Gasser - Điều Trị Đau Dây TK V
+                      Tiêm Cồn Diệt Hạch Gasser - Điều Trị Đau Dây TK V
                     </h2>
                     <p className="text-sm text-gray-600 mt-5">Mô tả nhỏ</p>
-                    </div>
+                  </div>
                 </a>
-                </div>
+              </div>
             ))}
 
             {!showAllServices && (
-                <div className="col-span-3 text-center mt-4">
-               
+              <div className="col-span-full text-center mt-4">
                 <Button
-                type="button"
-                onClick={() => setShowAllServices(true)}
-                variant="primary"
-                className="px-6 py-2 border border-emerald-700 rounded hover:bg-gray-100 transition"
+                  type="button"
+                  onClick={() => setShowAllServices(true)}
+                  variant="primary"
+                  className="px-6 py-2 border border-emerald-700 rounded hover:bg-white transition"
                 >
-                    Xem nhiều hơn
-                    
+                  Xem nhiều hơn
                 </Button>
-                
-                </div>
+              </div>
             )}
-</div>
-
+          </div>
         </div>
       </div>
 
       {/* FAQ */}
       <div className="py-20 bg-[#f8f8f8]">
-        <div className="px-20 max-w-screen-xl mx-auto">
-          <h1 className="text-4xl mb-10 font-bold">Câu hỏi thường gặp</h1>
-          <div className="flex items-start gap-8">
+        <div className="px-4 md:px-20 max-w-screen-xl mx-auto">
+          <h1 className="text-2xl md:text-4xl mb-10 font-bold">
+            Câu hỏi thường gặp
+          </h1>
+          <div className="flex flex-col md:flex-row items-start gap-8">
             {/* Sidebar FAQ */}
-            <div className="w-60 shrink-0">
+            <div className="w-full md:w-60 shrink-0 mb-6 md:mb-0">
               <form className="p-2 space-y-4">
-                <div className="relative">
-                </div>
-
                 <div className="flex flex-col gap-4">
                   {faqCategories.map((item, i) => {
                     const isActive = selectedCategory === item.name;
@@ -208,12 +205,9 @@ const Service = () => {
             </div>
 
             {/* Accordion FAQ */}
-            <div className="flex-1 pl-10">
+            <div className="flex-1 md:pl-10">
               {(faqData[selectedCategory] || []).map((item, i) => (
-                <div
-                  key={i}
-                  className="mb-4 border-b border-gray-300 pb-4"
-                >
+                <div key={i} className="mb-4 border-b border-gray-300 pb-4">
                   <button
                     onClick={() => toggleAccordion(i)}
                     className="flex justify-between w-full text-left font-medium text-lg text-gray-800 hover:text-emerald-700 transition"
@@ -231,7 +225,7 @@ const Service = () => {
                 </div>
               ))}
 
-              {/* Phân trang giả lập */}
+              {/* Pagination giả lập */}
               <div className="mt-10 flex gap-2">
                 <button className="w-8 h-8 border rounded hover:bg-gray-200">
                   1
