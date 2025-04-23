@@ -1,5 +1,5 @@
 import React from "react";
-
+import ImgBanner from '../../../../assets/images/banner/banner.jpg'
 const HospitalBanner = () => {
     return (
         <div className="flex flex-col lg:flex-row items-center justify-between bg-gradient-to-r from-green-200 to-green-400 text-white p-8 shadow-lg">
@@ -15,7 +15,7 @@ const HospitalBanner = () => {
           </div>
           <div className="lg:w-1/2 mt-8 lg:mt-0">
             <img
-              src="/mnt/data/Screenshot 2025-04-21 100425.png"
+              src={ImgBanner}
               alt="Bệnh viện Hồng Ngọc - Phúc Trường Minh"
               className="rounded-2xl shadow-lg w-full h-auto"
             />

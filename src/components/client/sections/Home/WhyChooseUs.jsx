@@ -1,5 +1,5 @@
 // components/WhyChooseUs.jsx
-import FeatureCard from "./FeatureCard";
+import FeatureCard from "../../ui/FeatureCard";
 import {
   FaUserMd,
   FaMicroscope,

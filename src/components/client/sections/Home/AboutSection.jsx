@@ -1,6 +1,6 @@
 // components/AboutSection.jsx
 import { FaCheckCircle } from "react-icons/fa";
-import ImageAbout from "../../assets/images/about/about.png";
+import ImageAbout from "../../../../assets/images/about/about.png";
 const AboutSection = () => {
     const features = [
       "Hơn 250 bác sĩ chuyên gia, giàu kinh nghiệm",
