@@ -166,53 +166,53 @@ const ServiceDetail = () => {
                 </div>
                 </div>
             {/* Related Services */}
-<div className="mt-10">
-  <h2 className="text-2xl font-bold text-gray-800 mb-6">Dịch vụ liên quan</h2>
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-    {/* Service Card */}
-    <div className="bg-white border rounded shadow hover:shadow-lg transition">
-      <img
-        src="/images/ct-phoi.jpg"
-        alt="Chụp CT Phổi Liều Thấp"
-        className="w-full h-48 object-cover rounded-t"
-      />
-      <div className="p-4">
-        <h3 className="font-bold text-black text-lg">Chụp CT Phổi Liều Thấp</h3>
-        <p className="text-sm text-gray-700 mt-1 line-clamp-2">
-          Tái hiện lại hình ảnh phổi, bao gồm các tổn thương/ khối u nằm trong phổi dù nhỏ đến đâu.
-        </p>
-      </div>
-    </div>
+            <div className="mt-10">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6">Dịch vụ liên quan</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Service Card */}
+                <div className="bg-white border rounded shadow hover:shadow-lg transition">
+                  <img
+                    src="/images/ct-phoi.jpg"
+                    alt="Chụp CT Phổi Liều Thấp"
+                    className="w-full h-48 object-cover rounded-t"
+                  />
+                  <div className="p-4">
+                    <h3 className="font-bold text-black text-lg">Chụp CT Phổi Liều Thấp</h3>
+                    <p className="text-sm text-gray-700 mt-1 line-clamp-2">
+                      Tái hiện lại hình ảnh phổi, bao gồm các tổn thương/ khối u nằm trong phổi dù nhỏ đến đâu.
+                    </p>
+                  </div>
+                </div>
 
-    <div className="bg-white border rounded shadow hover:shadow-lg transition">
-      <img
-        src="/images/da-ky-ho-hap.jpg"
-        alt="Đo Đa Ký Hô Hấp/ Đo Đa Ký Giấc Ngủ"
-        className="w-full h-48 object-cover rounded-t"
-      />
-      <div className="p-4">
-        <h3 className="font-bold text-black text-lg">Đo Đa Ký Hô Hấp/ Đo Đa Ký Giấc Ngủ</h3>
-        <p className="text-sm text-gray-700 mt-1 line-clamp-2">
-          Phương pháp giúp thăm dò cho phép người bệnh phát hiện/ chẩn đoán sự tồn tại của rối loạn hô hấp trong giấc ngủ.
-        </p>
-      </div>
-    </div>
+                <div className="bg-white border rounded shadow hover:shadow-lg transition">
+                  <img
+                    src="/images/da-ky-ho-hap.jpg"
+                    alt="Đo Đa Ký Hô Hấp/ Đo Đa Ký Giấc Ngủ"
+                    className="w-full h-48 object-cover rounded-t"
+                  />
+                  <div className="p-4">
+                    <h3 className="font-bold text-black text-lg">Đo Đa Ký Hô Hấp/ Đo Đa Ký Giấc Ngủ</h3>
+                    <p className="text-sm text-gray-700 mt-1 line-clamp-2">
+                      Phương pháp giúp thăm dò cho phép người bệnh phát hiện/ chẩn đoán sự tồn tại của rối loạn hô hấp trong giấc ngủ.
+                    </p>
+                  </div>
+                </div>
 
-    <div className="bg-white border rounded shadow hover:shadow-lg transition">
-      <img
-        src="/images/noi-soi-pq.jpg"
-        alt="Nội Soi Phế Quản"
-        className="w-full h-48 object-cover rounded-t"
-      />
-      <div className="p-4">
-        <h3 className="font-bold text-black text-lg">Nội Soi Phế Quản</h3>
-        <p className="text-sm text-gray-700 mt-1 line-clamp-2">
-          Nội soi phế quản là thủ thuật sử dụng ống soi mềm đưa qua mũi để chẩn đoán tổn thương bên trong đường hô hấp.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+                <div className="bg-white border rounded shadow hover:shadow-lg transition">
+                  <img
+                    src="/images/noi-soi-pq.jpg"
+                    alt="Nội Soi Phế Quản"
+                    className="w-full h-48 object-cover rounded-t"
+                  />
+                  <div className="p-4">
+                    <h3 className="font-bold text-black text-lg">Nội Soi Phế Quản</h3>
+                    <p className="text-sm text-gray-700 mt-1 line-clamp-2">
+                      Nội soi phế quản là thủ thuật sử dụng ống soi mềm đưa qua mũi để chẩn đoán tổn thương bên trong đường hô hấp.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
         </div>
