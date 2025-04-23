@@ -3,17 +3,17 @@ import ImgAward2 from '../../../../assets/images/cretificate/cretificatetwo.png'
 import ImgAward3 from '../../../../assets/images/cretificate/cretificatethree.png';
 const awards = [
     {
-      img: {ImgAward1},
+      img: ImgAward1,
       description:
         "Bệnh viện Hồng Ngọc đạt tiêu chuẩn ACHSI - Úc (Tiêu chuẩn chăm sóc sức khỏe tại Úc)",
     },
     {
-      img: {ImgAward2},
+      img: ImgAward2,
       description:
         "Hiệp hội Phẫu thuật Hoàng gia Anh (RCS) công nhận là trung tâm đào tạo chuẩn toàn cầu về ngoại khoa",
     },
     {
-      img: {ImgAward3},
+      img: ImgAward3,
       description:
         'Danh hiệu "Bệnh viện thực hành nuôi con bằng sữa mẹ xuất sắc" Theo tiêu chuẩn của Bộ Y tế và Tổ chức Y tế Thế giới (WHO)',
     },
