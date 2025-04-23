@@ -1,13 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import WhyChooseUs from "../../components/client/sections/Home/WhyChooseUs";
+import AboutSection from "../../components/client/sections/Home/AboutSection";
+import ClinicStats from "../../components/client/sections/Home/ClinicStats";
+import SpecialtiesSection from "../../components/client/sections/Home/SpecialtiesSection";
+import AwardsSection from "../../components/client/sections/Home/AwardsSection";
+import DoctorTeam from "../../components/client/sections/Home/DoctorTeam";
+import HospitalBanner from "../../components/client/sections/Home/HospitalBanner";
+import NewsEvents from "../../components/client/sections/Home/NewsEvents";
+import Slider from "../../components/client/sections/Home/Slider";
 const Home = () => {
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>🏠 Home Page</h1>
-      <p>Welcome to the homepage!</p>
-      <Link to="/dashboard">Go to Dashboard</Link>
-    </div>
+    <>
+      <Slider/>
+      <WhyChooseUs />
+      <AboutSection />
+      <ClinicStats />
+      <SpecialtiesSection />
+      <AwardsSection />
+      <DoctorTeam />
+      <HospitalBanner />
+      <NewsEvents />
+    </>
   );
 };
 
