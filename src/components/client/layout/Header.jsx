@@ -48,6 +48,7 @@ const Header = () => {
         <div className="container mx-auto flex justify-between items-center px-4 sm:px-10 py-2">
           {/* Logo */}
           <div className="flex items-center">
+            <a href="/">
             <img 
               src={uh} 
               alt="Logo" 
@@ -55,6 +56,8 @@ const Header = () => {
                 isScrolled ? 'w-10 h-10' : 'h-16 w-16 sm:h-20 sm:w-20'
               }`} 
             />
+            </a>
+           
           </div>
 
           {/* Nav (ẩn ở mobile) */}

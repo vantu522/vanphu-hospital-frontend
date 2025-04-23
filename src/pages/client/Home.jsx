@@ -8,9 +8,11 @@ import AwardsSection from "../../components/client/sections/Home/AwardsSection";
 import DoctorTeam from "../../components/client/sections/Home/DoctorTeam";
 import HospitalBanner from "../../components/client/sections/Home/HospitalBanner";
 import NewsEvents from "../../components/client/sections/Home/NewsEvents";
+import Slider from "../../components/client/sections/Home/Slider";
 const Home = () => {
   return (
     <>
+      <Slider/>
       <WhyChooseUs />
       <AboutSection />
       <ClinicStats />

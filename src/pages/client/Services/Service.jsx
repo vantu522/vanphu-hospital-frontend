@@ -3,6 +3,9 @@ import dichvu from "../../../assets/images/dichvu.png";
 import hi from "../../../assets/images/hi.png";
 import { HiSearch } from "react-icons/hi";
 import Button from "../../../components/client/ui/button";
+import PageBanner from "../../../components/client/PageBanner";
+import { href } from "react-router-dom";
+
 
 const Service = () => {
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
@@ -54,28 +57,16 @@ const Service = () => {
 
   return (
     <div className="relative">
-      {/* Ảnh background */}
-      <div className="relative">
-        <img
-          src={dichvu}
-          alt="Các bác sĩ"
-          className="w-full object-contain"
-        />
-        <div className="absolute inset-0 flex flex-col md:flex-row items-center px-4 md:px-20 text-center md:text-left">
-          <div>
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900">
-              Danh sách dịch vụ
-            </h1>
-            <div className="flex flex-wrap justify-center md:justify-start items-center space-x-2 mt-3 text-gray-600 text-sm">
-              <a href="/" className="hover:underline">
-                Trang chủ
-              </a>
-              <span className="text-xl">›</span>
-              <span className="text-green-600 font-medium">Dịch vụ</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    
+      <PageBanner
+      backgroundImage={dichvu}
+      title="Danh sách dịch vụ"
+      breadcrumbs={[
+        {label:"Trang chủ", href:"/"},
+        {label:"Dịch vụ", active:true}
+      ]}
+      />
+      
 
       {/* Nội dung dịch vụ */}
       <div className="px-4 md:px-20 py-10 max-w-screen-xl mx-auto">

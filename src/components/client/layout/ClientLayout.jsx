@@ -8,9 +8,9 @@ const ClientLayout = () => {
   return (
     <>
       <Header />
-      {/* <main className="p-1">
+      <main className="p-1">
         <Outlet />
-      </main> */}
+      </main>
       <Footer />
     </>
   );
