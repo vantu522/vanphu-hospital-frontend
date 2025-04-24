@@ -25,7 +25,7 @@ export default function Slider() {
   }, []);
 
   return (
-    <div className="relative w-full h-130 overflow-hidden mt-5">
+    <div className="relative w-full h-130 overflow-hidden ">
       {/* Slide wrapper */}
       <div className="w-full h-auto relative">
         {banners.map((img, index) => (

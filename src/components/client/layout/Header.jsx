@@ -61,7 +61,7 @@ const Header = () => {
           </div>
 
           {/* Nav (ẩn ở mobile) */}
-          <nav className="hidden md:flex gap-4 lg:gap-6 text-gray-700 text-sm flex-wrap">
+          <nav className="hidden md:flex gap-4 lg:gap-6 text-gray-700 text-[19px] flex-wrap">
             <div className="relative group">
               <Link
                 to="/gioi-thieu"
