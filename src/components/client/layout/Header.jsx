@@ -4,7 +4,6 @@ import uh from "../../../assets/images/dvt_2.png";
 import { FiChevronDown } from "react-icons/fi";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { FaAmbulance } from "react-icons/fa";
-
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
