@@ -1,4 +1,5 @@
 import ClientLayout from "../components/client/layout/ClientLayout";
+import Contact from "../pages/client/Contacts/Contact";
 import DoctorDetail from "../pages/client/Doctors/DoctorDetail";
 import DoctorList from "../pages/client/Doctors/DoctorList";
 import Home from "../pages/client/Home";
@@ -17,7 +18,8 @@ const publicRoutes = [
         {path:'danh-sach-bac-si',element:<DoctorList/>},
         {path:'chuyen-khoa',element:<SpecialtyList/>},
         {path:'chi-tiet-bac-si', element:<DoctorDetail/>},
-        {path:'chi-tiet-chuyen-khoa', element:<SpecitaltyDetail/>}
+        {path:'chi-tiet-chuyen-khoa', element:<SpecitaltyDetail/>},
+        {path:'lien-he', element:<Contact/>}
        ]
     },
 
