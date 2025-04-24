@@ -2,7 +2,7 @@ import React from "react";
 import ImgBanner from '../../../../assets/images/banner/banner.jpg'
 const HospitalBanner = () => {
     return (
-        <div className="flex flex-col lg:flex-row items-center justify-between bg-gradient-to-r from-green-600 to-emerald-900 text-white p-8 shadow-lg">
+        <div className="flex flex-col lg:flex-row items-center mt-10 py-10 justify-between bg-gradient-to-r from-green-600 to-emerald-900 text-white p-8 shadow-lg">
           <div className="lg:w-1/2 space-y-6">
             <h1 className="text-4xl font-bold">
               Bệnh Viện Đa Khoa <br /> Hồng Ngọc - Phúc Trường Minh
