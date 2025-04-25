@@ -89,7 +89,7 @@ const Footer = () => {
               <h3 className="text-lg font-bold text-white mb-4 pb-2 border-b border-white inline-block">
                 TỔNG ĐÀI HỖ TRỢ
               </h3>
-              <div className="flex items-center space-x-3 bg-red text-red p-3 rounded-lg w-fit">
+              <div className="flex items-center space-x-3 bg-red-600 text-white p-3 rounded-lg w-fit">
                 <FaPhoneAlt />
                 <p className="text-lg font-bold">024 3927 5568</p>
               </div>
@@ -100,9 +100,16 @@ const Footer = () => {
                 PHƯƠNG THỨC THANH TOÁN
               </h3>
               <div className="grid grid-cols-3 gap-3">
-                {['VISA', '03-1', 'HỒNG', 'PHÍSKA', 'ĐÃ BẰNG KỸ', 'ĐỖ CÔNG THƯƠNG'].map((method) => (
-                  <div key={method} className="bg-white p-2 rounded-md shadow-sm text-center text-xs font-medium">
-                    {method}
+                {[
+                  { name: 'VISA', bgColor: 'bg-blue-50', textColor: 'text-blue-800' },
+                  { name: 'MASTER', bgColor: 'bg-yellow-50', textColor: 'text-yellow-800' },
+                  { name: 'NAPAS', bgColor: 'bg-red-50', textColor: 'text-red-800' },
+                  { name: 'MOMO', bgColor: 'bg-purple-50', textColor: 'text-purple-800' },
+                  { name: 'VNPAY', bgColor: 'bg-green-50', textColor: 'text-green-800' },
+                  { name: 'TIỀN MẶT', bgColor: 'bg-gray-50', textColor: 'text-gray-800' }
+                ].map((method) => (
+                  <div key={method.name} className={`${method.bgColor} ${method.textColor} p-2 rounded-md shadow-sm text-center text-xs font-medium hover:opacity-90 transition-opacity`}>
+                    {method.name}
                   </div>
                 ))}
               </div>
@@ -132,7 +139,7 @@ const Footer = () => {
             <p>Người chịu trách nhiệm nội dung: Dương Thành Nhân</p>
           </div>
           
-          <div className="mt-6 text-center text-sm text-gray-600">
+          <div className="mt-6 text-center text-sm text-gray-300">
             <p>© {new Date().getFullYear()} Bệnh viện Hồng Ngọc. All rights reserved.</p>
           </div>
         </div>
