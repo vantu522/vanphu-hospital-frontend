@@ -3,6 +3,7 @@ import PageBanner from '../../../components/client/PageBanner';
 import dichvu from '../../../assets/images/dichvu.png'
 import ds from '../../../assets/images//dsc.jpg'
 import Button from '../../../components/client/ui/button';
+import { Helmet } from 'react-helmet';
 
 const specialties = [
   { name: "Khoa Sản - Phụ khoa", icon: "fa-solid fa-gavel" },
@@ -29,6 +30,10 @@ const specialties = [
 const SpecialtyList = () => {
   return (
     <div className="">
+      <Helmet>
+
+        <title>Chuyên khoa</title>
+      </Helmet>
       <PageBanner
         title="Chuyên khoa"
         backgroundImage={dichvu}
