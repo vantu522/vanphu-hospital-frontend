@@ -9,9 +9,13 @@ import DoctorTeam from "../../components/client/sections/Home/DoctorTeam";
 import HospitalBanner from "../../components/client/sections/Home/HospitalBanner";
 import NewsEvents from "../../components/client/sections/Home/NewsEvents";
 import Slider from "../../components/client/sections/Home/Slider";
+import { Helmet } from "react-helmet";
 const Home = () => {
   return (
     <>
+      <Helmet>
+        <title>Trang chủ</title>
+      </Helmet>
       <Slider/>
       <WhyChooseUs />
       <AboutSection />

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import uh from "../../../assets/images/dvt_2.png";
 import { FiChevronDown } from "react-icons/fi";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { FaAmbulance } from "react-icons/fa";
+
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -32,10 +32,10 @@ const Header = () => {
             </span>
           </div>
           <div className="flex items-center gap-4 text-xs sm:text-sm">
-            <Link to="/dang-nhap" className="hover:text-green-200 transition-colors duration-300">Đăng nhập</Link>
-            <Link to="/dang-ky" className="hover:text-green-200 transition-colors duration-300">Đăng ký</Link>
+            <a href="/dang-nhap" className="hover:text-green-200 transition-colors duration-300">Đăng nhập</a>
+            <a href="/dang-ky" className="hover:text-green-200 transition-colors duration-300">Đăng ký</a>
             <span className="text-green-300">|</span>
-            <Link to="/en" className="hover:text-green-200 transition-colors duration-300">English</Link>
+            <a href="/en" className="hover:text-green-200 transition-colors duration-300">English</a>
           </div>
         </div>
       </div>
@@ -63,18 +63,18 @@ const Header = () => {
           {/* Nav (ẩn ở mobile) */}
           <nav className="hidden md:flex gap-5 lg:gap-7 text-gray-700 text-lg flex-wrap">
             <div className="relative group">
-              <Link
-                to="/gioi-thieu"
+              <a
+                href="/gioi-thieu"
                 className="flex items-center gap-1 hover:text-green-700 transition-all duration-200 group-hover:text-green-700 font-medium"
               >
                 <span>Giới thiệu</span>
                 <FiChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
-              </Link>
+              </a>
               <div className="hidden group-hover:block absolute top-full left-0 min-w-[240px] bg-white shadow-xl rounded-lg z-10 text-sm mt-1 overflow-hidden border-t-2 border-green-600 transition-all duration-300">
-                <Link to="/gioi-thieu/ve-hong-ngoc" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Về Hồng Ngọc Hospital</Link>
-                <Link to="/gioi-thieu/huong-dan-khach-hang" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Hướng dẫn khách hàng</Link>
-                <Link to="/gioi-thieu/nghien-cuu-khoa-hoc" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Nghiên cứu khoa học</Link>
-                <Link to="/gioi-thieu/dao-tao" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Đào tạo</Link>
+                <a href="/gioi-thieu/ve-hong-ngoc" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Về Hồng Ngọc Hospital</a>
+                <a href="/gioi-thieu/huong-dan-khach-hang" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Hướng dẫn khách hàng</a>
+                <a href="/gioi-thieu/nghien-cuu-khoa-hoc" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Nghiên cứu khoa học</a>
+                <a href="/gioi-thieu/dao-tao" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Đào tạo</a>
               </div>
             </div>
             
@@ -88,13 +88,13 @@ const Header = () => {
               { to: "/tuyen-dung", label: "Tuyển dụng" },
               { to: "/lien-he", label: "Liên hệ" }
             ].map((item) => (
-              <Link 
+              <a 
                 key={item.to} 
-                to={item.to} 
+                href={item.to} 
                 className="relative hover:text-green-700 transition-all duration-200 font-medium after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:h-[2px] after:w-0 after:bg-green-700 after:transition-all after:duration-300 hover:after:w-full"
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
           </nav>
 
