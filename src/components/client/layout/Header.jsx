@@ -64,7 +64,7 @@ const Header = () => {
           <nav className="hidden md:flex gap-5 lg:gap-7 text-gray-700 text-lg flex-wrap">
             <div className="relative group">
               <a
-                href="/gioi-thieu"
+                href="/"
                 className="flex items-center gap-1 hover:text-green-700 transition-all duration-200 group-hover:text-green-700 font-medium"
               >
                 <span>Giới thiệu</span>
@@ -84,9 +84,11 @@ const Header = () => {
               { to: "/danh-sach-bac-si", label: "Danh sách bác sĩ" },
               { to: "/chuyen-khoa", label: "Chuyên khoa" },
               { to: "/tu-van-suc-khoe", label: "Tư vấn sức khỏe" },
-              { to: "/tin-tuc-su-kien", label: "Tin tức - Sự kiện" },
-              { to: "/tuyen-dung", label: "Tuyển dụng" },
-              { to: "/lien-he", label: "Liên hệ" }
+              { to: "#", label: "Tin tức " },
+              { to: "#", label: "Tuyển dụng" },
+              { to: "/lien-he", label: "Liên hệ" },
+              { to: "#", label: "Đặt lịch" }
+
             ].map((item) => (
               <a 
                 key={item.to} 
