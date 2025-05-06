@@ -138,7 +138,7 @@ const HealthAdvisory = () => {
                                 </div>
                                 <h3 className="text-lg font-semibold mb-2">Cách phòng ngừa bệnh tim mạch hiệu quả</h3>
                                 <p className="text-gray-600 text-sm mb-4">Tìm hiểu các phương pháp phòng ngừa bệnh tim mạch thông qua chế độ ăn uống và tập luyện phù hợp...</p>
-                                <a href="#" className="text-blue-600 text-sm font-medium hover:underline">Đọc thêm</a>
+                                <a href="#" className="text-emerald-600 text-sm font-medium hover:underline">Đọc thêm</a>
                             </div>
                         </div>
 
@@ -159,7 +159,7 @@ const HealthAdvisory = () => {
                                 </div>
                                 <h3 className="text-lg font-semibold mb-2">5 loại thực phẩm tốt cho sức khỏe mỗi ngày</h3>
                                 <p className="text-gray-600 text-sm mb-4">Những thực phẩm giúp tăng cường sức đề kháng và cải thiện sức khỏe tổng thể mà bạn nên bổ sung...</p>
-                                <a href="#" className="text-blue-600 text-sm font-medium hover:underline">Đọc thêm</a>
+                                <a href="#" className="text-emerald-600 text-sm font-medium hover:underline">Đọc thêm</a>
                             </div>
                         </div>
 

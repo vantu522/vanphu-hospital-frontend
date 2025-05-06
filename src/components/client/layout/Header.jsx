@@ -22,14 +22,14 @@ const Header = () => {
       <div className="bg-gradient-to-r from-green-700 to-green-600 text-white topbar">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center py-3 px-4 gap-3 sm:gap-0">
           <div className="flex gap-5 sm:gap-8 items-center text-xs sm:text-sm">
-            <span className="flex items-center gap-2 font-medium hover:scale-105 transition-transform duration-300">
+            <button className="flex items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md">
               <TfiHeadphoneAlt className="text-base sm:text-lg text-green-100" />
               Hotline: <strong className="tracking-wide">0277 3630 000</strong>
-            </span>
-            <span className="flex items-center gap-2 font-medium hover:scale-105 transition-transform duration-300">
+            </button>
+            <button className="flex items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md">
               <FaAmbulance className="text-base sm:text-lg text-green-100" />
               Cấp cứu: <strong className="tracking-wide">0900 555 555</strong>
-            </span>
+            </button>
           </div>
           <div className="flex items-center gap-4 text-xs sm:text-sm">
             <a href="/dang-nhap" className="hover:text-green-200 transition-colors duration-300">Đăng nhập</a>
@@ -39,6 +39,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+
 
       {/* Main header */}
       <div className={`bg-white w-full border-b border-gray-100 ${
@@ -70,7 +71,7 @@ const Header = () => {
                 <span>Giới thiệu</span>
                 <FiChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
               </a>
-              <div className="hidden group-hover:block absolute top-full left-0 min-w-[240px] bg-white shadow-xl rounded-lg z-10 text-sm mt-1 overflow-hidden border-t-2 border-green-600 transition-all duration-300">
+              <div className="hidden group-hover:block absolute top-full left-0 min-w-[240px] bg-white shadow-xl rounded-lg text-sm mt-1 overflow-hidden border-t-2 border-green-600 transition-all duration-300 z-100">
                 <a href="/gioi-thieu/ve-hong-ngoc" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Về Hồng Ngọc Hospital</a>
                 <a href="/gioi-thieu/huong-dan-khach-hang" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Hướng dẫn khách hàng</a>
                 <a href="/gioi-thieu/nghien-cuu-khoa-hoc" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Nghiên cứu khoa học</a>

@@ -1,8 +1,7 @@
 import React from 'react'
 import PageBanner from '../../../components/client/PageBanner'
 import dichvu from '../../../assets/images/dichvu.png'
-import { Link } from 'react-router-dom' // Đã sửa từ href thành Link
-
+import Button from '../../../components/client/ui/button'
 const Contact = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -22,7 +21,7 @@ const Contact = () => {
             />
             
             <div className="container mx-auto py-16 px-4">
-                <div className="flex flex-col md:flex-row gap-8">
+                <div className="flex flex-col md:flex-row gap-8"> 
                     {/* Cột trái - Form liên hệ */}
                     <div className="w-full md:w-1/2">
                         <div className="bg-white rounded-lg shadow-lg p-8">
@@ -33,7 +32,7 @@ const Contact = () => {
                                     <input 
                                         type="text" 
                                         id="name" 
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                                         placeholder="Nhập họ và tên của bạn"
                                         required
                                     />
@@ -44,7 +43,7 @@ const Contact = () => {
                                     <input 
                                         type="tel" 
                                         id="phone" 
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                                         placeholder="Nhập số điện thoại của bạn"
                                         required
                                     />
@@ -55,7 +54,7 @@ const Contact = () => {
                                     <input 
                                         type="email" 
                                         id="email" 
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                                         placeholder="Nhập địa chỉ email của bạn"
                                     />
                                 </div>
@@ -65,18 +64,19 @@ const Contact = () => {
                                     <textarea 
                                         id="message" 
                                         rows="5" 
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500"
                                         placeholder="Nhập lời nhắn của bạn"
                                         required
                                     ></textarea>
                                 </div>
                                 
-                                <button 
-                                    type="submit" 
-                                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-300"
-                                >
+                                
+
+                                <Button>
                                     Gửi thông tin
-                                </button>
+                                </Button>
+
+
                             </form>
                         </div>
                     </div>
