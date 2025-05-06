@@ -22,11 +22,11 @@ const Header = () => {
       <div className="bg-gradient-to-r from-green-700 to-green-600 text-white topbar">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center py-3 px-4 gap-3 sm:gap-0">
           <div className="flex gap-5 sm:gap-8 items-center text-xs sm:text-sm">
-            <button className="flex items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md">
+            <button className="flex cursor-pointer items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md">
               <TfiHeadphoneAlt className="text-base sm:text-lg text-green-100" />
               Hotline: <strong className="tracking-wide">0277 3630 000</strong>
             </button>
-            <button className="flex items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md">
+            <button className="flex cursor-pointer items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md">
               <FaAmbulance className="text-base sm:text-lg text-green-100" />
               Cấp cứu: <strong className="tracking-wide">0900 555 555</strong>
             </button>

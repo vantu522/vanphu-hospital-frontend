@@ -94,7 +94,7 @@ const Service = () => {
                       key={i}
                       type="button"
                       onClick={() => setSelectedCategory(item)}
-                      className={`flex justify-between items-center px-3 py-2 border border-gray-300 rounded text-s transition ${
+                      className={`flex justify-between items-center px-3 py-2 border border-gray-300 rounded text-s transition cursor-pointer ${
                         isActive
                           ? "bg-emerald-700 text-white"
                           : "hover:bg-gray-100 text-gray-800"
