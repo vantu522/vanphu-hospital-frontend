@@ -3,6 +3,7 @@ import uh from "../../../assets/images/dvt_2.png";
 import { FiChevronDown } from "react-icons/fi";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { FaAmbulance } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -101,17 +102,10 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Tìm kiếm */}
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Tìm kiếm..."
-              className="border border-gray-200 rounded-full pl-4 pr-10 py-2 text-sm w-[130px] sm:w-[200px] md:w-[240px] focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm transition-all duration-300 focus:shadow-md"
-            />
-            <button className="absolute top-0 right-0 mr-3 mt-2 text-gray-400 hover:text-green-700 transition-colors duration-300">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1110.5 5.5a7.5 7.5 0 016.15 11.15z" />
-              </svg>
+          {/* Tìm kiếm (chỉ nút) */}
+          <div>
+            <button className="p-2 rounded-full bg-green-50 hover:bg-green-100 text-green-700 transition-colors duration-300 shadow-sm hover:shadow-md">
+              <FiSearch className="w-5 h-5" />
             </button>
           </div>
 
