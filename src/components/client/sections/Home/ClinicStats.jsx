@@ -5,7 +5,7 @@ const ClinicStats = () => {
         <div className="max-w-7xl mx-auto px-5 py-10 md:py-16 font-sans">
           <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
             {/* Stat 1 - Highlighted */}
-            <div className="flex-1 text-center p-6 md:p-8 rounded-xl bg-blue-500 text-white shadow-lg transition-transform duration-300 hover:-translate-y-2">
+            <div className="flex-1 text-center p-6 md:p-8 rounded-xl bg-emerald-500 text-white shadow-lg transition-transform duration-300 hover:-translate-y-2">
               <div className="text-3xl md:text-5xl font-bold mb-2 md:mb-3">1200+</div>
               <div className="text-sm md:text-xl font-medium">LƯỢT THĂM KHÁM MỖI NGÀY</div>
             </div>

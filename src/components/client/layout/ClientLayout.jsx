@@ -8,7 +8,7 @@ const ClientLayout = () => {
   return (
     <>
       <Header />
-      <main className="p-1">
+      <main className="">
         <Outlet />
       </main>
       <Footer />

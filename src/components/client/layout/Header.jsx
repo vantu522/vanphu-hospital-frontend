@@ -7,6 +7,11 @@ import { FiSearch } from "react-icons/fi";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,11 +37,11 @@ const Header = () => {
               Cấp cứu: <strong className="tracking-wide">0900 555 555</strong>
             </button>
           </div>
-          <div className="flex items-center gap-4 text-xs sm:text-sm">
-            <a href="/dang-nhap" className="hover:text-green-200 transition-colors duration-300">Đăng nhập</a>
-            <a href="/dang-ky" className="hover:text-green-200 transition-colors duration-300">Đăng ký</a>
+          <div className="flex items-center gap-4 text-xs sm:text-sm cursor-pointer">
+            <a href="/dang-nhap" className="hover:text-white-200 hover:font-bold transition-colors duration-300">Đăng nhập</a>
+            <a href="/dang-ky" className="over:text-white-200 hover:font-bold transition-colors duration-300">Đăng ký</a>
             <span className="text-green-300">|</span>
-            <a href="/en" className="hover:text-green-200 transition-colors duration-300">English</a>
+            <a href="/en" className="over:text-white-200 hover:font-bold transition-colors duration-300">English</a>
           </div>
         </div>
       </div>
@@ -72,7 +77,7 @@ const Header = () => {
                 <span>Giới thiệu</span>
                 <FiChevronDown className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
               </a>
-              <div className="hidden group-hover:block absolute top-full left-0 min-w-[240px] bg-white shadow-xl rounded-lg text-sm mt-1 overflow-hidden border-t-2 border-green-600 transition-all duration-300 z-100">
+              <div className="hidden group-hover:block absolute top-full left-0 min-w-[240px] bg-white shadow-xl rounded-lg text-sm mt-1 overflow-hidden border-t-2 border-green-600 transition-all duration-300 z-50">
                 <a href="/gioi-thieu/ve-hong-ngoc" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Về Hồng Ngọc Hospital</a>
                 <a href="/gioi-thieu/huong-dan-khach-hang" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Hướng dẫn khách hàng</a>
                 <a href="/gioi-thieu/nghien-cuu-khoa-hoc" className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200">Nghiên cứu khoa học</a>
@@ -86,8 +91,8 @@ const Header = () => {
               { to: "/danh-sach-bac-si", label: "Danh sách bác sĩ" },
               { to: "/chuyen-khoa", label: "Chuyên khoa" },
               { to: "/tu-van-suc-khoe", label: "Tư vấn sức khỏe" },
-              { to: "tin-tuc", label: "Tin tức " },
-              { to: "tuyen-dung", label: "Tuyển dụng" },
+              { to: "/tin-tuc", label: "Tin tức " },
+              { to: "/tuyen-dung", label: "Tuyển dụng" },
               { to: "/lien-he", label: "Liên hệ" },
               { to: "#", label: "Đặt lịch" }
 
@@ -103,19 +108,72 @@ const Header = () => {
           </nav>
 
           {/* Tìm kiếm (chỉ nút) */}
-          <div>
+          <div className="flex items-center gap-3">
             <button className="p-2 rounded-full bg-green-50 hover:bg-green-100 text-green-700 transition-colors duration-300 shadow-sm hover:shadow-md">
               <FiSearch className="w-5 h-5" />
             </button>
-          </div>
 
-          {/* Mobile Hamburger */}
-          <div className="md:hidden">
-            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-              <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
+            {/* Mobile Hamburger */}
+            <div className="md:hidden">
+              <button 
+                onClick={toggleMobileMenu} 
+                className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300"
+                aria-label="Toggle menu"
+              >
+                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {mobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          mobileMenuOpen ? 'max-h-screen bg-white border-t border-gray-100 shadow-lg' : 'max-h-0'
+        }`}>
+          <div className="container mx-auto px-4 py-2">
+            <div className="py-2">
+              <div className="relative mb-3">
+                <div 
+                  className="flex items-center justify-between py-2 px-4 rounded-md hover:bg-green-50 transition-colors duration-200"
+                  onClick={() => document.getElementById('mobileGioiThieu').classList.toggle('hidden')}
+                >
+                  <span className="text-gray-700 font-medium">Giới thiệu</span>
+                  <FiChevronDown className="text-gray-500 w-5 h-5" />
+                </div>
+                <div id="mobileGioiThieu" className="hidden pl-4 mt-1 border-l-2 border-green-600">
+                  <a href="/gioi-thieu/ve-hong-ngoc" className="block py-2 px-4 text-gray-700 hover:text-green-700 transition-colors duration-200">Về Hồng Ngọc Hospital</a>
+                  <a href="/gioi-thieu/huong-dan-khach-hang" className="block py-2 px-4 text-gray-700 hover:text-green-700 transition-colors duration-200">Hướng dẫn khách hàng</a>
+                  <a href="/gioi-thieu/nghien-cuu-khoa-hoc" className="block py-2 px-4 text-gray-700 hover:text-green-700 transition-colors duration-200">Nghiên cứu khoa học</a>
+                  <a href="/gioi-thieu/dao-tao" className="block py-2 px-4 text-gray-700 hover:text-green-700 transition-colors duration-200">Đào tạo</a>
+                </div>
+              </div>
+              
+              {/* Main nav items for mobile */}
+              {[
+                { to: "/dich-vu", label: "Dịch vụ" },
+                { to: "/danh-sach-bac-si", label: "Danh sách bác sĩ" },
+                { to: "/chuyen-khoa", label: "Chuyên khoa" },
+                { to: "/tu-van-suc-khoe", label: "Tư vấn sức khỏe" },
+                { to: "/tin-tuc", label: "Tin tức " },
+                { to: "/tuyen-dung", label: "Tuyển dụng" },
+                { to: "/lien-he", label: "Liên hệ" },
+                { to: "#", label: "Đặt lịch" }
+              ].map((item) => (
+                <a 
+                  key={item.to} 
+                  href={item.to} 
+                  className="block py-2 px-4 text-gray-700 font-medium hover:bg-green-50 hover:text-green-700 rounded-md transition-colors duration-200"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

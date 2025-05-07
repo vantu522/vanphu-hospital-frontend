@@ -61,26 +61,30 @@ export default function NewsEvents() {
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      // Scroll to top of news section
+      document.getElementById('news-section')?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="p-4 max-w-6xl mx-auto">
+    <div id="news-section" className="p-4 max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center">Tin tức & Sự kiện</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentNews.map((item) => (
           <div
             key={item.id}
-            className="rounded-2xl shadow-md overflow-hidden bg-white"
+            className="rounded-2xl shadow-md overflow-hidden bg-white flex flex-col h-full"
           >
-            <img
-              src={item.image}
-              alt={item.title}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
+            <div className="h-48 overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-4 flex flex-col flex-grow">
+              <h2 className="text-xl font-semibold mb-2 line-clamp-2 h-14">{item.title}</h2>
               <div className="flex items-center text-sm text-gray-500 mb-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -98,8 +102,8 @@ export default function NewsEvents() {
                 </svg>
                 {new Date(item.date).toLocaleDateString()}
               </div>
-              <p className="text-sm text-gray-700 mb-4">{item.description}</p>
-              <button className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              <p className="text-sm text-gray-700 mb-4 flex-grow line-clamp-3">{item.description}</p>
+              <button className="w-full px-4 py-2 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition-colors duration-300 mt-auto">
                 Xem chi tiết
               </button>
             </div>
@@ -109,6 +113,17 @@ export default function NewsEvents() {
 
       {/* Pagination */}
       <div className="flex justify-center mt-8 space-x-2">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`px-3 py-1 rounded ${
+            currentPage === 1
+              ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+              : "border border-gray-300 text-gray-700 hover:bg-gray-100"
+          }`}
+        >
+          ←
+        </button>
 
         {Array.from({ length: totalPages }, (_, index) => (
           <button
@@ -116,13 +131,25 @@ export default function NewsEvents() {
             onClick={() => handlePageChange(index + 1)}
             className={`px-3 py-1 rounded ${
               currentPage === index + 1
-                ? "bg-blue-500 text-white"
+                ? "bg-emerald-500 text-white"
                 : "border border-gray-300 text-gray-700 hover:bg-gray-100"
             }`}
           >
             {index + 1}
           </button>
         ))}
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`px-3 py-1 rounded ${
+            currentPage === totalPages
+              ? "bg-gray-200 text-gray-500 cursor-not-allowed"
+              : "border border-gray-300 text-gray-700 hover:bg-gray-100"
+          }`}
+        >
+          →
+        </button>
       </div>
     </div>
   );

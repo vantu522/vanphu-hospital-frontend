@@ -6,7 +6,6 @@ import {
   FaTwitter,
   FaYoutube,
   FaInstagram,
-  FaPhoneAlt,
 } from "react-icons/fa";
 import { AiOutlineCalendar } from "react-icons/ai";
 
