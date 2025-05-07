@@ -3,6 +3,7 @@ import PageBanner from '../../../components/client/PageBanner';
 import dichvu from '../../../assets/images/dichvu.png'
 import ds from '../../../assets/images//dsc.jpg'
 import Button from '../../../components/client/ui/button';
+import { Helmet } from 'react-helmet';
 
 const specialties = [
   { name: "Khoa Sản - Phụ khoa", icon: "fa-solid fa-gavel" },
@@ -29,6 +30,10 @@ const specialties = [
 const SpecialtyList = () => {
   return (
     <div className="">
+      <Helmet>
+
+        <title>Chuyên khoa</title>
+      </Helmet>
       <PageBanner
         title="Chuyên khoa"
         backgroundImage={dichvu}
@@ -46,8 +51,11 @@ const SpecialtyList = () => {
               className="bg-gray-200 p-4 rounded-lg text-center shadow-lg hover:shadow-xl hover:bg-white hover:border-2 hover:border-emerald-700 transition-all duration-300 transform hover:-translate-y-1 cursor-pointer" 
               key={index}
             >
-              <div className={`text-4xl mb-4 ${specialty.icon} transition-colors duration-300 group-hover:text-emerald-600`} />
-              <p className="text-sm font-semibold hover:text-emerald-700 transition-colors duration-300">{specialty.name}</p>
+              <a href="/chi-tiet-chuyen-khoa">
+                <div className={`text-4xl mb-4 ${specialty.icon} transition-colors duration-300 group-hover:text-emerald-600`} />
+                <p className="text-sm font-semibold hover:text-emerald-700 transition-colors duration-300">{specialty.name}</p>
+              </a>
+
             </div>
           ))}
         </div>

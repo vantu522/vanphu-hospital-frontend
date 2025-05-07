@@ -69,10 +69,10 @@ const Service = () => {
       
 
       {/* Nội dung dịch vụ */}
-      <div className="px-4 md:px-20 py-10 max-w-screen-xl mx-auto">
+      <div className="px-20 md:px-20 py-10  mx-auto">
         <div className="flex flex-col md:flex-row items-start gap-6">
           {/* Sidebar dịch vụ */}
-          <div className="w-full md:w-60 shrink-0 mb-6 md:mb-0">
+          <div className="w-full  md:w-60 shrink-0 mb-6 md:mb-0">
             <form className="p-2 space-y-4">
               <div className="relative">
                 <input
@@ -94,7 +94,7 @@ const Service = () => {
                       key={i}
                       type="button"
                       onClick={() => setSelectedCategory(item)}
-                      className={`flex justify-between items-center px-3 py-2 border border-gray-300 rounded text-sm transition ${
+                      className={`flex justify-between items-center px-3 py-2 border border-gray-300 rounded text-s transition cursor-pointer ${
                         isActive
                           ? "bg-emerald-700 text-white"
                           : "hover:bg-gray-100 text-gray-800"
