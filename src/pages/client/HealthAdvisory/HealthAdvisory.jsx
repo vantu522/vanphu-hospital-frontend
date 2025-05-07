@@ -2,7 +2,7 @@ import React ,{useState}from "react";
 import PageBanner from "../../../components/client/PageBanner";
 import dichvu from '../../../assets/images/dichvu.png';
 import a2 from '../../../assets/images/a2.png';
-
+import { AiOutlineCalendar } from 'react-icons/ai';
 
 const HealthAdvisory = () => {
     const [selectedCategory, setSelectedCategory] = useState("Tất cả");
@@ -14,6 +14,12 @@ const HealthAdvisory = () => {
         const serviceList = [...Array(20)];
         const visibleServices = showAllServices ? serviceList : serviceList.slice(0, 9);
     
+    const healths = [
+      {
+        title: "5 loại thực phẩm tốt cho sức khoẻ mỗi ngày",
+        description: ""
+      }
+    ]
 
     const faqCategories = [
         { name: "Thai sản", count: 8 },
@@ -80,7 +86,6 @@ const HealthAdvisory = () => {
                                 </div>
                                 </div>
                             </div>
-                            
                         </div>
 
                          {/* First section */}
@@ -123,6 +128,7 @@ const HealthAdvisory = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Card 1 */}
                         <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl">
+                            <a href="/chi-tiet-bai-tu-van">
                             <div className="overflow-hidden">
                                 <img 
                                     src={a2} 
@@ -131,7 +137,8 @@ const HealthAdvisory = () => {
                                 />
                             </div>
                             <div className="p-4">
-                                <div className="flex items-center text-s text-gray-500 mb-2">
+                                 <div className="flex items-center text-s text-gray-500 mb-2">
+                                    <AiOutlineCalendar className="mr-2 text-gray-500" /> {/* Icon lịch */}
                                     <span>15/04/2025</span>
                                     <span className="mx-2">•</span>
                                     <span className="font-bold text-rose-600">Khoa Tim mạch</span>
@@ -140,6 +147,8 @@ const HealthAdvisory = () => {
                                 <p className="text-gray-600 text-sm mb-4">Tìm hiểu các phương pháp phòng ngừa bệnh tim mạch thông qua chế độ ăn uống và tập luyện phù hợp...</p>
                                 <a href="#" className="text-emerald-600 text-sm font-medium hover:underline">Đọc thêm</a>
                             </div>
+                            </a>
+                          
                         </div>
 
                         {/* Card 2 */}
@@ -271,6 +280,7 @@ const HealthAdvisory = () => {
 
                     </div>
                 </div>
+                
             </div>
             
 
