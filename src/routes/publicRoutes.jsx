@@ -10,6 +10,9 @@ import SpecitaltyDetail from "../pages/client/Specialty/SpecialtyDetail";
 import SpecialtyList from "../pages/client/Specialty/SpecialtyList";
 import About from "../pages/client/About/About";
 import Regulation from "../components/client/sections/Instruct/HospitalRules";
+import Recruitment from "../pages/client/Recruitment/Recruitment";
+import News from "../pages/client/News/New";
+import NewsDetail from "../pages/client/News/NewDetail";
 const publicRoutes = [
     {
         path:'/',
@@ -24,6 +27,11 @@ const publicRoutes = [
             { path: "gioi-thieu", element: <About /> },
             { path: "gioi-thieu/ve-hong-ngoc", element: <About /> },
             { path: "gioi-thieu/huong-dan-khach-hang", element: <Regulation /> },
+            { path: "lien-he", element: <Contact /> },
+            { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
+            { path: "tuyen-dung", element: <Recruitment /> },
+            { path: "tin-tuc", element: <News /> },
+            { path: "chi-tiet-tin-tuc", element: <NewsDetail />},
        ]
     },
 
