@@ -9,7 +9,11 @@ import Service from "../pages/client/Services/Service";
 import ServiceDetail from "../pages/client/Services/ServiceDetail";
 import SpecitaltyDetail from "../pages/client/Specialty/SpecialtyDetail";
 import SpecialtyList from "../pages/client/Specialty/SpecialtyList";
-
+import About from "../pages/client/About/About";
+import Regulation from "../components/client/sections/Instruct/HospitalRules";
+import Recruitment from "../pages/client/Recruitment/Recruitment";
+import News from "../pages/client/News/New";
+import NewsDetail from "../pages/client/News/NewDetail";
 const publicRoutes = [
     {
         path:'/',
@@ -25,9 +29,23 @@ const publicRoutes = [
         {path:'lien-he', element:<Contact/>},
         {path:'tu-van-suc-khoe', element:<HealthAdvisory/>},
         {path:'chi-tiet-bai-tu-van', element:<HealthDetail/>}
+            { index: true, element: <Home /> },
+            { path: "dich-vu", element: <Service /> },
+            { path: "chi-tiet-dich-vu", element: <ServiceDetail /> },
+            { path: "danh-sach-bac-si", element: <DoctorList /> },
+            { path: "chuyen-khoa", element: <SpecialtyList /> },
+            { path: "chi-tiet-bac-si", element: <DoctorDetail /> },
+            { path: "gioi-thieu", element: <About /> },
+            { path: "gioi-thieu/ve-hong-ngoc", element: <About /> },
+            { path: "gioi-thieu/huong-dan-khach-hang", element: <Regulation /> },
+            { path: "lien-he", element: <Contact /> },
+            { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
+            { path: "tuyen-dung", element: <Recruitment /> },
+            { path: "tin-tuc", element: <News /> },
+            { path: "chi-tiet-tin-tuc", element: <NewsDetail />},
        ]
     },
 
 ]
 
-export default publicRoutes
+export default publicRoutes;

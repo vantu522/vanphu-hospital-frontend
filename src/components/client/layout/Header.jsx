@@ -86,8 +86,8 @@ const Header = () => {
               { to: "/danh-sach-bac-si", label: "Danh sách bác sĩ" },
               { to: "/chuyen-khoa", label: "Chuyên khoa" },
               { to: "/tu-van-suc-khoe", label: "Tư vấn sức khỏe" },
-              { to: "#", label: "Tin tức " },
-              { to: "#", label: "Tuyển dụng" },
+              { to: "tin-tuc", label: "Tin tức " },
+              { to: "tuyen-dung", label: "Tuyển dụng" },
               { to: "/lien-he", label: "Liên hệ" },
               { to: "#", label: "Đặt lịch" }
 
