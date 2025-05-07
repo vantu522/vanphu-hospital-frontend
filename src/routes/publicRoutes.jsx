@@ -14,7 +14,10 @@ import Regulation from "../components/client/sections/Instruct/HospitalRules";
 import Recruitment from "../pages/client/Recruitment/Recruitment";
 import News from "../pages/client/News/New";
 import NewsDetail from "../pages/client/News/NewDetail";
+import Login from "../pages/client/Login";
+import SignUp from "../pages/client/Register";
 const publicRoutes = [
+
   {
     path: "/",
     element: <ClientLayout />,
@@ -43,6 +46,8 @@ const publicRoutes = [
       { path: "tuyen-dung", element: <Recruitment /> },
       { path: "tin-tuc", element: <News /> },
       { path: "chi-tiet-tin-tuc", element: <NewsDetail /> },
+        { path: "dang-nhap", element: <Login />},
+            { path: "dang-ky", element: <SignUp />},
     ],
   },
 ];
