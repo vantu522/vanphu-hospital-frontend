@@ -16,6 +16,7 @@ import News from "../pages/client/News/New";
 import NewsDetail from "../pages/client/News/NewDetail";
 import Login from "../pages/client/Login";
 import SignUp from "../pages/client/Register";
+import Booking from "../pages/client/Books/Booking";
 const publicRoutes = [
 
   {
@@ -45,6 +46,7 @@ const publicRoutes = [
       { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
       { path: "tuyen-dung", element: <Recruitment /> },
       { path: "tin-tuc", element: <News /> },
+      {path:"dat-lich", element:<Booking/>},
       { path: "chi-tiet-tin-tuc", element: <NewsDetail /> },
         { path: "dang-nhap", element: <Login />},
             { path: "dang-ky", element: <SignUp />},

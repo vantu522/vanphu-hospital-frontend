@@ -1,17 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import uh from "../../../assets/images/dvt_2.png";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronDown, FiSearch, FiX } from "react-icons/fi";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { FaAmbulance } from "react-icons/fa";
-import { FiSearch } from "react-icons/fi";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const searchInputRef = useRef(null);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  const toggleSearch = () => {
+    setSearchOpen(!searchOpen);
+    // Focus the input when search popup opens
+    if (!searchOpen) {
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 100);
+    }
+  };
+
+  // Close search popup when clicking outside
+  const searchPopupRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchPopupRef.current && !searchPopupRef.current.contains(event.target)) {
+        setSearchOpen(false);
+      }
+    };
+
+    if (searchOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +73,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-
 
       {/* Main header */}
       <div className={`bg-white w-full border-b border-gray-100 ${
@@ -94,8 +121,7 @@ const Header = () => {
               { to: "/tin-tuc", label: "Tin tức " },
               { to: "/tuyen-dung", label: "Tuyển dụng" },
               { to: "/lien-he", label: "Liên hệ" },
-              { to: "#", label: "Đặt lịch" }
-
+              { to: "dat-lich", label: "Đặt lịch" }
             ].map((item) => (
               <a 
                 key={item.to} 
@@ -109,7 +135,11 @@ const Header = () => {
 
           {/* Tìm kiếm (chỉ nút) */}
           <div className="flex items-center gap-3">
-            <button className="p-2 rounded-full bg-green-50 hover:bg-green-100 text-green-700 transition-colors duration-300 shadow-sm hover:shadow-md">
+            <button 
+              className="p-2 rounded-full bg-green-50 hover:bg-green-100 text-green-700 transition-colors duration-300 shadow-sm hover:shadow-md"
+              onClick={toggleSearch}
+              aria-label="Search"
+            >
               <FiSearch className="w-5 h-5" />
             </button>
 
@@ -131,6 +161,38 @@ const Header = () => {
             </div>
           </div>
         </div>
+
+        {/* Search Popup */}
+        {searchOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-start justify-center pt-20 px-4">
+            <div 
+              ref={searchPopupRef}
+              className="bg-white rounded-lg shadow-xl w-full max-w-2xl transform transition-all duration-300 scale-100 opacity-100"
+            >
+              <div className="p-4 flex items-center">
+                <form className="flex-grow flex items-center border-b-2 border-green-600 pb-2">
+                  <FiSearch className="text-gray-400 mr-3 text-xl" />
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Tìm kiếm..."
+                    className="w-full outline-none text-lg text-gray-700"
+                    autoFocus
+                  />
+                </form>
+                <button 
+                  onClick={toggleSearch}
+                  className="ml-4 p-2 rounded-full hover:bg-gray-100 text-gray-500 transition-colors duration-200"
+                >
+                  <FiX className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="p-4 pt-0 text-sm text-gray-500">
+                <p>Gợi ý: bác sĩ nhi, khám tổng quát, tiêm vaccine...</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Mobile Menu */}
         <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
@@ -163,7 +225,7 @@ const Header = () => {
                 { to: "/tin-tuc", label: "Tin tức " },
                 { to: "/tuyen-dung", label: "Tuyển dụng" },
                 { to: "/lien-he", label: "Liên hệ" },
-                { to: "#", label: "Đặt lịch" }
+                { to: "/dat-lich", label: "Đặt lịch" }
               ].map((item) => (
                 <a 
                   key={item.to} 
