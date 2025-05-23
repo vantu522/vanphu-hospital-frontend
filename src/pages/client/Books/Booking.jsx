@@ -17,7 +17,8 @@ const Booking = () => {
         <div className="max-w-5xl mx-auto py-10 px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Đặt lịch khám bác sĩ */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <a href="/kham-bhyt">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="flex justify-center p-6">
                 <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
                   <svg
@@ -44,9 +45,11 @@ const Booking = () => {
               </div>
               <div className="text-center pb-6">
                 <h3 className="text-green-700 font-medium">Đặt lịch</h3>
-                <h3 className="text-green-700 font-medium">khám bác sĩ</h3>
+                <h3 className="text-green-700 font-medium">khám BHYT</h3>
               </div>
             </div>
+            </a>
+            
 
             {/* Đặt lịch khám chuyên khoa */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -70,7 +73,7 @@ const Booking = () => {
               </div>
               <div className="text-center pb-6">
                 <h3 className="text-green-700 font-medium">Đặt lịch khám</h3>
-                <h3 className="text-green-700 font-medium">chuyên khoa</h3>
+                <h3 className="text-green-700 font-medium">dịch vụ</h3>
               </div>
             </div>
 
@@ -121,8 +124,8 @@ const Booking = () => {
                 </div>
               </div>
               <div className="text-center pb-6">
-                <h3 className="text-green-700 font-medium">Đặt lịch</h3>
-                <h3 className="text-green-700 font-medium">tiêm chủng</h3>
+                <h3 className="text-green-700 font-medium">Sổ y bạ</h3>
+                <h3 className="text-green-700 font-medium">điện tử</h3>
               </div>
             </div>
           </div>

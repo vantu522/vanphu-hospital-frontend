@@ -17,6 +17,8 @@ import NewsDetail from "../pages/client/News/NewDetail";
 import Login from "../pages/client/Login";
 import SignUp from "../pages/client/Register";
 import Booking from "../pages/client/Books/Booking";
+import SpecialtyDoctorSelection from "../pages/client/Books/SpecialtyDoctorSelection";
+import MedicalAppointmentBooking from "../pages/client/Books/Medical";
 const publicRoutes = [
 
   {
@@ -47,6 +49,7 @@ const publicRoutes = [
       { path: "tuyen-dung", element: <Recruitment /> },
       { path: "tin-tuc", element: <News /> },
       {path:"dat-lich", element:<Booking/>},
+      {path:"kham-bhyt", element:<MedicalAppointmentBooking/>},
       { path: "chi-tiet-tin-tuc", element: <NewsDetail /> },
         { path: "dang-nhap", element: <Login />},
             { path: "dang-ky", element: <SignUp />},
