@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, User, ShieldCheck, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Clock, User, ShieldCheck, ChevronLeft, ChevronRight, Heart, Hospital, Scissors, Baby, Ear, Eye } from 'lucide-react';
 
 // Component 1: Chọn khoa và bác sĩ
 const SpecialtyDoctorSelection = ({ onComplete, onBack }) => {
@@ -8,12 +8,12 @@ const SpecialtyDoctorSelection = ({ onComplete, onBack }) => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   const specialties = [
-    { id: 1, name: 'Tim mạch', icon: '❤️', description: 'Khám và điều trị các bệnh về tim mạch' },
-    { id: 2, name: 'Nội khoa', icon: '🏥', description: 'Khám tổng quát và điều trị nội khoa' },
-    { id: 3, name: 'Ngoại khoa', icon: '🔬', description: 'Phẫu thuật và điều trị ngoại khoa' },
-    { id: 4, name: 'Sản phụ khoa', icon: '👶', description: 'Chăm sóc sức khỏe phụ nữ và trẻ em' },
-    { id: 5, name: 'Tai mũi họng', icon: '👂', description: 'Khám và điều trị tai mũi họng' },
-    { id: 6, name: 'Mắt', icon: '👁️', description: 'Khám và điều trị các bệnh về mắt' }
+    { id: 1, name: 'Tim mạch', icon: Heart, description: 'Khám và điều trị các bệnh về tim mạch' },
+    { id: 2, name: 'Nội khoa', icon: Hospital, description: 'Khám tổng quát và điều trị nội khoa' },
+    { id: 3, name: 'Ngoại khoa', icon: Scissors, description: 'Phẫu thuật và điều trị ngoại khoa' },
+    { id: 4, name: 'Sản phụ khoa', icon: Baby, description: 'Chăm sóc sức khỏe phụ nữ và trẻ em' },
+    { id: 5, name: 'Tai mũi họng', icon: Ear, description: 'Khám và điều trị tai mũi họng' },
+    { id: 6, name: 'Mắt', icon: Eye, description: 'Khám và điều trị các bệnh về mắt' }
   ];
 
   const doctors = {
@@ -60,19 +60,24 @@ const SpecialtyDoctorSelection = ({ onComplete, onBack }) => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {specialties.map((specialty) => (
-            <div
-              key={specialty.id}
-              onClick={() => handleSpecialtySelect(specialty)}
-              className="p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-lg transition-all cursor-pointer group"
-            >
-              <div className="text-4xl mb-3">{specialty.icon}</div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-600">
-                {specialty.name}
-              </h3>
-              <p className="text-gray-600 text-sm">{specialty.description}</p>
-            </div>
-          ))}
+          {specialties.map((specialty) => {
+            const IconComponent = specialty.icon;
+            return (
+              <div
+                key={specialty.id}
+                onClick={() => handleSpecialtySelect(specialty)}
+                className="p-6 border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-lg transition-all cursor-pointer group"
+              >
+                <div className="mb-3">
+                  <IconComponent className="w-12 h-12 text-blue-600 group-hover:text-blue-700" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-600">
+                  {specialty.name}
+                </h3>
+                <p className="text-gray-600 text-sm">{specialty.description}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
@@ -123,6 +128,5 @@ const SpecialtyDoctorSelection = ({ onComplete, onBack }) => {
     </div>
   );
 };
-
 
 export default SpecialtyDoctorSelection;

@@ -22,14 +22,7 @@ const handleSpecialtyDoctorComplete = (info) => {
   };
 
   const handlePatientInfoComplete = (info) => {
-    alert(`🎉 Đặt lịch thành công!
-\n📋 Thông tin đặt lịch:
-• Bệnh nhân: ${info.name}
-• Chuyên khoa: ${selectedInfo.specialty.name}
-• Bác sĩ: ${selectedInfo.doctor.name}
-• Thời gian: ${dateTimeInfo.date} - ${dateTimeInfo.session === 'morning' ? 'Buổi sáng' : 'Buổi chiều'} - ${dateTimeInfo.time}
-• Số BHYT: ${info.insuranceId}
-\n📞 Chúng tôi sẽ liên hệ xác nhận trong thời gian sớm nhất!`);
+
 
     setCurrentStep(0);
     setSelectedInfo(null);
