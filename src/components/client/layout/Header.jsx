@@ -169,7 +169,7 @@ const Header = () => {
                   href="/gioi-thieu/ve-hong-ngoc"
                   className="block px-5 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700 hover:pl-6 transition-all duration-200"
                 >
-                  Về Hồng Ngọc Hospital
+                  Về Văn Phú Hospital
                 </a>
                 <a
                   href="/gioi-thieu/huong-dan-khach-hang"

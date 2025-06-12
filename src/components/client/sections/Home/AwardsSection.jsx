@@ -5,7 +5,7 @@ const awards = [
     {
       img: ImgAward1,
       description:
-        "Bệnh viện Hồng Ngọc đạt tiêu chuẩn ACHSI - Úc (Tiêu chuẩn chăm sóc sức khỏe tại Úc)",
+        "Bệnh viện Văn Phú đạt tiêu chuẩn ACHSI - Úc (Tiêu chuẩn chăm sóc sức khỏe tại Úc)",
     },
     {
       img: ImgAward2,

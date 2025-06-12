@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 pb-10 border-b border-gray-200">
           {/* Company info */}
           <div className="space-y-4">
-            <h1 className="text-2xl font-bold text-white">CÔNG TY TNHH BỆNH VIỆN HỒNG NGỌC</h1>
+            <h1 className="text-2xl font-bold text-white">CÔNG TY TNHH BỆNH VIỆN VĂN PHÚ</h1>
             
             <div className="flex items-start space-x-3">
               <IoLocationOutline className="mt-1 text-white" />
