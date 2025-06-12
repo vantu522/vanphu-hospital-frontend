@@ -12,26 +12,26 @@ const MedicalAppointmentBooking = () => {
 const handleSpecialtyDoctorComplete = (info) => {
   setSelectedInfo(info);
   console.log(info)
-  setCurrentStep(1);
+  setCurrentStep(2);
 };
 
 
   const handleDateTimeComplete = (info) => {
     setDateTimeInfo(info);
-    setCurrentStep(2);
+    setCurrentStep(3);
   };
 
   const handlePatientInfoComplete = (info) => {
 
 
-    setCurrentStep(0);
+    setCurrentStep(1);
     setSelectedInfo(null);
     setDateTimeInfo(null);
   };
 
   const renderStepIndicator = () => (
     <div className="flex items-center justify-center mb-6">
-      {['Chọn khoa & bác sĩ', 'Chọn thời gian', 'Thông tin bệnh nhân'].map((step, index) => (
+      {['Thông tin bệnh nhân', 'Chọn chuyên khoa và bác sĩ', 'Chọn thời gian'].map((step, index) => (
         <div key={index} className="flex items-center">
           <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
             index <= currentStep ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
@@ -53,14 +53,14 @@ const handleSpecialtyDoctorComplete = (info) => {
         {renderStepIndicator()}
 
         <div className="bg-white rounded-lg shadow-lg p-8">
-          {currentStep === 0 && (
+          {currentStep === 1 && (
             <SpecialtyDoctorSelection 
               onComplete={handleSpecialtyDoctorComplete}
               onBack={() => setCurrentStep(0)}
             />
           )}
 
-          {currentStep === 1 && (
+          {currentStep === 2 && (
             <DateTimeSelection 
               onComplete={handleDateTimeComplete}
               onBack={() => setCurrentStep(0)}
@@ -68,7 +68,7 @@ const handleSpecialtyDoctorComplete = (info) => {
             />
           )}
 
-          {currentStep === 2 && (
+          {currentStep === 0 && (
             <PatientInfoForm 
               onComplete={handlePatientInfoComplete}
               onBack={() => setCurrentStep(1)}

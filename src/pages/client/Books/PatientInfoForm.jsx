@@ -1,4 +1,7 @@
-// Component 3: Form thông tin đặt lịch
+import React, { useState } from 'react';
+import { ChevronLeft } from 'lucide-react';
+
+
 const PatientInfoForm = ({ onComplete, onBack, selectedInfo, dateTimeInfo }) => {
   const [patientInfo, setPatientInfo] = useState({
     name: '',
@@ -24,7 +27,7 @@ const PatientInfoForm = ({ onComplete, onBack, selectedInfo, dateTimeInfo }) => 
       <div className="flex items-center mb-6">
         <button
           onClick={onBack}
-          className="flex items-center text-blue-600 hover:text-blue-800"
+          className="flex items-center text-green-600 hover:text-green-800"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
           Quay lại
@@ -136,7 +139,7 @@ const PatientInfoForm = ({ onComplete, onBack, selectedInfo, dateTimeInfo }) => 
           </div>
 
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <h4 className="font-medium text-yellow-800 mb-2">⚠️ Lưu ý quan trọng:</h4>
+            <h4 className="font-medium text-yellow-800 mb-2"> Lưu ý quan trọng:</h4>
             <ul className="text-yellow-700 text-sm space-y-1">
               <li>• Vui lòng có mặt trước 15 phút so với giờ hẹn</li>
               <li>• Mang theo đầy đủ giấy tờ cần thiết</li>
@@ -149,7 +152,7 @@ const PatientInfoForm = ({ onComplete, onBack, selectedInfo, dateTimeInfo }) => 
             disabled={!patientInfo.name || !patientInfo.phone || !patientInfo.insuranceId}
             className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-white font-medium py-4 px-6 rounded-lg transition-colors text-lg"
           >
-            🎯 Xác nhận đặt lịch khám
+             Xác nhận đặt lịch khám
           </button>
         </div>
       </div>
