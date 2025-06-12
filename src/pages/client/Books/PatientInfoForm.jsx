@@ -83,7 +83,7 @@ const PatientInfoForm = ({ onComplete, onBack, selectedInfo, dateTimeInfo }) => 
               />
             </div>
           </div>
-
+ 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -143,7 +143,7 @@ const PatientInfoForm = ({ onComplete, onBack, selectedInfo, dateTimeInfo }) => 
             <ul className="text-yellow-700 text-sm space-y-1">
               <li>• Vui lòng có mặt trước 15 phút so với giờ hẹn</li>
               <li>• Mang theo đầy đủ giấy tờ cần thiết</li>
-              <li>• Liên hệ hotline nếu cần thay đổi lịch hẹn</li>
+              <li>• Liên hệ hotline nếu cần thay đổi lịch hẹn</li> 
             </ul>
           </div>
 
