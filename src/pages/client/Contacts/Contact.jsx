@@ -129,11 +129,9 @@ const Contact = () => {
                                 </div>
                             </div>
                             
-                            {/* Bản đồ */}
                             <div className="mt-6">
                                 <h3 className="text-lg font-semibold text-gray-800 mb-2">Bản đồ</h3>
                                 <div className="bg-gray-200 h-64 rounded-md flex items-center justify-center">
-                                    {/* Ở đây bạn có thể nhúng Google Maps hoặc bản đồ khác */}
                                     <p className="text-gray-500">Bản đồ Google Maps</p>
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
 import SpecialtyDoctorSelection from './SpecialtyDoctorSelection';
-import DateTimeSelection from './DateTimeSelection';
+import DateTimeSelection from './DatetimeSelection';
 import PatientInfoForm from './PatientInfoForm';
 
 const MedicalAppointmentBooking = () => {

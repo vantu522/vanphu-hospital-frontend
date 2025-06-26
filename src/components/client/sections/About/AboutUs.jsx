@@ -30,7 +30,7 @@ export default function AboutUs() {
           <div className="relative w-full max-w-md">
             <img
               src={imgabout}
-              alt="Hình ảnh bác sĩ Văn Phú"
+              alt="Hình ảnh bác sĩ Văn Phú" 
               className="w-full shadow-xl object-cover"
             />
           </div>
@@ -40,12 +40,12 @@ export default function AboutUs() {
         <div className="md:w-1/2 md:pl-10">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Giới thiệu về Văn Phú
-          </h2>
+            </h2>
           <p className="text-gray-700 mb-4">
-            Năm 2003, Bệnh viện Đa khoa Văn Phú được thành lập, là bệnh viện
+            Năm 2003, Bệnh viện Đa khoa Văn Phú   được thành lập, là bệnh viện
             tư nhân tại miền Bắc tiên phong trong mô hình "bệnh viện - khách
             sạn" với cơ sở vật chất đạt tiêu chuẩn quốc tế. Hơn 20 năm hình
-            thành và phát triển, Văn Phú đã trở thành một trong những bệnh
+            thành và phát triển, Văn Phú  đã trở thành một trong những bệnh
             viện tư nhân hàng đầu khu vực miền Bắc Việt Nam.
           </p>
           <ul className="list-disc pl-5 text-gray-700 space-y-2 mb-6">

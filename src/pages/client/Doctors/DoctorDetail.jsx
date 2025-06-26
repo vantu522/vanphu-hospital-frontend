@@ -2,6 +2,7 @@
 import React from 'react';
 import { IoMdMail, IoLogoWhatsapp } from 'react-icons/io';
 import { FaCalendarAlt, FaPhone, FaUserMd, FaCertificate, FaHospital, FaStethoscope } from 'react-icons/fa';
+import DoctorTeam from '../../../components/client/sections/Home/DoctorTeam';
 
 const DoctorDetail = () => {
   const doctor = {
@@ -161,32 +162,7 @@ const DoctorDetail = () => {
         </div>
       </div>
 
-      {/* Related doctors */}
-      <div className="bg-green-50 py-10">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-green-700 mb-6 text-center">Bác sĩ cùng chuyên khoa</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((item) => (
-              <div key={item} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300">
-                <div className="h-48 bg-gray-200">
-                  <img 
-                    src="/api/placeholder/300/200" 
-                    alt={`Bác sĩ ${item}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-bold text-lg mb-1">Bác sĩ Nguyễn Văn {String.fromCharCode(65 + item)}</h3>
-                  <p className="text-sm text-gray-600 mb-3">Bác sĩ chuyên khoa Nội</p>
-                  <button className="text-green-600 hover:text-green-700 text-sm font-medium flex items-center">
-                    <FaUserMd className="mr-1" /> Xem thông tin
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+     <DoctorTeam/>
 
    
     </div>
