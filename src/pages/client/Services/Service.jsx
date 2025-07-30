@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import dichvu from "../../../assets/images/dichvu.png";
 import hi from "../../../assets/images/hi.png";
 import { HiSearch } from "react-icons/hi";
 import Button from "../../../components/client/ui/button";
 import PageBanner from "../../../components/client/PageBanner";
 import { href } from "react-router-dom";
+import { getAllServices } from "../../../services/client/services";
 
 
 const Service = () => {
@@ -13,6 +14,21 @@ const Service = () => {
   const [showAllServices, setShowAllServices] = useState(false);
   const serviceList = [...Array(20)];
   const visibleServices = showAllServices ? serviceList : serviceList.slice(0, 9);
+  const [services, setServices] = useState([]);
+
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllServices();
+        setServices(data);
+        console.log("Services fetched successfully:", data);
+      } catch (error) {
+        console.error('Lỗi khi tải users:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const categories = [
     "Tất cả",
@@ -117,7 +133,7 @@ const Service = () => {
 
           {/* Grid dịch vụ */}
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {visibleServices.map((_, index) => (
+            {services.map((item, index) => (
               <div
                 key={index}
                 className="border border-gray-200 rounded hover:border-black transition"
@@ -132,9 +148,9 @@ const Service = () => {
                   </div>
                   <div className="p-3">
                     <h2 className="font-semibold mb-2 text-base">
-                      Tiêm Cồn Diệt Hạch Gasser - Điều Trị Đau Dây TK V
+                      {item.name}
                     </h2>
-                    <p className="text-sm text-gray-600 mt-5">Mô tả nhỏ</p>
+                    <p className="text-sm text-gray-600 mt-5">{item.description}</p>
                   </div>
                 </a>
               </div>

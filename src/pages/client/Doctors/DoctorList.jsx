@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect, use } from "react";
 import { FaMapMarkerAlt, FaGraduationCap } from "react-icons/fa";
 import { HiSearch } from "react-icons/hi";
 import { BiFilter } from "react-icons/bi";
@@ -6,6 +6,7 @@ import dichvu from '../../../assets/images/dichvu.png'
 import PageBanner from "../../../components/client/PageBanner";
 import Pagination from "../../../components/client/Pagination";
 import HospitalBanner from "../../../components/client/sections/Home/HospitalBanner";
+import { getAllDoctors } from "../../../services/client/doctors";
 
 const DoctorList = () => {
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
@@ -16,83 +17,84 @@ const DoctorList = () => {
     const [showAllServices, setShowAllServices] = useState(false);
     const serviceList = [...Array(20)];
     const visibleServices = showAllServices ? serviceList : serviceList.slice(0, 9);
+    const [doctors, setDoctors] = useState([]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const doctors = [
-    {
-      id: 1,
-      name: "PGS.TS - Nguyễn Thị Ngọc Lan",
-      title: "Phó giáo sư, Tiến sĩ",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/85520/image-thumb__85520__image720px/tach%20nen.293b142a.jpg"
-    },
-    {
-      id: 2,
-      name: "ThS.BSCKll - Bùi Thanh Tiến",
-      title: "Thạc sĩ | Bác sĩ Chuyên khoa II",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/83562/image-thumb__83562__image720px/1_105.f4364b69.jpg"
-    },
-    {
-      id: 3,
-      name: "PGS.TS - Trần Thị Minh Hoa",
-      title: "Phó Giáo sư, Tiến sĩ",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/85522/image-thumb__85522__image720px/1_126.cc0334ce.jpg"
-    },
-    {
-      id: 4,
-      name: "TTUT.ThS.BSCKl - Bùi Xuân Quyền",
-      title: "Thầy thuốc ưu tú | Thạc sĩ | Bác sĩ Chuyên khoa I",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/85522/image-thumb__85522__image720px/1_126.cc0334ce.jpg"
-    },
-    {
-      id: 5,
-      name: "ThS. BS - Lê Đình Thái",
-      title: "Bác sĩ|Thạc sĩ",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/85522/image-thumb__85522__image720px/1_126.cc0334ce.jpg"
-    },
-    {
-      id: 6,
-      name: "TS.BS. - Đặng Thị Kim Oanh",
-      title: "Tiến sĩ|Bác sĩ",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
-    },
-    {
-      id: 7,
-      name: "TS.BS. - Đặng Thị Kim Oanh",
-      title: "Tiến sĩ|Bác sĩ",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
-    },
-    {
-      id: 8,
-      name: "TS.BS. - Đặng Thị Kim Oanh",
-      title: "Tiến sĩ|Bác sĩ",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
-    },
-    {
-      id: 9,
-      name: "TS.BS. - Đặng Thị Kim Oanh",
-      title: "Tiến sĩ|Bác sĩ",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
-    },
-    {
-      id: 10,
-      name: "TS.BS. - Đặng Thị Kim Oanh",
-      title: "Tiến sĩ|Bác sĩ",
-      hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
-      imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
-    }
-  ];
+  // const doctors = [
+  //   {
+  //     id: 1,
+  //     name: "PGS.TS - Nguyễn Thị Ngọc Lan",
+  //     title: "Phó giáo sư, Tiến sĩ",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/85520/image-thumb__85520__image720px/tach%20nen.293b142a.jpg"
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "ThS.BSCKll - Bùi Thanh Tiến",
+  //     title: "Thạc sĩ | Bác sĩ Chuyên khoa II",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/83562/image-thumb__83562__image720px/1_105.f4364b69.jpg"
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "PGS.TS - Trần Thị Minh Hoa",
+  //     title: "Phó Giáo sư, Tiến sĩ",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/85522/image-thumb__85522__image720px/1_126.cc0334ce.jpg"
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "TTUT.ThS.BSCKl - Bùi Xuân Quyền",
+  //     title: "Thầy thuốc ưu tú | Thạc sĩ | Bác sĩ Chuyên khoa I",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/85522/image-thumb__85522__image720px/1_126.cc0334ce.jpg"
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "ThS. BS - Lê Đình Thái",
+  //     title: "Bác sĩ|Thạc sĩ",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/85522/image-thumb__85522__image720px/1_126.cc0334ce.jpg"
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "TS.BS. - Đặng Thị Kim Oanh",
+  //     title: "Tiến sĩ|Bác sĩ",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "TS.BS. - Đặng Thị Kim Oanh",
+  //     title: "Tiến sĩ|Bác sĩ",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
+  //   },
+  //   {
+  //     id: 8,
+  //     name: "TS.BS. - Đặng Thị Kim Oanh",
+  //     title: "Tiến sĩ|Bác sĩ",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
+  //   },
+  //   {
+  //     id: 9,
+  //     name: "TS.BS. - Đặng Thị Kim Oanh",
+  //     title: "Tiến sĩ|Bác sĩ",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
+  //   },
+  //   {
+  //     id: 10,
+  //     name: "TS.BS. - Đặng Thị Kim Oanh",
+  //     title: "Tiến sĩ|Bác sĩ",
+  //     hospital: "Bệnh viện Đa khoa Hồng Ngọc – Phúc Trường Minh",
+  //     imageUrl: "https://hongngochospital.vn/_default_upload_bucket/60013/image-thumb__60013__image720px/1_29.6a41efb7.jpg "
+  //   }
+  // ];
 
   const categories = [
     "Tất cả",
@@ -152,6 +154,20 @@ const DoctorList = () => {
       },
     ],
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const doctors = await getAllDoctors();
+        setDoctors(doctors);
+        console.log("Doctors fetched successfully:", doctors);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
@@ -240,26 +256,26 @@ const DoctorList = () => {
                   <div key={doctor.id} className="flex bg-white rounded-lg overflow-hidden shadow-sm">
                     <div className="w-1/3">
                       <img 
-                        src={doctor.imageUrl} 
+                        src={doctor.avatarUrl} 
                         alt={doctor.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="w-2/3 p-4 ">
                     <a href="/chi-tiet-bac-si">
-                      <h3 className="text-black-900 font-bold font-medium text-lg cursor-pointer hover:text-emerald-900 ">{doctor.name}</h3>
+                      <h3 className="text-black-900 font-bold font-medium text-lg cursor-pointer hover:text-emerald-900 ">{doctor.hoTen}</h3>
                       <p className="text-emerald-900 italic font-bold text-sm mb-2 underline cursor-pointer hover:text-red-500">Xem chi tiết</p>
                     </a>
     
                       
                       <div className="flex items-center mb-2 text-sm text-gray-700">
                         <FaGraduationCap className="mr-2 text-gray-500" />
-                        <span>{doctor.title}</span>
+                        <span>{doctor.hocVi}</span>
                       </div>
                       
                       <div className="flex items-start text-sm text-gray-700">
                         <FaMapMarkerAlt className="mr-2 mt-1 text-gray-500" />
-                        <span>{doctor.hospital}</span>
+                        <span>{doctor.chuyenKhoa}</span>
                       </div>
                     </div>
                   </div>

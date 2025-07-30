@@ -1,25 +1,30 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import PageBanner from "../../../components/client/PageBanner";
 import dichvu from "../../../assets/images/dichvu.png";
 import { FiCalendar, FiArrowRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { getAllNews } from "../../../services/client/news";
+import { format } from "date-fns";
 
-const newsList = [
-  {
-    id: "tuyen-dung-khoi-y-te-thang-9-2024",
-    title:
-      "Bệnh viện Đa khoa Hồng Ngọc thông báo tuyển dụng khối Y tế tháng 9/2024",
-    description:
-      "Bệnh viện Đa khoa Hồng Ngọc thông báo tuyển dụng các vị trí trong khối Y tế cho tháng 9/2024 với các yêu cầu đặc biệt...",
-    date: "09-08-2024",
-    link: "tin-tuc-chi-tiet",
-    image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-  },
-  // other news items
-];
+
 
 export default function News() {
+  const [news, setNews] = useState([]);
+
+
+  useEffect(() =>{
+    const fetchNews = async () => {
+      try {
+        const newsList = await getAllNews(); 
+        setNews(newsList);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    };
+
+    fetchNews();
+  },[])
+
   return (
     <div className="relative">
       <PageBanner
@@ -42,15 +47,15 @@ export default function News() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {newsList.map((news, idx) => (
+            {news.map((news, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
               >
                 <div className="h-48 overflow-hidden">
                   <img
-                    src={news.image}
-                    alt={news.title}
+                    src={news.hinhAnh}
+                    alt={news.tieuDe}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -58,15 +63,15 @@ export default function News() {
                 <div className="p-6">
                   <div className="flex items-center text-sm text-gray-500 mb-3">
                     <FiCalendar className="mr-2" />
-                    {news.date}
+                     {format(new Date(news.ngayDang), 'dd/MM/yyyy - HH:mm')}
                   </div>
 
                   <h3 className="text-xl font-semibold text-gray-900 mb-3 hover:text-emerald-600 transition-colors">
-                    <Link to="/chi-tiet-tin-tuc">{news.title}</Link>
+                    <Link to="/chi-tiet-tin-tuc">{news.tieuDe}</Link>
                   </h3>
 
                   <p className="text-gray-600 mb-4 line-clamp-2">
-                    {news.description}
+                    {news.moTaNgan}
                   </p>
 
                   <a

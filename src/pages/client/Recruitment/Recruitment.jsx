@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import PageBanner from "../../../components/client/PageBanner";
 import dichvu from "../../../assets/images/dichvu.png";
+import { getAllRecruitments } from "../../../services/client/recruitments";
 
 // Sample job listings with recruitment details
 const jobListings = [
@@ -33,7 +34,9 @@ const jobListings = [
 
 const Recruitment = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [recruitmentDetails, setRecruitmentDetails] = useState([]);
   const active = jobListings[activeIndex];
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -41,6 +44,18 @@ const Recruitment = () => {
     coverLetter: "",
   });
 
+  useEffect(() => {
+    // Simulate fetching recruitment details from an API  
+    const fetchRecruitmentDetails = async () => {
+      try {
+      const data = await getAllRecruitments();
+        setRecruitmentDetails(data);
+      } catch (error) {
+        console.error("Error fetching recruitment details:", error);
+      }
+    };
+    fetchRecruitmentDetails();
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Đơn đăng ký đã được gửi!");
@@ -61,7 +76,7 @@ const Recruitment = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Left Column: Job Listings */}
           <div className="space-y-3">
-            {jobListings.map((job, idx) => (
+            {recruitmentDetails.map((job, idx) => (
               <div
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
@@ -82,6 +97,7 @@ const Recruitment = () => {
 
           {/* Right Column: Job Details */}
           <div className="bg-white p-6 border rounded-lg shadow-lg">
+            
             <h3 className="text-xl font-bold mb-3">{active.title}</h3>
             <p className="text-sm mb-4">Hạn nộp hồ sơ: <span className="text-red-500">{active.deadline}</span></p>
             <p className="text-gray-700 mb-5">{active.details}</p>
