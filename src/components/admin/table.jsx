@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
 
       {/* Nội dung modal */}
-      <div className="relative bg-white rounded-lg p-6 w-full max-w-md mx-4 z-10">
+      <div className="relative bg-white rounded-lg p-6 w-full max-w-xl mx-4 z-10">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-lg font-semibold">{title}</h3>
           <button 
@@ -103,14 +103,14 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
           onClick={onCancel}
           className="px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200"
         >
-          Cancel
+          Huỷ
         </button>
         <button
           type="button"
           onClick={handleSubmit}
           className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
         >
-          {isEdit ? 'Update' : 'Create'}
+          {isEdit ? 'Cập nhật' : 'Thêm'}
         </button>
       </div>
     </div>
@@ -169,35 +169,52 @@ const TableBase = ({
   };
 
   const handleEdit = (formData) => {
-    onEdit?.(selectedItem.id, formData);
+    onEdit?.(selectedItem._id, formData);
     setShowEditModal(false);
     setSelectedItem(null);
   };
 
   const handleDelete = () => {
-    onDelete?.(selectedItem.id);
+    onDelete?.(selectedItem._id);
     setShowDeleteModal(false);
     setSelectedItem(null);
   };
 
-  const renderCellValue = (item, column) => {
-    const value = item[column.key];
-    
-    if (column.render) {
-      return column.render(value, item);
-    }
-    
-    if (column.type === 'badge') {
-      const badgeClass = column.badgeColors?.[value] || 'bg-gray-100 text-gray-800';
-      return (
-        <span className={`px-2 py-1 rounded-full text-xs font-medium ${badgeClass}`}>
-          {value}
-        </span>
-      );
-    }
-    
-    return value;
-  };
+ const renderCellValue = (item, column) => {
+  const value = item[column.key];
+
+  // Ưu tiên dùng hàm render nếu có
+  if (column.render) {
+    return column.render(value, item);
+  }
+
+  // Nếu là badge
+  if (column.type === 'badge') {
+    const badgeClass = column.badgeColors?.[value] || 'bg-gray-100 text-gray-800';
+    return (
+      <span className={`px-2 py-1 rounded-full text-xs font-medium ${badgeClass}`}>
+        {value}
+      </span>
+    );
+  }
+
+  // Nếu yêu cầu cắt ngắn nội dung (ví dụ cho description)
+  if (column.truncate) {
+    const maxLength = column.truncateLength || 100;
+    const shortText = value && value.length > maxLength
+      ? `${value.slice(0, maxLength)}...`
+      : value;
+
+    return (
+      <div className="max-w-[400px] whitespace-normal break-words" title={value}>
+        {shortText}
+      </div>
+    );
+  }
+
+  return value;
+};
+
 
   return (
     <div className="bg-white rounded-lg shadow">
@@ -211,7 +228,7 @@ const TableBase = ({
               className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
             >
               <Plus size={16} />
-              <span>Add New</span>
+              <span>Thêm mới </span>
             </button>
           )}
         </div>
@@ -247,7 +264,7 @@ const TableBase = ({
               ))}
               {(actions.edit || actions.delete || actions.view) && (
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
+                  Hành động
                 </th>
               )}
             </tr>
@@ -376,19 +393,19 @@ const TableBase = ({
 
       <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Confirm Delete">
         <div>
-          <p className="text-gray-600 mb-4">Are you sure you want to delete this item? This action cannot be undone.</p>
+          <p className="text-gray-600 mb-4">Bạn có chắc chắn muốn xoá chứ</p>
           <div className="flex justify-end space-x-3">
             <button
               onClick={() => setShowDeleteModal(false)}
               className="px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200"
             >
-              Cancel
+              Huỷ
             </button>
             <button
               onClick={handleDelete}
               className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
             >
-              Delete
+              Xoá
             </button>
           </div>
         </div>

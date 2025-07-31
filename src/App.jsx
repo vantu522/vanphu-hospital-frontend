@@ -1,9 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import routes from './routes'
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
     <BrowserRouter>
+     <Toaster 
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+        }}
+      />
       <Routes>
         {routes.map((route, index) => (
           <Route 
