@@ -1,10 +1,8 @@
 import React, { useState,useEffect } from "react";
 import dichvu from "../../../assets/images/dichvu.png";
-import hi from "../../../assets/images/hi.png";
 import { HiSearch } from "react-icons/hi";
 import Button from "../../../components/client/ui/button";
 import PageBanner from "../../../components/client/PageBanner";
-import { href } from "react-router-dom";
 import { getAllServices } from "../../../services/client/services";
 
 
@@ -141,7 +139,7 @@ const Service = () => {
                 <a href="/chi-tiet-dich-vu">
                   <div className="overflow-hidden rounded-t">
                     <img
-                      src={hi}
+                      src={item.avatar}
                       alt=""
                       className="transition-transform duration-500 hover:scale-110"
                     />
@@ -150,7 +148,11 @@ const Service = () => {
                     <h2 className="font-semibold mb-2 text-base">
                       {item.name}
                     </h2>
-                    <p className="text-sm text-gray-600 mt-5">{item.description}</p>
+                    <div
+  className="text-sm text-gray-600 mt-5 prose max-w-none line-clamp-4"
+  dangerouslySetInnerHTML={{ __html: item.description }}
+/>
+
                   </div>
                 </a>
               </div>

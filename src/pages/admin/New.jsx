@@ -2,12 +2,11 @@ import { TableBase } from "../../components/admin/table/table";
 import React, { useState,useEffect } from "react";
 import { getAllServices,createService,deleteService,updateService } from "../../services/client/services";
 import toast from "react-hot-toast";
-import LoadingSpinner from "../../components/admin/ui/loading";
 
-const Services = () => {
+const New = () => {
   const [services, setServices] = useState([
   ]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -34,25 +33,18 @@ const Services = () => {
       label: "Mô tả",
       truncate: true, 
       truncateLength: 120,
-      render: (val) => <div dangerouslySetInnerHTML={{ __html: val }} />
     },
     {
-      key : "avatar",
-      label: "Ảnh đại diện",
-      render: (val) => <img src={val} alt="Avatar" style={{ width: 50, height: 50, borderRadius: '50%' }} />
+      key: "price",
+      label: "Giá cả",
+      render: (val) => `${val.toLocaleString()} VND`,
     },
+    { key: "duration", label: "Thời gian (phút)" },
     {
-      key : "images",
-      label: "Ảnh dịch vụ",
-      render: (val) => (
-        <div style={{ display: 'flex', gap: '5px' }}>
-          {val.map((img, index) => (
-            <img key={index} src={img} alt={`Service ${index}`} style={{ width: 50, height: 50, borderRadius: '5px' }} />
-          ))}
-        </div>
-      )
-    }
- 
+      key: "createdAt",
+      label: "Ngày tạo",
+      render: (val) => new Date(val).toLocaleString(),
+    },
   ];
 
   const formFields = [
@@ -60,36 +52,27 @@ const Services = () => {
     {
       key: "description",
       label: "Mô tả",
-      type: "richtext",
+      type: "textarea",
       required: true,
     },
-    { key : "avatar", label: "Ảnh đại diện", type: "file", required: true },
+    { key: "price", label: "Giá ", type: "number", required: true },
     {
-      key: "images",
-      label: "Ảnh dịch vụ",
-      type: "file",
-      multiple: true,
+      key: "duration",
+      label: "Thời gian (phút)",
+      type: "number",
       required: true,
     },
-   
-
   ];
 
   const handleAdd = async  (formData) => {
-    try{
-      setLoading(true);
-      const result = await createService(formData);
-      toast.success("Tạo dịch vụ đã được thêm thành công!");
-    } catch (error) {
-      toast.error("Tạo dịch vụ thất bại!");
-    } finally {
-      setLoading(false);
-    }
+    const result = await createService(formData);
+    setServices([...services, result]);
+    setFormData({ name: "", description: "", price: 0, duration: 0 });
+    toast.success("Tạo dịch vụ đã được thêm thành công!");
   };
 
   const handleEdit = async (id, formData) => {
       try{
-        setLoading(true);
         const updatedService = await updateService(id, formData);
         setServices(services.map((item) => (item._id === id ? updatedService : item)));
         toast.success("Dịch vụ đã được cập nhật thành công!");
@@ -97,23 +80,17 @@ const Services = () => {
       catch (error) {
         console.error("Failed to update service:", error);
         toast.error("Cập nhật dịch vụ thất bại!");
-      } finally {
-        setLoading(false);
       }
   };
 
  const handleDelete = async (id) => {
     try {
-      setLoading(true);
       await deleteService(id);
       setServices(services.filter((item) => item._id !== id));
       toast.success("Dịch vụ đã được xóa thành công!");
     } catch (error) {
       console.error("Failed to delete service:", error);
       toast.error("Xóa dịch vụ thất bại!");
-    }
-    finally {
-      setLoading(false);
     }
   }
   const handleView = (item) => {
@@ -122,7 +99,6 @@ const Services = () => {
 
   return (
     <div className="p-6">
-       {loading && <LoadingSpinner />}
       <TableBase
         data={services}
         columns={columns}
@@ -138,4 +114,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default New;

@@ -1,121 +1,20 @@
-import React, { useState, useMemo } from 'react';
-import { 
-  Search, 
-  Plus, 
-  Edit2, 
-  Trash2, 
+import  { useState, useMemo ,useEffect} from "react";
+import {
+  Search,
+  Plus,
+  Edit2,
+  Trash2,
   Eye,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
   ChevronsRight,
-  MoreHorizontal
-} from 'lucide-react';
+  MoreHorizontal,
+} from "lucide-react";
+import DataForm from "./components/Form";
+import Modal from "./components/Modal";
 
-// Modal Component
-const Modal = ({ isOpen, onClose, title, children }) => {
-  if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Lớp nền mờ */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
-
-      {/* Nội dung modal */}
-      <div className="relative bg-white rounded-lg p-6 w-full max-w-xl mx-4 z-10">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold">{title}</h3>
-          <button 
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
-          >
-            ×
-          </button>
-        </div>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-// Form Component
-const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
-  const [formData, setFormData] = useState(
-    data || fields.reduce((acc, field) => ({ ...acc, [field.key]: '' }), {})
-  );
-
-  const handleSubmit = () => {
-    // Basic validation
-    const requiredFields = fields.filter(field => field.required);
-    for (let field of requiredFields) {
-      if (!formData[field.key] || formData[field.key].toString().trim() === '') {
-        alert(`${field.label} is required`);
-        return;
-      }
-    }
-    onSubmit(formData);
-  };
-
-  const handleChange = (key, value) => {
-    setFormData(prev => ({ ...prev, [key]: value }));
-  };
-
-  return (
-    <div className="space-y-4">
-      {fields.map(field => (
-        <div key={field.key}>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            {field.label}
-          </label>
-          {field.type === 'select' ? (
-            <select
-              value={formData[field.key] || ''}
-              onChange={(e) => handleChange(field.key, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select {field.label}</option>
-              {field.options?.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          ) : field.type === 'textarea' ? (
-            <textarea
-              value={formData[field.key] || ''}
-              onChange={(e) => handleChange(field.key, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              rows={3}
-            />
-          ) : (
-            <input
-              type={field.type || 'text'}
-              value={formData[field.key] || ''}
-              onChange={(e) => handleChange(field.key, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          )}
-        </div>
-      ))}
-      <div className="flex justify-end space-x-3 pt-4">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200"
-        >
-          Huỷ
-        </button>
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-        >
-          {isEdit ? 'Cập nhật' : 'Thêm'}
-        </button>
-      </div>
-    </div>
-  );
-};
 
 // Main Table Component
 const TableBase = ({
@@ -130,9 +29,9 @@ const TableBase = ({
   searchable = true,
   paginated = true,
   pageSize = 10,
-  actions = { add: true, edit: true, delete: true, view: false }
+  actions = { add: true, edit: true, delete: true, view: false },
 }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -142,11 +41,14 @@ const TableBase = ({
   // Filter data based on search term
   const filteredData = useMemo(() => {
     if (!searchTerm) return data;
-    
-    return data.filter(item =>
-      columns.some(column => {
+
+    return data.filter((item) =>
+      columns.some((column) => {
         const value = item[column.key];
-        return value && value.toString().toLowerCase().includes(searchTerm.toLowerCase());
+        return (
+          value &&
+          value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        );
       })
     );
   }, [data, searchTerm, columns]);
@@ -154,7 +56,7 @@ const TableBase = ({
   // Paginate filtered data
   const paginatedData = useMemo(() => {
     if (!paginated) return filteredData;
-    
+
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     return filteredData.slice(startIndex, endIndex);
@@ -180,41 +82,47 @@ const TableBase = ({
     setSelectedItem(null);
   };
 
- const renderCellValue = (item, column) => {
-  const value = item[column.key];
+  const renderCellValue = (item, column) => {
+    const value = item[column.key];
 
-  // Ưu tiên dùng hàm render nếu có
-  if (column.render) {
-    return column.render(value, item);
-  }
+    // Ưu tiên dùng hàm render nếu có
+    if (column.render) {
+      return column.render(value, item);
+    }
 
-  // Nếu là badge
-  if (column.type === 'badge') {
-    const badgeClass = column.badgeColors?.[value] || 'bg-gray-100 text-gray-800';
-    return (
-      <span className={`px-2 py-1 rounded-full text-xs font-medium ${badgeClass}`}>
-        {value}
-      </span>
-    );
-  }
+    // Nếu là badge
+    if (column.type === "badge") {
+      const badgeClass =
+        column.badgeColors?.[value] || "bg-gray-100 text-gray-800";
+      return (
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-medium ${badgeClass}`}
+        >
+          {value}
+        </span>
+      );
+    }
 
-  // Nếu yêu cầu cắt ngắn nội dung (ví dụ cho description)
-  if (column.truncate) {
-    const maxLength = column.truncateLength || 100;
-    const shortText = value && value.length > maxLength
-      ? `${value.slice(0, maxLength)}...`
-      : value;
+    // Nếu yêu cầu cắt ngắn nội dung (ví dụ cho description)
+    if (column.truncate) {
+      const maxLength = column.truncateLength || 100;
+      const shortText =
+        value && value.length > maxLength
+          ? `${value.slice(0, maxLength)}...`
+          : value;
 
-    return (
-      <div className="max-w-[400px] whitespace-normal break-words" title={value}>
-        {shortText}
-      </div>
-    );
-  }
+      return (
+        <div
+          className="max-w-[400px] whitespace-normal break-words"
+          title={value}
+        >
+          {shortText}
+        </div>
+      );
+    }
 
-  return value;
-};
-
+    return value;
+  };
 
   return (
     <div className="bg-white rounded-lg shadow">
@@ -232,11 +140,14 @@ const TableBase = ({
             </button>
           )}
         </div>
-        
+
         {searchable && (
           <div className="mt-4">
             <div className="relative">
-              <Search size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Search
+                size={18}
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              />
               <input
                 type="text"
                 placeholder="Search..."
@@ -254,7 +165,7 @@ const TableBase = ({
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
-              {columns.map(column => (
+              {columns.map((column) => (
                 <th
                   key={column.key}
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -282,8 +193,11 @@ const TableBase = ({
             ) : (
               paginatedData.map((item, index) => (
                 <tr key={item.id || index} className="hover:bg-gray-50">
-                  {columns.map(column => (
-                    <td key={column.key} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  {columns.map((column) => (
+                    <td
+                      key={column.key}
+                      className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    >
                       {renderCellValue(item, column)}
                     </td>
                   ))}
@@ -334,7 +248,9 @@ const TableBase = ({
       {paginated && totalPages > 1 && (
         <div className="px-6 py-3 border-t border-gray-200 flex items-center justify-between">
           <div className="text-sm text-gray-700">
-            Showing {((currentPage - 1) * pageSize) + 1} to {Math.min(currentPage * pageSize, filteredData.length)} of {filteredData.length} results
+            Showing {(currentPage - 1) * pageSize + 1} to{" "}
+            {Math.min(currentPage * pageSize, filteredData.length)} of{" "}
+            {filteredData.length} results
           </div>
           <div className="flex items-center space-x-2">
             <button
@@ -345,7 +261,7 @@ const TableBase = ({
               <ChevronsLeft size={16} />
             </button>
             <button
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
               className="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -355,7 +271,9 @@ const TableBase = ({
               {currentPage} of {totalPages}
             </span>
             <button
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
               className="p-1 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -373,7 +291,11 @@ const TableBase = ({
       )}
 
       {/* Modals */}
-      <Modal isOpen={showAddModal} onClose={() => setShowAddModal(false)} title="Add New Item">
+      <Modal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        title="Thêm mới"
+      >
         <DataForm
           fields={formFields}
           onSubmit={handleAdd}
@@ -381,7 +303,11 @@ const TableBase = ({
         />
       </Modal>
 
-      <Modal isOpen={showEditModal} onClose={() => setShowEditModal(false)} title="Edit Item">
+      <Modal
+        isOpen={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        title="Chỉnh sửa"
+      >
         <DataForm
           data={selectedItem}
           fields={formFields}
@@ -391,7 +317,11 @@ const TableBase = ({
         />
       </Modal>
 
-      <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} title="Confirm Delete">
+      <Modal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        title="Xác nhận xoá ?"
+      >
         <div>
           <p className="text-gray-600 mb-4">Bạn có chắc chắn muốn xoá chứ</p>
           <div className="flex justify-end space-x-3">
