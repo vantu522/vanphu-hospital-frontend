@@ -51,7 +51,7 @@ const SpecialtyList = () => {
             >
               <a href="/chi-tiet-chuyen-khoa">
                 <div className={`text-4xl mb-4 ${specialty.icon} transition-colors duration-300 group-hover:text-emerald-600`} />
-                <p className="text-sm font-semibold hover:text-emerald-700 transition-colors duration-300">{specialty.tenChuyenKhoa}</p>
+                <p className="text-sm font-semibold hover:text-emerald-700 transition-colors duration-300">{specialty.name}</p>
               </a>
 
             </div>

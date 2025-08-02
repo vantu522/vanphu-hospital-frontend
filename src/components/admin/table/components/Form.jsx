@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MyEditor from "../../tinymce";
+import TagsInput from "../../TagInput";
 
 const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
   const [formData, setFormData] = useState(
@@ -7,46 +8,50 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
   );
   const [previews, setPreviews] = useState({});
 
- useEffect(() => {
-  const newPreviews = {};
-  fields.forEach((field) => {
-    const value = formData[field.key];
-    if (field.type === "file") {
-      if (field.multiple && Array.isArray(value)) {
-        newPreviews[field.key] = value.map((file) =>
-          typeof file === "string" ? file : URL.createObjectURL(file)
-        );
-      } else if (value) {
-        newPreviews[field.key] =
-          typeof value === "string" ? value : URL.createObjectURL(value);
+  useEffect(() => {
+    const newPreviews = {};
+    fields.forEach((field) => {
+      const value = formData[field.key];
+      if (field.type === "file") {
+        if (field.multiple && Array.isArray(value)) {
+          newPreviews[field.key] = value.map((file) =>
+            typeof file === "string" ? file : URL.createObjectURL(file)
+          );
+        } else if (value) {
+          newPreviews[field.key] =
+            typeof value === "string" ? value : URL.createObjectURL(value);
+        }
       }
+    });
+    
+    setPreviews(newPreviews);
+  }, [formData, fields]);
+
+  const handleChange = (key, value) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
+
+    if (key === "images" && Array.isArray(value)) {
+      const urls = value.map((file) =>
+        typeof file === "string" ? file : URL.createObjectURL(file)
+      );
+      setPreviews((prev) => ({ ...prev, [key]: urls }));
+    } else if (
+      key === "avatar" &&
+      (value instanceof File || typeof value === "string")
+    ) {
+      const url =
+        typeof value === "string" ? value : URL.createObjectURL(value);
+      setPreviews((prev) => ({ ...prev, [key]: url }));
     }
-  });
-  setPreviews(newPreviews);
-}, [formData, fields]);
-
-
-const handleChange = (key, value) => {
-  setFormData((prev) => ({ ...prev, [key]: value }));
-
-  if (key === "images" && Array.isArray(value)) {
-    const urls = value.map((file) =>
-      typeof file === "string" ? file : URL.createObjectURL(file)
-    );
-    setPreviews((prev) => ({ ...prev, [key]: urls }));
-  } else if (key === "avatar" && (value instanceof File || typeof value === "string")) {
-    const url = typeof value === "string" ? value : URL.createObjectURL(value);
-    setPreviews((prev) => ({ ...prev, [key]: url }));
-  }
-};
-
+  };
 
   const handleSubmit = () => {
     const requiredFields = fields.filter((field) => field.required);
     for (let field of requiredFields) {
       if (
         !formData[field.key] ||
-        (Array.isArray(formData[field.key]) && formData[field.key].length === 0) ||
+        (Array.isArray(formData[field.key]) &&
+          formData[field.key].length === 0) ||
         formData[field.key].toString().trim() === ""
       ) {
         alert(`${field.label} is required`);
@@ -84,6 +89,11 @@ const handleChange = (key, value) => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
               rows={3}
             />
+          ) : field.type === "tags" ? (
+            <TagsInput
+              value={formData[field.key] || []}
+              onChange={(newTags) => handleChange(field.key, newTags)}
+            />
           ) : field.type === "richtext" ? (
             <MyEditor
               value={formData[field.key] || ""}
@@ -99,10 +109,7 @@ const handleChange = (key, value) => {
                 onChange={(e) => {
                   const files = Array.from(e.target.files);
                   if (files.length > 0) {
-                    handleChange(
-                      field.key,
-                      field.multiple ? files : files[0]
-                    );
+                    handleChange(field.key, field.multiple ? files : files[0]);
                   }
                 }}
                 className="w-full"

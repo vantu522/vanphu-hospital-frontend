@@ -53,7 +53,9 @@ const Sidebar = () => {
       icon: Cloud,
       hasSubmenu: false,
       path: "/admin/health-consultations",
-      isActive: window.location.pathname.includes("/admin/health-consultations"),
+      isActive: window.location.pathname.includes(
+        "/admin/health-consultations"
+      ),
     },
     {
       name: "Quản lý tin tức",
@@ -73,8 +75,8 @@ const Sidebar = () => {
       name: "Quản lý phản hồi",
       icon: BarChart3,
       hasSubmenu: false,
-      path: "/admin/feedbacks",
-      isActive: window.location.pathname.includes("/admin/feedbacks"),
+      path: "/admin/contacts",
+      isActive: window.location.pathname.includes("/admin/contacts"),
     },
     {
       name: "Quản lý đặt lịch",
@@ -161,14 +163,21 @@ const Sidebar = () => {
 
                   {item.name === "Quản lý bác sĩ" && (
                     <>
-                      <div className="text-sm text-gray-600">
+                      <div
+                        className="text-sm text-gray-700 cursor-pointer hover:text-blue-600 transition"
+                        onClick={() => navigate("/admin/doctors")}
+                      >
                         Danh sách bác sĩ
                       </div>
-                      <div className="text-sm text-gray-600">Thêm bác sĩ</div>
-                      <div className="text-sm text-gray-600">Lịch làm việc</div>
+                     
+                      <div
+                        className="text-sm text-gray-700 cursor-pointer hover:text-blue-600 transition"
+                        onClick={() => navigate("/admin/doctors/schedule")}
+                      >
+                        Lịch làm việc
+                      </div>
                     </>
                   )}
-                  {/* Add more submenu items as needed */}
                 </div>
               )}
             </div>

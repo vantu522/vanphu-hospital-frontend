@@ -21,7 +21,7 @@ const Button = ({
 
   return (
     <button
-      type={type}
+      type="submit"
       onClick={onClick}
       className={clsx(base, variants[variant], className)}
       {...rest}

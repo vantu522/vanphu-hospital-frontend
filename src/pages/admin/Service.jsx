@@ -8,12 +8,7 @@ const Services = () => {
   const [services, setServices] = useState([
   ]);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    price: 0,
-    duration: 0,
-  });
+
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -28,13 +23,18 @@ const Services = () => {
   }, []);
 
   const columns = [
-    { key: "name", label: "Họ tên" },
+    { key: "name", label: "Tiêu đề" },
     {
       key: "description",
       label: "Mô tả",
       truncate: true, 
       truncateLength: 120,
       render: (val) => <div dangerouslySetInnerHTML={{ __html: val }} />
+    },
+    {
+      key: "specialties",
+      label: "Chuyên khoa",
+      
     },
     {
       key : "avatar",
@@ -63,6 +63,13 @@ const Services = () => {
       type: "richtext",
       required: true,
     },
+    {
+      key: "specialties",
+      label: "Chuyên khoa",
+      type: "text",
+      required: true,
+    }
+    ,
     { key : "avatar", label: "Ảnh đại diện", type: "file", required: true },
     {
       key: "images",

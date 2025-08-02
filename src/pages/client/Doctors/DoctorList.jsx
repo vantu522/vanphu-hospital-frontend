@@ -256,26 +256,26 @@ const DoctorList = () => {
                   <div key={doctor.id} className="flex bg-white rounded-lg overflow-hidden shadow-sm">
                     <div className="w-1/3">
                       <img 
-                        src={doctor.avatarUrl} 
-                        alt={doctor.name}
+                        src={doctor.avatar} 
+                        alt={doctor.full_name}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="w-2/3 p-4 ">
                     <a href="/chi-tiet-bac-si">
-                      <h3 className="text-black-900 font-bold font-medium text-lg cursor-pointer hover:text-emerald-900 ">{doctor.hoTen}</h3>
+                      <h3 className="text-black-900 font-bold font-medium text-lg cursor-pointer hover:text-emerald-900 ">{doctor.full_name}</h3>
                       <p className="text-emerald-900 italic font-bold text-sm mb-2 underline cursor-pointer hover:text-red-500">Xem chi tiết</p>
                     </a>
     
                       
                       <div className="flex items-center mb-2 text-sm text-gray-700">
                         <FaGraduationCap className="mr-2 text-gray-500" />
-                        <span>{doctor.hocVi}</span>
+                        <span>{doctor.degree}</span>
                       </div>
                       
                       <div className="flex items-start text-sm text-gray-700">
                         <FaMapMarkerAlt className="mr-2 mt-1 text-gray-500" />
-                        <span>{doctor.chuyenKhoa}</span>
+                        <span>{doctor.hospital}</span>
                       </div>
                     </div>
                   </div>

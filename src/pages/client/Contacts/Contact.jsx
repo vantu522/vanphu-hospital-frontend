@@ -1,16 +1,39 @@
 import React from 'react'
+import { useState } from 'react'
 import PageBanner from '../../../components/client/PageBanner'
 import dichvu from '../../../assets/images/dichvu.png'
 import Button from '../../../components/client/ui/button'
+import { createContact } from '../../../services/client/contact'
+import toast from 'react-hot-toast'
+import LoadingSpinner from '../../../components/admin/ui/loading'
 const Contact = () => {
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        // Xử lý gửi form ở đây
-        console.log('Form submitted')
+    const [loading, setLoading] = useState(false)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+
+        const newContact = {
+            full_name: form.name.value,
+            phone_number: form.phone.value,
+            email: form.email.value,
+            message: form.message.value,
+        };
+        try{
+            setLoading(true);
+            await createContact(newContact);
+            form.reset();
+            toast.success("Gửi thông tin liên hệ thành công!");
+        } catch (error) {
+            toast.error("Gửi thông tin liên hệ thất bại!");
+        } finally {
+            setLoading(false);
+        }
+
     }
 
     return (
         <div>
+            {loading && <LoadingSpinner />}
             <PageBanner
                 backgroundImage={dichvu}
                 title="Liên hệ"
