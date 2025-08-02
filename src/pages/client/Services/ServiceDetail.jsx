@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useEffect ,useState} from "react";
 import a2 from "../../../assets/images/a2.png";
 import a1 from "../../../assets/images/a1.jpg";
 import a3 from "../../../assets/images/a3.jpg";
 import Button from "../../../components/client/ui/button";
 import a4 from "../../../assets/images/banner_chung.jpg";
 import { FaCheck,FaCheckCircle} from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { getServiceBySlug } from "../../../services/client/services";
+import ImageSlider from "../../../components/client/ui/ImageSlider";
 
 
 
 const ServiceDetail = () => {
+    const {slug } = useParams();
+    const [serviceDetail, setServiceDetail] = useState(null);
+    useEffect(() => {
+      const fetchServiceDetail = async () => {
+        try {
+          const response = await getServiceBySlug(slug);
+          setServiceDetail(response);
+          console.log("Service Detail fetched successfully:", response);
+        } catch (error) {
+          console.error("Error fetching service details:", error);
+        }
+      }
+      fetchServiceDetail();
+    }
+    , [slug]);
+
     return (
         <div className="bg-gray-100 px-25 py-6">
             {/* Breadcrumb */}
@@ -27,51 +46,7 @@ const ServiceDetail = () => {
             {/* Main Content */}
             <div className="flex gap-6">
                 {/* Left Content */}
-                <div className="w-3/4  ">
-                    <img 
-                        src={a1}
-                        alt="ACNE MEDIC" 
-                        className="rounded mb-4 max-h-[500px] w-full object-cover" 
-                    />
-                    {/* Thumbnail preview - optional */}
-                    <div className="flex gap-2 mt-4">
-                        <img 
-                            src={a2}
-                            alt="thumb" 
-                            className="w-1/3 h-auto border border-red-500" 
-                        />
-                       <img 
-                            src={a3}
-                            alt="thumb" 
-                            className="w-1/3 h-auto border border-red-500" 
-                        />
-                        <img 
-                            src={a2}
-                            alt="thumb" 
-                            className="w-1/3 h-auto border border-red-500" 
-                        />
-                    </div>
-
-                      {/* Benefits */}
-                        <div className="mt-6 border-t border-gray-300 border-b py-6">
-                        <ul className="grid grid-cols-3 gap-4 text-sm text-gray-800">
-                            <li className="flex items-center gap-2">
-                            <FaCheck className="text-green-600 w-5 h-5 mt-0.5" />
-                            <span>Thăm dò sâu các vấn đề bên trong đường dẫn khí</span>
-                            </li>
-                            <li className="flex items-center gap-2">
-                            <FaCheck className="text-green-600 w-5 h-5 mt-0.5 items-center justify-center" />
-                            <span>Kết hợp làm can thiệp và thủ thuật đơn giản</span>
-                            </li>
-                            <li className="flex items-center gap-2">
-                            <FaCheck className="text-green-600 w-5 h-5 mt-0.5" />
-                            <span>Chẩn đoán sớm các bệnh lý nguy hiểm</span>
-                            </li>
-                        </ul>
-                        </div>
-                    
-                </div>
-
+                <ImageSlider images={serviceDetail?.images || [a1, a2, a3]} />
                 {/* Right Sidebar */}
                 <div className="w-1/4  h-1/2 p-4 ">
                     <h2 className="text-lg font-semibold text-green-700 mb-4">Điều trị mụn</h2>
@@ -111,22 +86,8 @@ const ServiceDetail = () => {
             <div className="flex gap-10">
                 {/* Left Content */}
                 <div className="w-3/4">
-                    <h2 className="text-xl text-green-800 font-semibold mb-2">
-                    NỘI SOI PHẾ QUẢN - PHƯƠNG PHÁP TẦM SOÁT SỚM BỆNH LÝ ĐƯỜNG HÔ HẤP
-                    </h2>
-                    <p className="text-base text-gray-800 font-medium mb-4">
-                    Việc phát hiện và chẩn đoán nguyên nhân sớm của các bệnh đường hô hấp mang lại lợi ích không ngờ. Người bệnh rút ngắn được thời gian điều trị, ngăn chặn nguy cơ tiến triển xấu của bệnh.
-                    </p>
-
-                    <h3 className="text-green-700 text-xl font-semibold mb-2">
-                    Nội soi phế quản là phương pháp gì?
-                    </h3>
-                    <p className="text-gray-800 mb-3">
-                    Phế quản thuộc hệ hô hấp dưới, là ống dẫn khí nối tiếp phía dưới khí quản. Các ống dẫn khí sau đó phân nhánh để đi sâu vào phổi và tạo thành cây phế quản.
-                    </p>
-                    <p className="text-gray-800 mb-4">
-                    <strong>Nội soi phế quản</strong> là thủ thuật sử dụng ống soi mềm đưa qua mũi để chẩn đoán phần cuống phổi. Thông qua hình ảnh trực chiếu từ TV màu, bác sĩ sẽ phán đoán những bất thường bên trong để đi tới phương án điều trị thích hợp.
-                    </p>
+                    <h1 className="text-2xl font-bold mb-4">{serviceDetail?.name}</h1>
+                    <div className="text-gray-700 mb-6" dangerouslySetInnerHTML={{ __html: serviceDetail?.description }} />
                 </div>
 
                 {/* Right Form */}

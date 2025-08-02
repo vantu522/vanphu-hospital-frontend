@@ -37,7 +37,7 @@ const publicRoutes = [
       { path: "chi-tiet-bai-tu-van", element: <HealthDetail /> },
       { index: true, element: <Home /> },
       { path: "dich-vu", element: <Service /> },
-      { path: "chi-tiet-dich-vu", element: <ServiceDetail /> },
+      { path: "dich-vu/:slug", element: <ServiceDetail /> },
       { path: "danh-sach-bac-si", element: <DoctorList /> },
       { path: "chuyen-khoa", element: <SpecialtyList /> },
       { path: "chi-tiet-bac-si", element: <DoctorDetail /> },

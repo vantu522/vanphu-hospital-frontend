@@ -7,6 +7,7 @@ import RequireAuth from "./RequireAuth";
 import Doctors from "../pages/admin/Doctor";
 import Specialties from "../pages/admin/Specialty";
 import Contact from "../pages/admin/Contact";
+import Information from "../pages/admin/Information";
 
 const privateRoutes = [
     {
@@ -46,6 +47,11 @@ const privateRoutes = [
                 index: true,
                 path:'/admin/contacts',
                 element: <Contact/>
+            },
+            {
+                index: true,
+                path:'/admin/information',
+                element: <Information/>
             }
         ]
     }

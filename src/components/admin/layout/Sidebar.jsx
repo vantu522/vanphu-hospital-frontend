@@ -12,6 +12,8 @@ import {
   ShoppingBag,
   ChevronDown,
   ChevronUp,
+  Info,
+  InfoIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -85,6 +87,13 @@ const Sidebar = () => {
       path: "/admin/appointments",
       isActive: window.location.pathname.includes("/admin/appointments"),
     },
+    {
+      name:'Thông tin',
+      icon: InfoIcon,
+      hasSubmenu: false,
+      path: "/admin/information",
+      isActive: window.location.pathname.includes("/admin/information"),
+    }
   ];
 
   return (

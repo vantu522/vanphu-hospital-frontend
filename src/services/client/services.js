@@ -1,18 +1,23 @@
 import axiosInstance from "../../config/axios";
 
 // Helper để chuyển serviceData thành FormData
-const toFormData = (serviceData) => {
+const toFormData = (data) => {
   const form = new FormData();
 
-  for (const key in serviceData) {
-    if (key === "images" && Array.isArray(serviceData[key])) {
-      serviceData[key].forEach((file) => {
+  for (const key in data) {
+    const value = data[key];
+
+    if (key === "images" && Array.isArray(value)) {
+      value.forEach((file) => {
         form.append("images", file);
       });
-    } else if (key === "avatar" && serviceData[key]) {
-      form.append("avatar", serviceData[key]);
+    } else if (Array.isArray(value)) {
+      // ✅ append từng phần tử mảng với key[] để backend nhận đúng
+      value.forEach((item) => {
+        form.append(`${key}[]`, item);
+      });
     } else {
-      form.append(key, serviceData[key]);
+      form.append(key, value);
     }
   }
 
@@ -39,6 +44,16 @@ export const createService = async (serviceData) => {
     throw error;
   }
 };
+
+export const getServiceBySlug = async (slug) => {
+  try {
+    const response = await axiosInstance.get(`/services/slug/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching service by slug:", error);
+    throw error;
+  }
+};  
 
 export const updateService = async (id, serviceData) => {
   try {

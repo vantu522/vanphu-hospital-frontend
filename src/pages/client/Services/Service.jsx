@@ -1,27 +1,28 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import dichvu from "../../../assets/images/dichvu.png";
 import { HiSearch } from "react-icons/hi";
 import Button from "../../../components/client/ui/button";
 import PageBanner from "../../../components/client/PageBanner";
 import { getAllServices } from "../../../services/client/services";
 
-
 const Service = () => {
   const [selectedCategory, setSelectedCategory] = useState("Tất cả");
   const [activeIndex, setActiveIndex] = useState(0);
   const [showAllServices, setShowAllServices] = useState(false);
   const serviceList = [...Array(20)];
-  const visibleServices = showAllServices ? serviceList : serviceList.slice(0, 9);
+  const visibleServices = showAllServices
+    ? serviceList
+    : serviceList.slice(0, 9);
   const [services, setServices] = useState([]);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getAllServices();
         setServices(data);
         console.log("Services fetched successfully:", data);
       } catch (error) {
-        console.error('Lỗi khi tải users:', error);
+        console.error("Lỗi khi tải users:", error);
       }
     };
 
@@ -71,16 +72,14 @@ const Service = () => {
 
   return (
     <div className="relative">
-    
       <PageBanner
-      backgroundImage={dichvu}
-      title="Danh sách dịch vụ"
-      breadcrumbs={[
-        {label:"Trang chủ", href:"/"},
-        {label:"Dịch vụ", active:true}
-      ]}
+        backgroundImage={dichvu}
+        title="Danh sách dịch vụ"
+        breadcrumbs={[
+          { label: "Trang chủ", href: "/" },
+          { label: "Dịch vụ", active: true },
+        ]}
       />
-      
 
       {/* Nội dung dịch vụ */}
       <div className="px-20 md:px-20 py-10  mx-auto">
@@ -136,7 +135,7 @@ const Service = () => {
                 key={index}
                 className="border border-gray-200 rounded hover:border-black transition"
               >
-                <a href="/chi-tiet-dich-vu">
+                <a href={`/dich-vu/${item.slug}`} className="block h-full">
                   <div className="overflow-hidden rounded-t">
                     <img
                       src={item.avatar}
@@ -149,10 +148,9 @@ const Service = () => {
                       {item.name}
                     </h2>
                     <div
-  className="text-sm text-gray-600 mt-5 prose max-w-none line-clamp-4"
-  dangerouslySetInnerHTML={{ __html: item.description }}
-/>
-
+                      className="text-sm text-gray-600 mt-5 prose max-w-none line-clamp-4"
+                      dangerouslySetInnerHTML={{ __html: item.description }}
+                    />
                   </div>
                 </a>
               </div>

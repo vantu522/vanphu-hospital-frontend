@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import PageBanner from '../../../components/client/PageBanner'
 import dichvu from '../../../assets/images/dichvu.png'
@@ -6,8 +6,10 @@ import Button from '../../../components/client/ui/button'
 import { createContact } from '../../../services/client/contact'
 import toast from 'react-hot-toast'
 import LoadingSpinner from '../../../components/admin/ui/loading'
+import { getInformation } from '../../../services/admin/information'
 const Contact = () => {
     const [loading, setLoading] = useState(false)
+    const [informationData, setInformationData] = useState({})
     const handleSubmit = async (e) => {
         e.preventDefault();
         const form = e.target;
@@ -30,7 +32,19 @@ const Contact = () => {
         }
 
     }
-
+    useEffect(() => {
+        const fetchInformation = async () => {
+            try {
+                const response = await getInformation();
+               
+                setInformationData(response[0]);
+                console.log(response[0]);
+            } catch (error) {
+                console.error('Failed to fetch information:', error);
+            }
+        }
+        fetchInformation();
+    }, []);
     return (
         <div>
             {loading && <LoadingSpinner />}
@@ -112,14 +126,19 @@ const Contact = () => {
                             <div className="space-y-6">
                                 <div>
                                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Giờ làm việc</h3>
-                                    <p className="text-gray-600">Thứ 2 - Thứ 6: 8:00 - 17:30</p>
+                                    {informationData?.work_hours ? informationData.work_hours.map((hour, index) => (
+                                        <p key={index} className="text-gray-600">{hour}</p> 
+                                    )) : (
+                                        <p className="text-gray-600">Chưa cập nhật giờ làm việc</p>
+                                    )}
+                                    {/* <p className="text-gray-600">Thứ 2 - Thứ 6: 8:00 - 17:30</p>
                                     <p className="text-gray-600">Thứ 7: 8:00 - 12:00</p>
-                                    <p className="text-gray-600">Chủ nhật: Nghỉ</p>
+                                    <p className="text-gray-600">Chủ nhật: Nghỉ</p> */}
                                 </div>
                                 
                                 <div>
                                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Địa chỉ</h3>
-                                    <p className="text-gray-600">Số 123 Đường ABC, Phường XYZ, Quận/Huyện, Thành phố, Việt Nam</p>
+                                    <p className="text-gray-600">{informationData?.address || "Chưa cập nhật địa chỉ"}</p>
                                 </div>
                                 
                                 <div>
@@ -128,27 +147,30 @@ const Contact = () => {
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
-                                        <span className="text-gray-600">Điện thoại: 0123 456 789</span>
+                                        <span className="text-gray-600">Điện thoại: {informationData.phone_number}</span>
                                     </div>
                                     <div className="flex items-center mb-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                         </svg>
-                                        <span className="text-gray-600">Hotline: 1900 1234</span>
+                                        <span className="text-gray-600">Hotline: {informationData.hotline}</span>
                                     </div>
                                     <div className="flex items-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
-                                        <span className="text-gray-600">Email: info@example.com</span>
+                                        <span className="text-gray-600">Email: {informationData.email}</span>
                                     </div>
                                 </div>
                                 
                                 <div>
                                     <h3 className="text-lg font-semibold text-gray-800 mb-2">Giấy phép kinh doanh</h3>
-                                    <p className="text-gray-600">Số giấy phép: 0123456789</p>
-                                    <p className="text-gray-600">Nơi cấp: Sở Kế hoạch và Đầu tư TP...</p>
-                                    <p className="text-gray-600">Ngày cấp: 01/01/2022</p>
+                                    {informationData?.license ? informationData.license.map((license, index) => (
+                                        <p key={index} className="text-gray-600">{license}</p>  
+                                   
+                                    )) : (
+                                        <p className="text-gray-600">Chưa cập nhật giấy phép kinh doanh</p>
+                                    )}
                                 </div>
                             </div>
                             

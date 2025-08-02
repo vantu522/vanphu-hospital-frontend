@@ -24,18 +24,19 @@ const Services = () => {
 
   const columns = [
     { key: "name", label: "Tiêu đề" },
-    {
-      key: "description",
-      label: "Mô tả",
-      truncate: true, 
-      truncateLength: 120,
-      render: (val) => <div dangerouslySetInnerHTML={{ __html: val }} />
-    },
+    // {
+    //   key: "description",
+    //   label: "Mô tả",
+    //   truncate: true, 
+    //   truncateLength: 120,
+    //   render: (val) => <div dangerouslySetInnerHTML={{ __html: val }} />
+    // },
     {
       key: "specialties",
       label: "Chuyên khoa",
       
     },
+
     {
       key : "avatar",
       label: "Ảnh đại diện",
@@ -78,6 +79,8 @@ const Services = () => {
       multiple: true,
       required: true,
     },
+    { key: "status", label: "Trạng thái", type: "select", options: ["active", "inactive"], required: false },
+    { key: "features", label: "Tính năng", type: "tags", required: false },
    
 
   ];
