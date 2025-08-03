@@ -27,17 +27,19 @@ const publicRoutes = [
     children: [
       { index: true, element: <Home /> },
       { path: "dich-vu", element: <Service /> },
-      { path: "chi-tiet-dich-vu", element: <ServiceDetail /> },
+      { path: "dich-vu/:slug", element: <ServiceDetail /> },
+
       { path: "danh-sach-bac-si", element: <DoctorList /> },
+      { path: "bac-si/:slug", element: <DoctorDetail /> },
+
       { path: "chuyen-khoa", element: <SpecialtyList /> },
-      { path: "chi-tiet-bac-si", element: <DoctorDetail /> },
-      { path: "chi-tiet-chuyen-khoa", element: <SpecitaltyDetail /> },
+      { path: "chuyen-khoa/:slug", element: <SpecitaltyDetail /> },
+
       { path: "lien-he", element: <Contact /> },
       { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
       { path: "chi-tiet-bai-tu-van", element: <HealthDetail /> },
       { index: true, element: <Home /> },
       { path: "dich-vu", element: <Service /> },
-      { path: "dich-vu/:slug", element: <ServiceDetail /> },
       { path: "danh-sach-bac-si", element: <DoctorList /> },
       { path: "chuyen-khoa", element: <SpecialtyList /> },
       { path: "chi-tiet-bac-si", element: <DoctorDetail /> },

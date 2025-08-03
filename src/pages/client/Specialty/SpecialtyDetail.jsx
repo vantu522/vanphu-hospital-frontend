@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageBanner from "../../../components/client/PageBanner";
 import dichvu from "../../../assets/images/dichvu.png";
 import DoctorTeam from "../../../components/client/sections/Home/DoctorTeam";
-import { href } from "react-router-dom";
+import { href, useParams } from "react-router-dom";
+import { getSpecialtyBySlug } from "../../../services/client/specialties";
 
 const SpecitaltyDetail = () => {
+  const { slug } = useParams();
+  const [specialtyDetail, setSpecialtyDetail] = useState(null);
+
+  useEffect(() => {
+    const fetchSpecialtySetail = async () => {
+      try {
+        const response = await getSpecialtyBySlug(slug);
+        setSpecialtyDetail(response);
+      } catch (error) {
+        console.error("Error >>", error);
+        throw error;
+      }
+    };
+    fetchSpecialtySetail();
+  }, [slug]);
+
   return (
     <div>
       <PageBanner
@@ -12,12 +29,11 @@ const SpecitaltyDetail = () => {
         title="Khám sức khoẻ tổng quát"
         breadcrumbs={[
           { label: "Trang chủ", href: "/" },
-          { label: "Chuyên khoa", active: false, href:'/chuyen-khoa' },
+          { label: "Chuyên khoa", active: false, href: "/chuyen-khoa" },
           { label: "Khám sức khoẻ tổng quát", active: true },
         ]}
       />
       <div className="container mx-auto px-4 py-12">
-
         <div className="flex flex-col lg:flex-row gap-8 py-20">
           {/* Left Content Section */}
           <div className="w-full lg:w-1/2">
@@ -26,26 +42,8 @@ const SpecitaltyDetail = () => {
             </h1>
 
             <div className="text-gray-700 space-y-6">
-              <p className="leading-relaxed">
-                Khoa Ngoại Tổng hợp - Bệnh viện Hồng Ngọc sau hơn 20 năm xây
-                dựng và phát triển đã khẳng định được uy tín và chất lượng, trở
-                thành địa chỉ đáng tin cậy cho hàng triệu bệnh nhân điều trị
-                bệnh lý ngoại khoa. Mỗi năm, bệnh viện thực hiện thành công hơn
-                5000 ca phẫu thuật khác nhau, giúp cho bệnh nhân đẩy lùi những
-                cơn đau và quay về với cuộc sống khỏe mạnh.
-              </p>
-
-              <p className="leading-relaxed">
-                Với đội ngũ bác sĩ vững chuyên môn, giàu nhiệt huyết, làm chủ
-                các kỹ thuật tiên tiến cùng hệ thống trang thiết bị hiện đại,
-                khoa đang ngày càng tối ưu các dịch vụ để bệnh nhân được trải
-                nghiệm quy trình chẩn đoán - điều trị - chăm sóc chuyên nghiệp
-                nhất. Đặc biệt, Hồng Ngọc là bệnh viện tư nhân tại Việt Nam được
-                nhận chứng chỉ toàn cầu về phẫu thuật Ngoại khoa của Hiệp hội
-                Phẫu thuật Hoàng gia Anh (RCS), khẳng định chuyên môn cao của
-                đội ngũ y bác sĩ và hệ thống trang thiết bị hiện đại phục vụ
-                bệnh nhân.
-              </p>
+                <p className="leading-relaxed">{specialtyDetail?.description}</p>
+         
             </div>
 
             {/* Statistics Section */}
@@ -115,60 +113,16 @@ const SpecitaltyDetail = () => {
               {/* Red underline */}
               <div className="w-36 h-1 bg-green-600 mb-8"></div>
 
-              <h3 className="text-xl font-semibold text-gray-800 mb-6">
-                Chẩn đoán bệnh lý tim mạch
-              </h3>
-
-              <ul className="list-disc pl-5 space-y-4 text-gray-700">
-                <li className="flex items-start">
-                  <span className="mt-1 mr-2 text-lg">•</span>
-                  <span>
-                    Chụp MSCT động mạch vành 256 dãy hiện đại tại Việt Nam
-                  </span>
-                </li>
-
-                <li className="flex items-start">
-                  <span className="mt-1 mr-2 text-lg">•</span>
-                  <span>
-                    Chụp MRI tim với máy chụp 3.0 Tesla hiện đại tại Việt Nam.
-                  </span>
-                </li>
-
-                <li className="flex items-start">
-                  <span className="mt-1 mr-2 text-lg">•</span>
-                  <span>
-                    Siêu âm tim 4D qua thực quản tái tạo hình ảnh trực tiếp ứng
-                    dụng trong chẩn đoán, can thiệp tim mạch.
-                  </span>
-                </li>
-
-                <li className="flex items-start">
-                  <span className="mt-1 mr-2 text-lg">•</span>
-                  <span>
-                    Các kỹ thuật thăm dò chẩn đoán chuyên sâu: Siêu âm tim qua
-                    thành ngực, siêu âm tim gắng sức, Holter 24h điện tim,
-                    holter 24h huyết áp, điện tim, nghiệm pháp bàn nghiêng.
-                  </span>
-                </li>
-
-                <li className="flex items-start">
-                  <span className="mt-1 mr-2 text-lg">•</span>
-                  <span>
-                    Chụp động mạch vành, với siêu âm trong lòng mạch IVUS và FFR
-                  </span>
-                </li>
-
-                <li className="flex items-start">
-                  <span className="mt-1 mr-2 text-lg">•</span>
-                  <span>Chụp SPECT/CT tim, PET/CT tim</span>
-                </li>
-              </ul>
+              {specialtyDetail?.functions?.map((item, index) => (
+                <h3 className="text-xl font-semibold text-gray-800 mb-6">
+                  {item}
+                </h3>
+              ))}
             </div>
           </div>
         </div>
-
       </div>
-      <DoctorTeam/>
+      <DoctorTeam />
     </div>
   );
 };

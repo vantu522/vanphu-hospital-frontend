@@ -66,3 +66,13 @@ export const deleteSpecialty = async (id) => {
     throw error;
   }
 };
+
+export const getSpecialtyBySlug = async (slug) =>{
+  try{
+    const response = await axiosInstance.get(`/specialties/slug/${slug}`);
+    return response.data;
+  } catch (error){
+    console.error("Error slug",error);
+    throw error;
+  }
+}

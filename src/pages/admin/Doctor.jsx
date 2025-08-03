@@ -28,11 +28,7 @@ const Doctors = () => {
   const columns = [
     { key: "full_name", label: "Họ tên" },
     { key: "specialties", label: "Chuyên khoa" },
-    {
-      key: "expertise_fields",
-      label: "Lĩnh vực chuyên môn",
-      render: (val) => val.join(", "),
-    },
+    
     { key: "degree", label: "Học vị" },
     { key: "email", label: "Email" },
     { key: "phone_number", label: "SĐT" },
@@ -52,6 +48,8 @@ const Doctors = () => {
   ];
 
   const formFields = [
+    { key: "avatar", label: "Ảnh đại diện", type: "file" },
+
     { key: "full_name", label: "Họ tên", type: "text", required: true },
     { key: "specialties", label: "Chuyên khoa", type: "text", required: true },
     {
@@ -63,20 +61,26 @@ const Doctors = () => {
     { key: "degree", label: "Học vị", type: "text" },
     { key: "description", label: "Mô tả", type: "richtext" },
     { key: "hospital", label: "Bệnh viện", type: "text" },
-    {
+  
+   
+    { key: "phone_number", label: "Số điện thoại", type: "text" },
+    { key: "email", label: "Email", type: "email" },
+    { key: "work_address", label: "Địa chỉ làm việc", type: "text" },
+      {
       key: "experience",
       label: "Kinh nghiệm (nơi làm việc)",
       type: "tags",
     },
-    { key: "avatar", label: "Ảnh đại diện", type: "file" },
-    {
+     {
       key: "certifications",
-      label: "Bằng cấp",
+      label: "Chứng chỉ và giải thưởng",
       type: "tags",
     },
-    { key: "phone_number", label: "Số điện thoại", type: "text" },
-    { key: "email", label: "Email", type: "email" },
-    { key: "work_address", label: "Địa chỉ làm việc", type: "text" },
+    {
+      key:"training_process",
+      label:"Quá trình đào tạo",
+      type:"tags"
+    },
   ];
 
   const handleAdd = async (formData) => {

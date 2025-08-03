@@ -60,3 +60,13 @@ export const deleteDoctor = async (id) => {
     throw error;
   }
 };
+
+export const getDoctorBySlug = async (slug) =>{
+  try{
+    const response = await axiosInstance.get(`/doctors/slug/${slug}`);
+    return response.data;
+  } catch (error){
+    console.error("lỖI KHI LẤY RA BÁC SĨ", error)
+    throw error;
+  }
+}

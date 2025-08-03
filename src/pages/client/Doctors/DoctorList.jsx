@@ -262,7 +262,7 @@ const DoctorList = () => {
                       />
                     </div>
                     <div className="w-2/3 p-4 ">
-                    <a href="/chi-tiet-bac-si">
+                    <a href={`/bac-si/${doctor.slug}`}>
                       <h3 className="text-black-900 font-bold font-medium text-lg cursor-pointer hover:text-emerald-900 ">{doctor.full_name}</h3>
                       <p className="text-emerald-900 italic font-bold text-sm mb-2 underline cursor-pointer hover:text-red-500">Xem chi tiết</p>
                     </a>

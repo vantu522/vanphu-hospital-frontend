@@ -131,7 +131,7 @@ export default function Information() {
                 className="flex items-center space-x-2 px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50"
               >
                 <Save size={16} />
-                <span>{loading ? 'Saving...' : 'Save All Changes'}</span>
+                <span>{loading ? 'Saving...' : 'Lưu'}</span>
               </button>
               <button 
                 onClick={handleCancel}
@@ -292,7 +292,7 @@ export default function Information() {
               className="flex items-center space-x-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
             >
               <Plus size={16} />
-              <span>Add Hour</span>
+              <span>Thêm</span>
             </button>
           )}
         </div>
@@ -341,7 +341,7 @@ export default function Information() {
               className="flex items-center space-x-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
             >
               <Plus size={16} />
-              <span>Add License</span>
+              <span>Thêm</span>
             </button>
           )}
         </div>
