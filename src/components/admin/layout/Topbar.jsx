@@ -14,8 +14,10 @@ const Topbar = ({toggleSidebar}) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.href = "/login";
+    localStorage.removeItem("user")
+    window.location.href = "/admin/dang-nhap";
   };
+
 
   return (
     <header className="bg-white border-b border-gray-200 px-6 py-4">

@@ -20,6 +20,7 @@ import Booking from "../pages/client/Books/Booking";
 import SpecialtyDoctorSelection from "../pages/client/Books/SpecialtyDoctorSelection";
 import MedicalAppointmentBooking from "../pages/client/Books/Medical";
 import RecruitmentDetail from "../pages/client/Recruitment/RecruimentDetail";
+import AdminLogin from "../pages/admin/AdminLogin";
 const publicRoutes = [
 
   {
@@ -35,6 +36,7 @@ const publicRoutes = [
 
       { path: "chuyen-khoa", element: <SpecialtyList /> },
       { path: "chuyen-khoa/:slug", element: <SpecitaltyDetail /> },
+
 
       { path: "lien-he", element: <Contact /> },
       { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
@@ -58,6 +60,10 @@ const publicRoutes = [
         { path: "dang-nhap", element: <Login />},
             { path: "dang-ky", element: <SignUp />},
     ],
+  },
+    {
+    path: "/admin/dang-nhap",
+    element: <AdminLogin />,
   },
 ];
 

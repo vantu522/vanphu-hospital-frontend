@@ -16,6 +16,7 @@ export default function News() {
     const fetchNews = async () => {
       try {
         const newsList = await getAllNews(); 
+        console.log(newsList)
         setNews(newsList);
       } catch (error) {
         console.error("Error fetching news:", error);
@@ -47,15 +48,15 @@ export default function News() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {news.map((news, idx) => (
+            {news.map((item, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
               >
                 <div className="h-48 overflow-hidden">
                   <img
-                    src={news.hinhAnh}
-                    alt={news.tieuDe}
+                    src={news.image}
+                    alt={news.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -63,15 +64,16 @@ export default function News() {
                 <div className="p-6">
                   <div className="flex items-center text-sm text-gray-500 mb-3">
                     <FiCalendar className="mr-2" />
-                     {format(new Date(news.ngayDang), 'dd/MM/yyyy - HH:mm')}
+                     {item.createdAt ? format(new Date(item.createdAt), 'dd/MM/yyyy - HH:mm') : 'Không rõ thời gian'}
+
                   </div>
 
                   <h3 className="text-xl font-semibold text-gray-900 mb-3 hover:text-emerald-600 transition-colors">
-                    <Link to="/chi-tiet-tin-tuc">{news.tieuDe}</Link>
+                    <Link to="/chi-tiet-tin-tuc">{news.title}</Link>
                   </h3>
 
                   <p className="text-gray-600 mb-4 line-clamp-2">
-                    {news.moTaNgan}
+                    {news.description}
                   </p>
 
                   <a

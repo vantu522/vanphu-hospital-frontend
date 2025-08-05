@@ -5,7 +5,7 @@ const isAuthenticated = () =>{
 }
 
 const RequireAuth = ({children} ) =>{
-    return isAuthenticated() ? children : <Navigate to="/login" />
+    return isAuthenticated() ? children : <Navigate to="/admin/dang-nhap" />
 }
 
 export default RequireAuth;

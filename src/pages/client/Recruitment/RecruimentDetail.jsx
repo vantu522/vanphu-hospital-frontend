@@ -101,6 +101,13 @@ const RecruitmentDetail = () => {
           🕒 Hạn nộp hồ sơ:{" "}
           <span className="text-red-600 font-medium">{recruitment.deadline}</span>
         </p>
+        <iframe
+  src="http://localhost:5000/uploads/pdfs/1754393162227-662583004.pdf"
+  width="100%"
+  height="600px"
+  title="PDF Viewer"
+/>
+
 
         {/* Hiển thị ảnh công văn nếu có */}
         {recruitment.documentImages && recruitment.documentImages.length > 0 && !imageError ? (

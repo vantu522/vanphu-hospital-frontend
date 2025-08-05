@@ -16,9 +16,9 @@ const privateRoutes = [
     {
         path:'/admin',
         element: (
-            // <RequireAuth>
+            <RequireAuth>
                 <AdminLayout/>
-            // </RequireAuth>
+             </RequireAuth>
         ),
         children: [
             {

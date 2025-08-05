@@ -23,7 +23,7 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
         }
       }
     });
-    
+
     setPreviews(newPreviews);
   }, [formData, fields]);
 
@@ -104,7 +104,7 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
             <>
               <input
                 type="file"
-                accept="image/*"
+                accept="image/*,application/pdf"
                 multiple={field.multiple}
                 onChange={(e) => {
                   const files = Array.from(e.target.files);
@@ -118,30 +118,66 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
               {field.multiple && Array.isArray(previews[field.key]) ? (
                 <div className="flex gap-2 mt-2 flex-wrap">
                   {previews[field.key].map((src, idx) => (
-                    <img
+                    <div
                       key={idx}
-                      src={src}
-                      className="h-24 w-24 object-cover rounded border"
-                      alt={`preview-${idx}`}
-                    />
+                      className="w-24 h-24 relative border rounded overflow-hidden flex items-center justify-center"
+                    >
+                      {src.endsWith(".pdf") ? (
+                        <a
+                          href={src}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-blue-500 underline"
+                        >
+                          📄 Xem PDF
+                        </a>
+                      ) : (
+                        <img
+                          src={src}
+                          alt={`preview-${idx}`}
+                          className="object-cover w-full h-full"
+                        />
+                      )}
+                    </div>
                   ))}
                 </div>
               ) : previews[field.key] ? (
-                <img
-                  src={previews[field.key]}
-                  className="mt-2 max-h-40 rounded border"
-                  alt="avatar-preview"
-                />
+                <div className="mt-2 max-h-40 rounded border p-2">
+                  {previews[field.key].endsWith(".pdf") ? (
+                    <a
+                      href={previews[field.key]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-500 underline"
+                    >
+                      📄 Xem PDF
+                    </a>
+                  ) : (
+                    <img
+                      src={previews[field.key]}
+                      className="max-h-40 object-cover"
+                      alt="preview"
+                    />
+                  )}
+                </div>
               ) : null}
             </>
-          ) : (
-            <input
-              type={field.type || "text"}
-              value={formData[field.key] || ""}
-              onChange={(e) => handleChange(field.key, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          )}
+        ) : field.type === "date" ? (
+  <input
+    type="date"
+    value={formData[field.key] || ""}
+    onChange={(e) => handleChange(field.key, e.target.value)}
+    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+  />
+) : (
+  <input
+    type={field.type || "text"}
+    value={formData[field.key] || ""}
+    onChange={(e) => handleChange(field.key, e.target.value)}
+    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+  />
+)
+}
         </div>
       ))}
 
