@@ -8,6 +8,9 @@ import Doctors from "../pages/admin/Doctor";
 import Specialties from "../pages/admin/Specialty";
 import Contact from "../pages/admin/Contact";
 import Information from "../pages/admin/Information";
+import BookingManagement from "../pages/admin/BookingManagement";
+import RecruitmentManagement from "../pages/admin/RecruitmentManagement";
+import DoctorSchedule from "../pages/admin/Schedule";
 
 const privateRoutes = [
     {
@@ -52,6 +55,21 @@ const privateRoutes = [
                 index: true,
                 path:'/admin/information',
                 element: <Information/>
+            },
+            {
+                index:true,
+                path:'/admin/appointments',
+                element:<BookingManagement/>
+            },
+            {
+                index:true,
+                path:'/admin/recruitments',
+                element:<RecruitmentManagement/>
+            },
+            {
+                index:true,
+                path:'/admin/doctors/schedule',
+                element:<DoctorSchedule/>
             }
         ]
     }

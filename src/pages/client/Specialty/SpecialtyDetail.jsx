@@ -83,7 +83,7 @@ const SpecitaltyDetail = () => {
           <div className="w-full lg:w-1/2">
             <div className="rounded-lg overflow-hidden shadow-lg h-full">
               <img
-                src="https://hongngochospital.vn/_default_upload_bucket/m%C3%B4%20t%E1%BA%A3.jpg"
+                src={specialtyDetail?.images[0]}
                 alt="Đội ngũ y bác sĩ trong phòng phẫu thuật hiện đại"
                 className="w-full h-full object-cover"
               />
@@ -97,7 +97,8 @@ const SpecitaltyDetail = () => {
             <div className="w-full lg:w-1/2">
               <div className="rounded-lg overflow-hidden h-full">
                 <img
-                  src="https://www.vinmec.com/static/uploads/medium_VMTC_202413414_copy_f93cb02d65.jpg"
+                              src={specialtyDetail?.images[1]}
+
                   alt="Bác sĩ tim mạch tư vấn cho bệnh nhân với hình ảnh chẩn đoán"
                   className="w-full h-full object-cover"
                 />
@@ -114,9 +115,9 @@ const SpecitaltyDetail = () => {
               <div className="w-36 h-1 bg-green-600 mb-8"></div>
 
               {specialtyDetail?.functions?.map((item, index) => (
-                <h3 className="text-xl font-semibold text-gray-800 mb-6">
+                <p className=" text-gray-800 mb-6">
                   {item}
-                </h3>
+                </p>
               ))}
             </div>
           </div>

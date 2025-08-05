@@ -94,6 +94,7 @@ const Specialties = () => {
       toast.success("Xoá chuyên khoa thành công!");
     } catch (err) {
       toast.error("Xoá chuyên khoa thất bại!");
+      console.log(err)
     } finally {
       setLoading(false);
     }

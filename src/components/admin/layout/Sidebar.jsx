@@ -13,185 +13,224 @@ import {
   ChevronDown,
   ChevronUp,
   Info,
-  InfoIcon,
+  Calendar,
+  MessageCircle,
+  Newspaper,
+  UserCheck,
+  Settings,
+  Building,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const Sidebar = () => {
-  const [isDoctorOpen, setIsDoctorOpen] = useState(false);
+const Sidebar = ({collapsed}) => {
+  const [openSections, setOpenSections] = useState({
+    medical: false,
+    management: false,
+    content: false,
+    system: false,
+  });
   const navigate = useNavigate();
 
-  const menuItems = [
+
+  const toggleSection = (section) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
+
+  const handleNavigate = (path) => {
+    console.log(`Navigating to: ${path}`);
+    // Simulate navigation
+    navigate(path)
+  };
+
+  const menuGroups = [
+    // === TỔNG QUAN ===
     {
-      name: "Tổng quan",
-      icon: LayoutDashboard,
-      hasSubmenu: false,
-      path: "/admin/dashboard",
-      isActive: window.location.pathname.includes("/admin/dashboard"),
+      title: "TỔNG QUAN",
+      items: [
+        {
+          name: "Dashboard",
+          icon: LayoutDashboard,
+          path: "/admin/dashboard",
+          isActive: true,
+        }
+      ]
     },
+
+    // === QUẢN LÝ Y TẾ ===
     {
-      name: "Quản lý dịch vụ",
-      icon: ShoppingCart,
-      hasSubmenu: false,
-      path: "/admin/services",
-      isActive: window.location.pathname.includes("/admin/services"),
+      title: "QUẢN LÝ Y TẾ",
+      items: [
+        {
+          name: "Quản lý bác sĩ",
+          icon: Users,
+          hasSubmenu: true,
+          isOpen: openSections.medical,
+          toggle: () => toggleSection('medical'),
+          submenu: [
+            { name: "Danh sách bác sĩ", path: "/admin/doctors" },
+            { name: "Lịch làm việc", path: "/admin/doctors/schedule" },
+            { name: "Chuyên môn", path: "/admin/doctors/expertise" }
+          ]
+        },
+        {
+          name: "Quản lý chuyên khoa",
+          icon: Package,
+          path: "/admin/specialties",
+        },
+        {
+          name: "Quản lý dịch vụ",
+          icon: ShoppingCart,
+          path: "/admin/services",
+        }
+      ]
     },
+
+    // === QUẢN LÝ LỊCH HẸN & TƯ VẤN ===
     {
-      name: "Quản lý bác sĩ",
-      icon: Users,
-      hasSubmenu: true,
-      isOpen: isDoctorOpen,
-      toggle: () => setIsDoctorOpen(!isDoctorOpen),
+      title: "LỊCH HẸN & TƯ VẤN",
+      items: [
+        {
+          name: "Quản lý đặt lịch",
+          icon: Calendar,
+          path: "/admin/appointments",
+          badge: "12"
+        },
+        {
+          name: "Tư vấn sức khỏe",
+          icon: MessageCircle,
+          path: "/admin/health-consultations",
+        }
+      ]
     },
+
+    // === QUẢN LÝ NỘI DUNG ===
     {
-      name: "Quản lý chuyên khoa",
-      icon: Package,
-      hasSubmenu: false,
-      path: "/admin/specialties",
-      isActive: window.location.pathname.includes("/admin/specialties"),
+      title: "NỘI DUNG & TRUYỀN THÔNG",
+      items: [
+        {
+          name: "Quản lý tin tức",
+          icon: Newspaper,
+          path: "/admin/news",
+        },
+        {
+          name: "Quản lý tuyển dụng",
+          icon: UserCheck,
+          path: "/admin/recruitments",
+        }
+      ]
     },
+
+    // === PHẢN HỒI & BÁO CÁO ===
     {
-      name: "Quản lý tư vấn sức khỏe",
-      icon: Cloud,
-      hasSubmenu: false,
-      path: "/admin/health-consultations",
-      isActive: window.location.pathname.includes(
-        "/admin/health-consultations"
-      ),
+      title: "PHẢN HỒI & BÁO CÁO",
+      items: [
+        {
+          name: "Quản lý phản hồi",
+          icon: BarChart3,
+          path: "/admin/contacts",
+          badge: "5"
+        }
+      ]
     },
+
+    // === CÀI ĐẶT HỆ THỐNG ===
     {
-      name: "Quản lý tin tức",
-      icon: Megaphone,
-      hasSubmenu: false,
-      path: "/admin/news",
-      isActive: window.location.pathname.includes("/admin/news"),
-    },
-    {
-      name: "Quản lý tuyển dụng",
-      icon: Truck,
-      hasSubmenu: false,
-      path: "/admin/recruitments",
-      isActive: window.location.pathname.includes("/admin/recruitments"),
-    },
-    {
-      name: "Quản lý phản hồi",
-      icon: BarChart3,
-      hasSubmenu: false,
-      path: "/admin/contacts",
-      isActive: window.location.pathname.includes("/admin/contacts"),
-    },
-    {
-      name: "Quản lý đặt lịch",
-      icon: ShoppingBag,
-      hasSubmenu: false,
-      path: "/admin/appointments",
-      isActive: window.location.pathname.includes("/admin/appointments"),
-    },
-    {
-      name:'Thông tin',
-      icon: InfoIcon,
-      hasSubmenu: false,
-      path: "/admin/information",
-      isActive: window.location.pathname.includes("/admin/information"),
+      title: "HỆ THỐNG",
+      items: [
+        {
+          name: "Thông tin hệ thống",
+          icon: Info,
+          path: "/admin/information",
+        },
+        {
+          name: "Cài đặt",
+          icon: Settings,
+          path: "/admin/settings",
+        }
+      ]
     }
   ];
 
   return (
-    <div className="w-64 bg-white h-screen shadow-lg border-r border-gray-200">
-      {/* Logo */}
+  <div
+      className={`h-screen shadow-lg border-r border-gray-200 overflow-y-auto transition-all duration-300 ${
+        collapsed ? 'w-20' : 'w-64'
+      } bg-white`}
+    >
+      {/* Logo + chỉ hiển thị chữ nếu không collapsed */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-            <div className="flex space-x-1">
-              <div className="w-1 h-6 bg-white rounded"></div>
-              <div className="w-1 h-6 bg-white rounded"></div>
-              <div className="w-1 h-6 bg-white rounded"></div>
-            </div>
+            <Building className="text-white" />
           </div>
-          <h1 className="text-xl font-bold text-gray-900">Bảng điều khiển</h1>
+          {!collapsed && (
+            <div>
+              <h1 className="text-lg font-bold text-gray-900">Hệ thống Y Tế</h1>
+              <p className="text-xs text-gray-500">Bảng điều khiển</p>
+            </div>
+          )}
         </div>
       </div>
+      
 
-      {/* Menu */}
-      <div className="p-4">
-        <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">
-          MENU
-        </div>
-
-        <nav className="space-y-1">
-          {menuItems.map((item, index) => (
-            <div key={index}>
-              <div
-                className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer transition-colors ${
-                  item.isActive
-                    ? "bg-blue-50 text-blue-600"
-                    : "text-gray-700 hover:bg-gray-50"
-                }`}
-                onClick={() => {
-                  if (item.hasSubmenu) {
-                    item.toggle();
-                  } else if (item.path) {
-                    navigate(item.path);
-                  }
-                }}
-              >
-                <div className="flex items-center space-x-3">
-                  <item.icon
-                    size={20}
-                    className={
-                      item.isActive ? "text-blue-600" : "text-gray-500"
-                    }
-                  />
-                  <span className="font-medium">{item.name}</span>
-                  {item.badge && (
-                    <span className="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-600 rounded-full">
-                      {item.badge}
-                    </span>
-                  )}
-                </div>
-                {item.hasSubmenu && (
-                  <div className="text-gray-400">
-                    {item.isOpen ? (
-                      <ChevronUp size={16} />
-                    ) : (
-                      <ChevronDown size={16} />
-                    )}
-                  </div>
-                )}
+      {/* Menu items: ẩn tên nếu collapsed */}
+      <div className="p-4 space-y-6">
+        {menuGroups.map((group, idx) => (
+          <div key={idx}>
+            {!collapsed && (
+              <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">
+                {group.title}
               </div>
+            )}
+            <nav className="space-y-1">
+              {group.items.map((item, index) => (
+  <div key={index}>
+    <div
+      className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer ${
+        item.isActive ? 'bg-blue-50' : ''
+      }`}
+      onClick={() =>
+        item.hasSubmenu ? item.toggle() : handleNavigate(item.path)
+      }
+    >
+      <div className="flex items-center">
+        <item.icon size={18} className="text-gray-600" />
+        {!collapsed && (
+          <span className="ml-3 text-sm">{item.name}</span>
+        )}
+      </div>
+      {item.hasSubmenu && !collapsed && (
+        item.isOpen ? (
+          <ChevronUp size={16} className="text-gray-400" />
+        ) : (
+          <ChevronDown size={16} className="text-gray-400" />
+        )
+      )}
+    </div>
 
-              {/* Submenu placeholder - you can add submenu items here */}
-              {item.hasSubmenu && item.isOpen && (
-                <div className="ml-8 mt-1 space-y-1">
-                  {item.name === "Dashboard" && (
-                    <>
-                      <div className="text-sm text-gray-600">Tổng quan</div>
-                      <div className="text-sm text-gray-600">Báo cáo</div>
-                    </>
-                  )}
+    {/* Hiển thị submenu nếu mở và không collapsed */}
+    {item.hasSubmenu && item.isOpen && !collapsed && (
+      <div className="ml-8 mt-1 space-y-1">
+        {item.submenu?.map((subItem, subIndex) => (
+          <div
+            key={subIndex}
+            className="text-sm text-gray-600 hover:text-blue-600 cursor-pointer px-2 py-1"
+            onClick={() => handleNavigate(subItem.path)}
+          >
+            {subItem.name}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+))}
 
-                  {item.name === "Quản lý bác sĩ" && (
-                    <>
-                      <div
-                        className="text-sm text-gray-700 cursor-pointer hover:text-blue-600 transition"
-                        onClick={() => navigate("/admin/doctors")}
-                      >
-                        Danh sách bác sĩ
-                      </div>
-                     
-                      <div
-                        className="text-sm text-gray-700 cursor-pointer hover:text-blue-600 transition"
-                        onClick={() => navigate("/admin/doctors/schedule")}
-                      >
-                        Lịch làm việc
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
-        </nav>
+            </nav>
+          </div>
+        ))}
       </div>
     </div>
   );

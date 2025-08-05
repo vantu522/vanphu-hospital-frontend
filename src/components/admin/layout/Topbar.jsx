@@ -8,7 +8,7 @@ import {
   User
 } from 'lucide-react';
 
-const Topbar = () => {
+const Topbar = ({toggleSidebar}) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
@@ -22,7 +22,7 @@ const Topbar = () => {
       <div className="flex items-center justify-between">
         {/* Left side - Menu button and Logo */}
         <div className="flex items-center space-x-4">
-          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors" onClick={toggleSidebar}>
             <Menu size={20} className="text-gray-600" />
           </button>
           

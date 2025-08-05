@@ -1,17 +1,23 @@
 import axiosInstance from "../../config/axios";
 
 // Helper để chuyển doctorData thành FormData
-const toFormData = (doctorData) => {
+// Helper chuyển dữ liệu sang FormData
+const toFormData = (data) => {
   const form = new FormData();
 
-  for (const key in doctorData) {
-    const value = doctorData[key];
+  for (const key in data) {
+    const value = data[key];
 
-    if (Array.isArray(value)) {
-      value.forEach((item) => {
-        form.append(key, item);
+    if (key === "images" && Array.isArray(value)) {
+      value.forEach((file) => {
+        form.append("images", file);
       });
-    } else if (value !== undefined && value !== null) {
+    } else if (Array.isArray(value)) {
+      // ✅ append từng phần tử mảng với key[] để backend nhận đúng
+      value.forEach((item) => {
+        form.append(`${key}[]`, item);
+      });
+    } else {
       form.append(key, value);
     }
   }

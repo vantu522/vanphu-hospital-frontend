@@ -90,6 +90,7 @@ const Services = () => {
       setLoading(true);
       const result = await createService(formData);
       toast.success("Tạo dịch vụ đã được thêm thành công!");
+      setServices([...services,result]);
     } catch (error) {
       toast.error("Tạo dịch vụ thất bại!");
     } finally {

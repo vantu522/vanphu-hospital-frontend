@@ -34,11 +34,7 @@ const New = () => {
       truncate: true, 
       truncateLength: 120,
     },
-    {
-      key: "price",
-      label: "Giá cả",
-      render: (val) => `${val.toLocaleString()} VND`,
-    },
+   
     { key: "duration", label: "Thời gian (phút)" },
     {
       key: "createdAt",
