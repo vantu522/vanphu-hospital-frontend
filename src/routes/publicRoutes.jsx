@@ -19,6 +19,7 @@ import SignUp from "../pages/client/Register";
 import Booking from "../pages/client/Books/Booking";
 import SpecialtyDoctorSelection from "../pages/client/Books/SpecialtyDoctorSelection";
 import MedicalAppointmentBooking from "../pages/client/Books/Medical";
+import RecruitmentDetail from "../pages/client/Recruitment/RecruimentDetail";
 const publicRoutes = [
 
   {
@@ -49,6 +50,7 @@ const publicRoutes = [
       { path: "lien-he", element: <Contact /> },
       { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
       { path: "tuyen-dung", element: <Recruitment /> },
+      { path: "chi-tiet-tuyen-dung", element:<RecruitmentDetail/>},
       { path: "tin-tuc", element: <News /> },
       {path:"dat-lich", element:<Booking/>},
       {path:"kham-bhyt", element:<MedicalAppointmentBooking/>},

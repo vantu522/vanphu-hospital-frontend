@@ -1,177 +1,107 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import PageBanner from "../../../components/client/PageBanner";
 import dichvu from "../../../assets/images/dichvu.png";
 import { getAllRecruitments } from "../../../services/client/recruitments";
 
-// Sample job listings with recruitment details
-const jobListings = [
-  {
-    title: "Bệnh viện Đa khoa Hồng Ngọc thông báo tuyển dụng khối Y tế tháng 9/2024",
-    deadline: "09-08-2024",
-    details: "Chuyên khoa Cơ Xương Khớp, Bệnh viện Đa khoa Hồng Ngọc cần tuyển bác sĩ cơ - xương - khớp...",
-  },
-  {
-    title: "Bệnh viện Đa khoa Hồng Ngọc thông báo tuyển dụng khối Y tế tháng 10/2024",
-    deadline: "12-09-2024",
-    details: "Bệnh viện Đa khoa Hồng Ngọc cần tuyển bác sĩ chuyên khoa Y tế tháng 10/2024...",
-  },
-  {
-    title: "Bệnh viện Đa khoa Hồng Ngọc thông báo tuyển dụng khối Y tế tháng 10/2024",
-    deadline: "08-10-2024",
-    details: "Tuyển bác sĩ cho khoa Y tế tháng 10/2024 với các yêu cầu đặc biệt...",
-  },
-  {
-    title: "Bệnh viện Đa khoa Hồng Ngọc thông báo tuyển dụng khối Phi y tế tháng 10/2024",
-    deadline: "08-10-2024",
-    details: "Cần tuyển nhân viên phi y tế cho Bệnh viện Đa khoa Hồng Ngọc...",
-  },
-  {
-    title: "Bệnh viện Đa khoa Hồng Ngọc thông báo tuyển dụng khối Y tế tháng 01/2025",
-    deadline: "09-01-2025",
-    details: "Bệnh viện tuyển bác sĩ Y tế tháng 01/2025 cho các vị trí đặc biệt...",
-  },
-];
-
 const Recruitment = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
   const [recruitmentDetails, setRecruitmentDetails] = useState([]);
-  const active = jobListings[activeIndex];
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    coverLetter: "",
+  const [filteredRecruitments, setFilteredRecruitments] = useState([]);
+  const [filters, setFilters] = useState({
+    position: "Tất cả",
+    hospital: "Tất cả",
+    level: "Tất cả",
+    profession: "Tất cả",
   });
 
   useEffect(() => {
-    // Simulate fetching recruitment details from an API  
-    const fetchRecruitmentDetails = async () => {
+    const fetchRecruitments = async () => {
       try {
-      const data = await getAllRecruitments();
+        const data = await getAllRecruitments();
         setRecruitmentDetails(data);
-      } catch (error) {
-        console.error("Error fetching recruitment details:", error);
+        setFilteredRecruitments(data);
+      } catch (err) {
+        console.error("Error fetching recruitments:", err);
       }
     };
-    fetchRecruitmentDetails();
+    fetchRecruitments();
   }, []);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Đơn đăng ký đã được gửi!");
-    // Handle the form submission here (e.g., send data to a server)
-    console.log(formData);
-  };
+
+  useEffect(() => {
+    let filtered = recruitmentDetails;
+
+    if (filters.position !== "Tất cả") {
+      filtered = filtered.filter(r => r.position === filters.position);
+    }
+    if (filters.hospital !== "Tất cả") {
+      filtered = filtered.filter(r => r.hospital === filters.hospital);
+    }
+    if (filters.level !== "Tất cả") {
+      filtered = filtered.filter(r => r.level === filters.level);
+    }
+    if (filters.profession !== "Tất cả") {
+      filtered = filtered.filter(r => r.profession === filters.profession);
+    }
+
+    setFilteredRecruitments(filtered);
+  }, [filters, recruitmentDetails]);
 
   return (
-    <div className="relative">
+    <div>
       <PageBanner
         title="Tuyển dụng"
         backgroundImage={dichvu}
-        breadcrumbs={[{ label: "Trang chủ", href: "/" }, { label: "Tuyển dụng", active: true }]}
+        breadcrumbs={[
+          { label: "Trang chủ", href: "/" },
+          { label: "Tuyển dụng", active: true },
+        ]}
       />
 
-      <section className="py-12 bg-white px-4 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8">Danh sách tuyển dụng</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Left Column: Job Listings */}
-          <div className="space-y-3">
-            {recruitmentDetails.map((job, idx) => (
-              <div
-                key={idx}
-                onClick={() => setActiveIndex(idx)}
-                className={`p-4 border rounded-lg cursor-pointer flex justify-between items-center ${
-                  idx === activeIndex
-                    ? "bg-green-700 text-white"
-                    : "bg-white text-gray-900 hover:bg-gray-100"
-                }`}
+      <div className="max-w-7xl mx-auto px-4 py-8 grid md:grid-cols-5 gap-10">
+        {/* Bộ lọc */}
+        <div className="space-y-5">
+          <h2 className="text-xl font-semibold">🧰 Bộ lọc</h2>
+          <button onClick={() => setFilters({ position: "Tất cả", hospital: "Tất cả", level: "Tất cả", profession: "Tất cả" })} className="text-blue-600 hover:underline">Làm mới</button>
+
+          {[
+            { label: "Vị trí", key: "position" },
+            { label: "Bệnh viện", key: "hospital" },
+            { label: "Cấp bậc/Chức danh", key: "level" },
+            { label: "Ngành nghề ứng tuyển", key: "profession" },
+          ].map(({ label, key }) => (
+            <div key={key}>
+              <label className="block font-medium mb-1">{label}</label>
+              <select
+                value={filters[key]}
+                onChange={(e) => setFilters({ ...filters, [key]: e.target.value })}
+                className="w-full border border-gray-300 px-3 py-2 rounded"
               >
-                <div>
-                  <h3 className="font-semibold">{job.title}</h3>
-                  <p className="text-sm">Hạn nộp hồ sơ: {job.deadline}</p>
-                </div>
-                <span className="text-xl">&rarr;</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Right Column: Job Details */}
-          <div className="bg-white p-6 border rounded-lg shadow-lg">
-            
-            <h3 className="text-xl font-bold mb-3">{active.title}</h3>
-            <p className="text-sm mb-4">Hạn nộp hồ sơ: <span className="text-red-500">{active.deadline}</span></p>
-            <p className="text-gray-700 mb-5">{active.details}</p>
-
-            {/* Application Form */}
-            <h4 className="text-2xl font-semibold mb-5">Nộp đơn ứng tuyển</h4>
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                {/* Name */}
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">Họ và tên</label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Số điện thoại</label>
-                  <input
-                    type="text"
-                    id="phone"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-                    required
-                  />
-                </div>
-
-                {/* Cover Letter */}
-                <div>
-                  <label htmlFor="coverLetter" className="block text-sm font-medium text-gray-700">Thư xin việc</label>
-                  <textarea
-                    id="coverLetter"
-                    value={formData.coverLetter}
-                    onChange={(e) => setFormData({ ...formData, coverLetter: e.target.value })}
-                    className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-                    rows="4"
-                    required
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <div className="mt-6">
-                  <button
-                    type="submit"
-                    className="px-6 py-3 bg-green-700 text-white rounded-full hover:bg-green-800"
-                  >
-                    Nộp đơn
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
+                <option value="Tất cả">Tất cả</option>
+                {[...new Set(recruitmentDetails.map(item => item[key]))]
+                  .filter(Boolean)
+                  .map((item, i) => (
+                    <option key={i} value={item}>{item}</option>
+                  ))}
+              </select>
+            </div>
+          ))}
         </div>
-      </section>
+
+        {/* Danh sách tuyển dụng */}
+        <div className="md:col-span-4 space-y-6">
+          {filteredRecruitments.length === 0 ? (
+            <p>Không có thông báo tuyển dụng phù hợp.</p>
+          ) : (
+            filteredRecruitments.map((item, idx) => (
+              <div key={idx} className="border-b pb-4">
+              <a href="/chi-tiet-tuyen-dung">
+                              <h3 className="text-xl font-semibold">{item.title}</h3>
+                <p className="text-gray-600 mt-1">🕒 Hạn nộp hồ sơ: <span className="text-red-500 font-medium">{item.deadline}</span></p>
+</a>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 };
