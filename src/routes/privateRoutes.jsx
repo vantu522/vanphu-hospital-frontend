@@ -11,6 +11,7 @@ import Information from "../pages/admin/Information";
 import BookingManagement from "../pages/admin/BookingManagement";
 import RecruitmentManagement from "../pages/admin/RecruitmentManagement";
 import DoctorSchedule from "../pages/admin/Schedule";
+import HealthConsultations from "../pages/admin/HealthConsultation";
 
 const privateRoutes = [
     {
@@ -70,6 +71,11 @@ const privateRoutes = [
                 index:true,
                 path:'/admin/doctors/schedule',
                 element:<DoctorSchedule/>
+            },
+            {
+                index:true,
+                path:"/admin/health-consultations",
+                element:<HealthConsultations/>
             }
         ]
     }

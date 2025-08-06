@@ -6,12 +6,14 @@ import {
   updateDoctor,
   deleteDoctor,
 } from "../../services/client/doctors";
+import { getAllSpecialties } from "../../services/client/specialties";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../components/admin/ui/loading";
 
 const Doctors = () => {
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [specialty, setSpecialty] = useState([]);
 
   useEffect(() => {
     const fetchDoctors = async () => {
@@ -22,12 +24,28 @@ const Doctors = () => {
         console.error("Failed to fetch doctors:", error);
       }
     };
+      const fetchSpecialties = async () => {
+      try {
+        const data = await getAllSpecialties();
+        setSpecialty(data.map((item) => ({
+          value: item._id,  // value là id
+          label: item.name  // hiển thị tên
+        })));
+      } catch (error) {
+        console.error("Failed to fetch specialties:", error);
+      }
+    };
     fetchDoctors();
+    fetchSpecialties();
   }, []);
 
   const columns = [
     { key: "full_name", label: "Họ tên" },
-    { key: "specialties", label: "Chuyên khoa" },
+      {
+      key: "specialties",
+      label: "Chuyên khoa",
+      render: (val) => val?.name || "N/A" // hiển thị tên chuyên khoa
+    },
     
     { key: "degree", label: "Học vị" },
     { key: "email", label: "Email" },
@@ -51,7 +69,13 @@ const Doctors = () => {
     { key: "avatar", label: "Ảnh đại diện", type: "file" },
 
     { key: "full_name", label: "Họ tên", type: "text", required: true },
-    { key: "specialties", label: "Chuyên khoa", type: "text", required: true },
+       {
+      key: "specialties",  // thay specialties -> specialty
+      label: "Chuyên khoa",
+      type: "select",    // chuyển thành select
+      options: specialty,
+      required: true
+    },
     {
       key: "expertise_fields",
       label: "Lĩnh vực chuyên môn",
