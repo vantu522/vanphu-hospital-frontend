@@ -72,3 +72,15 @@ export const deleteRecruitment = async (id) => {
     throw error;
   }
 };
+
+export const getRecruitmentBySlug = async (slug) => {
+  try {
+    const response = await axiosInstance.get(`/recruitments/slug/${slug}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching service by slug:", error);
+    throw error;
+  }
+};  
+
+

@@ -54,7 +54,7 @@ export const updateHealthConsultation = async (id, data) => {
     const response = await axiosInstance.put(`/health-consultations/${id}`, form, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-    return response.data;
+    return response.data?.data;
   } catch (error) {
     console.error("Error updating health consultation:", error);
     throw error;

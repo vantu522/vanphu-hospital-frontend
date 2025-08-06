@@ -83,7 +83,7 @@ const SpecitaltyDetail = () => {
           <div className="w-full lg:w-1/2">
             <div className="rounded-lg overflow-hidden shadow-lg h-full">
               <img
-                src={specialtyDetail?.images[0]}
+                src={specialtyDetail?.images?.[0]}
                 alt="Đội ngũ y bác sĩ trong phòng phẫu thuật hiện đại"
                 className="w-full h-full object-cover"
               />
@@ -97,7 +97,7 @@ const SpecitaltyDetail = () => {
             <div className="w-full lg:w-1/2">
               <div className="rounded-lg overflow-hidden h-full">
                 <img
-                              src={specialtyDetail?.images[1]}
+                              src={specialtyDetail?.images?.[1]}
 
                   alt="Bác sĩ tim mạch tư vấn cho bệnh nhân với hình ảnh chẩn đoán"
                   className="w-full h-full object-cover"

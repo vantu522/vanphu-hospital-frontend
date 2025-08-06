@@ -38,7 +38,7 @@ export const createNews = async (newsData) => {
     try {
         const form = toFormData(newsData)
         const response = await axiosInstance.post('/news', form);
-        return response.data;
+        return response.data?.data;
     } catch (error) {
         console.error("Error creating news:", error);
         throw error;
@@ -59,7 +59,7 @@ export const updateNews = async (id, newsData) => {
     try {
         const form = toFormData(newsData)
         const response = await axiosInstance.put(`/news/${id}`, form);
-        return response.data;
+        return response.data?.data;
     } catch (error) {
         console.error("Error updating news:", error);
         throw error;

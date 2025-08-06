@@ -39,9 +39,12 @@ const publicRoutes = [
 
 
       { path: "lien-he", element: <Contact /> },
+
       { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
-      { path: "chi-tiet-bai-tu-van", element: <HealthDetail /> },
+      { path: "chi-tiet-bai-tu-van/:slug", element: <HealthDetail /> },
+
       { index: true, element: <Home /> },
+      
       { path: "dich-vu", element: <Service /> },
       { path: "danh-sach-bac-si", element: <DoctorList /> },
       { path: "chuyen-khoa", element: <SpecialtyList /> },
@@ -52,7 +55,8 @@ const publicRoutes = [
       { path: "lien-he", element: <Contact /> },
       { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
       { path: "tuyen-dung", element: <Recruitment /> },
-      { path: "chi-tiet-tuyen-dung", element:<RecruitmentDetail/>},
+      { path: "tuyen-dung/:slug", element:<RecruitmentDetail/>},
+
       { path: "tin-tuc", element: <News /> },
       {path:"dat-lich", element:<Booking/>},
       {path:"kham-bhyt", element:<MedicalAppointmentBooking/>},

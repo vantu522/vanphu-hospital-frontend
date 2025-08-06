@@ -93,7 +93,7 @@ const Recruitment = () => {
           ) : (
             filteredRecruitments.map((item, idx) => (
               <div key={idx} className="border-b pb-4">
-              <a href="/chi-tiet-tuyen-dung">
+              <a href={`/tuyen-dung/${item.slug}`}>
                               <h3 className="text-xl font-semibold">{item.title}</h3>
                 <p className="text-gray-600 mt-1">🕒 Hạn nộp hồ sơ: <span className="text-red-500 font-medium">{item.deadline}</span></p>
 </a>

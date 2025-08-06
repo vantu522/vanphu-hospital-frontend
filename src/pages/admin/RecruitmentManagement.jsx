@@ -4,9 +4,11 @@ import TableBase from "../../components/admin/table/table";
 import { createRecruitment, deleteRecruitment, getAllRecruitments, updateRecruitment } from "../../services/client/recruitments";
 import LoadingSpinner from "../../components/admin/ui/loading";
 import toast from "react-hot-toast";
+import { createApplication, deleteApplication, getAllApplications, updateApplication,downloadCV } from "../../services/client/application";
 const RecruitmentManagement = () => {
   const [activeTab, setActiveTab] = useState("posts");
-  const[loading, setLoading] = useState(false)
+  const[loading, setLoading] = useState(false);
+  const [applications, setApplications] = useState([]);
 
   // Mock data for recruitment posts
   const [recruitmentPosts, setRecruitmentPosts] = useState([]);
@@ -20,46 +22,21 @@ const RecruitmentManagement = () => {
         console.error("Lỗi khi load danh sách tuyển dụng:", error);
       }
     };
+    const fetchApplications = async () =>{
+      try{
+        const data = await getAllApplications();
+        console.log("Hồ sơ tuyển dụng: ",data)
+        setApplications(data)
+      }catch (error) {
+        console.error("Lỗi khi load danh sách tuyển dụng:", error);
+      }
+    }
+    fetchApplications();
 
     fetchRecruitments();
   }, []);
 
-  // Mock data for applications
-  const [applications, setApplications] = useState([
-    {
-      _id: "1",
-      name: "Nguyễn Văn A",
-      email: "nguyenvana@gmail.com",
-      phone: "0123456789",
-      coverLetter:
-        "Tôi có 3 năm kinh nghiệm trong lĩnh vực React.js và đã làm việc với nhiều dự án lớn...",
-      cvFileUrl: "cv_nguyenvana.pdf",
-      status: "pending",
-      createdAt: "2024-01-16T10:30:00Z",
-    },
-    {
-      _id: "2",
-      name: "Trần Thị B",
-      email: "tranthib@gmail.com",
-      phone: "0987654321",
-      coverLetter:
-        "Tôi rất quan tâm đến vị trí Marketing Manager và tin rằng kinh nghiệm của tôi...",
-      cvFileUrl: "cv_tranthib.pdf",
-      status: "approved",
-      createdAt: "2024-01-15T14:20:00Z",
-    },
-    {
-      _id: "3",
-      name: "Lê Văn C",
-      email: "levanc@gmail.com",
-      phone: "0369852147",
-      coverLetter:
-        "Với kinh nghiệm 2 năm trong thiết kế UI/UX, tôi tự tin có thể đóng góp...",
-      cvFileUrl: "cv_levanc.pdf",
-      status: "rejected",
-      createdAt: "2024-01-14T16:45:00Z",
-    },
-  ]);
+  
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("vi-VN", {
@@ -197,58 +174,65 @@ const handleEditPost = async (id, formData) => {
       truncate: true,
       truncateLength: 80,
     },
-    {
-      key: "cvFileUrl",
-      label: "CV",
-      render: (value) => (
-        <div>
-          {value ? (
-            <button className="flex items-center text-blue-600 hover:text-blue-900">
-              <Download className="w-4 h-4 mr-1" />
-              Tải CV
-            </button>
-          ) : (
-            <span className="text-gray-400">Không có CV</span>
-          )}
-        </div>
-      ),
-    },
-    {
-      key: "status",
-      label: "Trạng thái",
-      type: "badge",
-      render: (value) => {
-        const statusConfig = {
-          pending: {
-            color: "bg-yellow-100 text-yellow-800",
-            icon: Clock,
-            text: "Chờ duyệt",
-          },
-          approved: {
-            color: "bg-green-100 text-green-800",
-            icon: CheckCircle,
-            text: "Đã duyệt",
-          },
-          rejected: {
-            color: "bg-red-100 text-red-800",
-            icon: XCircle,
-            text: "Từ chối",
-          },
-        };
-
-        const config = statusConfig[value];
-        const Icon = config.icon;
-
-        return (
-          <span
-            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.color}`}
-          >
-            <Icon className="w-3 h-3 mr-1" />
-            {config.text}
-          </span>
-        );
+   {
+  key: "cvFileUrl",
+  label: "CV",
+  render: (value, item) => (
+    <button
+      onClick={() => downloadCV(item._id)}
+      className="flex items-center text-blue-600 hover:text-blue-900"
+    >
+      <Download className="w-4 h-4 mr-1" />
+      Tải CV
+    </button>
+  ),
+}
+,
+   {
+  key: "status",
+  label: "Trạng thái",
+  type: "badge",
+  render: (value) => {
+    const statusConfig = {
+      pending: {
+        color: "bg-yellow-100 text-yellow-800",
+        icon: Clock,
+        text: "Chờ duyệt",
       },
-    },
+      approved: {
+        color: "bg-green-100 text-green-800",
+        icon: CheckCircle,
+        text: "Đã duyệt",
+      },
+      rejected: {
+        color: "bg-red-100 text-red-800",
+        icon: XCircle,
+        text: "Từ chối",
+      },
+    };
+
+    const config = statusConfig[value?.toLowerCase?.()];
+
+    if (!config) {
+      return (
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+          Không xác định
+        </span>
+      );
+    }
+
+    const Icon = config.icon;
+    return (
+      <span
+        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.color}`}
+      >
+        <Icon className="w-3 h-3 mr-1" />
+        {config.text}
+      </span>
+    );
+  },
+},
+
     {
       key: "createdAt",
       label: "Ngày nộp",
@@ -259,40 +243,41 @@ const handleEditPost = async (id, formData) => {
   // Form fields for applications
   const applicationFormFields = [
     {
-      name: "name",
+      key: "name",
       label: "Họ tên",
       type: "text",
       required: true,
       placeholder: "Nhập họ tên",
     },
     {
-      name: "email",
+      key: "email",
       label: "Email",
       type: "email",
       required: true,
       placeholder: "Nhập email",
     },
     {
-      name: "phone",
+      key: "phone",
       label: "Số điện thoại",
       type: "tel",
       required: true,
       placeholder: "Nhập số điện thoại",
     },
     {
-      name: "coverLetter",
+      key: "coverLetter",
       label: "Thư xin việc",
       type: "textarea",
       placeholder: "Nhập thư xin việc",
     },
     {
-      name: "cvFileUrl",
+      key: "cvFileUrl",
       label: "CV File",
       type: "file",
-      accept: ".pdf,.doc,.docx",
+      accept: "application/pdf",
+
     },
     {
-      name: "status",
+      key: "status",
       label: "Trạng thái",
       type: "select",
       options: [
@@ -307,23 +292,46 @@ const handleEditPost = async (id, formData) => {
 
 
   // Handle functions for applications
-  const handleAddApplication = (formData) => {
-    const newApplication = {
-      _id: Date.now().toString(),
-      ...formData,
-      createdAt: new Date().toISOString(),
-    };
-    setApplications((prev) => [...prev, newApplication]);
+  const handleAddApplication = async (formData) => {
+         try {
+      setLoading(true);
+      const result = await createApplication(formData);
+      setApplications([...applications, result]);
+      toast.success("Tạo tin tức  thành công!");
+    } catch (error) {
+      toast.error("Tạo tin tức thất bại!");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleEditApplication = (id, formData) => {
-    setApplications((prev) =>
-      prev.map((app) => (app._id === id ? { ...app, ...formData } : app))
-    );
+  const handleEditApplication = async(id, formData) => {
+       try{
+        setLoading(true)
+        const updatedApp= await updateApplication(id, formData);
+        setApplications(applications.map((item) => (item._id === id ? updatedApp : item)));
+        toast.success("Dịch vụ đã được cập nhật thành công!");
+      }
+      catch (error) {
+        console.error("Failed to update service:", error);
+        toast.error("Cập nhật dịch vụ thất bại!");
+      } finally{
+        setLoading(false)
+      }
   };
 
-  const handleDeleteApplication = (id) => {
-    setApplications((prev) => prev.filter((app) => app._id !== id));
+  const handleDeleteApplication = async (id) => {
+     try {
+      setLoading(true)
+      await deleteApplication(id);
+      setApplications(applications.filter((item) => item._id !== id));
+      toast.success("Dịch vụ đã được xóa thành công!");
+    } catch (error) {
+      console.error("Failed to delete service:", error);
+      toast.error("Xóa dịch vụ thất bại!");
+    } finally{
+      setLoading(false)
+    }
   };
 
   const handleViewApplication = (application) => {

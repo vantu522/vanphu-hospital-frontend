@@ -138,10 +138,11 @@ const Service = () => {
                 <a href={`/dich-vu/${item.slug}`} className="block h-full">
                   <div className="overflow-hidden rounded-t">
                     <img
-                      src={item.avatar}
-                      alt=""
-                      className="transition-transform duration-500 hover:scale-110"
-                    />
+  src={item.avatar}
+  alt=""
+  className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+/>
+
                   </div>
                   <div className="p-3">
                     <h2 className="font-semibold mb-2 text-base">

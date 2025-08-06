@@ -36,7 +36,6 @@ const [formData, setFormData] = useState({
 
 const columns = [
   { key: "title", label: "Tiêu đề" },
-  { key: "slug", label: "Slug" },
   { key: "description", label: "Mô tả", truncate: true, truncateLength: 100 },
   { key: "author", label: "Tác giả" },
   { key: "category", label: "Chuyên mục" },

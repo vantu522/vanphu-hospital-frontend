@@ -70,7 +70,7 @@ export const deleteSpecialty = async (id) => {
 export const getSpecialtyBySlug = async (slug) =>{
   try{
     const response = await axiosInstance.get(`/specialties/slug/${slug}`);
-    return response.data;
+    return response.data?.data;
   } catch (error){
     console.error("Error slug",error);
     throw error;
