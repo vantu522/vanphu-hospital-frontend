@@ -54,9 +54,9 @@ const DoctorDetail = () => {
                 </h1>
               )}
               <div className="flex flex-wrap gap-4 mb-6">
-                {doctorDetail.specialties && doctorDetail.specialties.trim() !== '' && (
+                {doctorDetail.specialties  && (
                   <span className="bg-green-400 hover:bg-green-700 cursor-pointer hover:text-white px-4 py-2 rounded-full text-xl transition-all duration-500 ease-in-out">
-                    {doctorDetail.specialties}
+                    {doctorDetail.specialties?.name}
                   </span>
                 )}
                 {doctorDetail.hospital && doctorDetail.hospital.trim() !== '' && (
