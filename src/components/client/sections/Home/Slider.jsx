@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import banner1 from "../../../../assets/images/banner/banner1.jpg";
-import banner2 from "../../../../assets/images/banner/banner2.jpg";
-import banner3 from "../../../../assets/images/banner/banner3.jpg";
-import banner4 from "../../../../assets/images/banner/banner4.jpg";
 
-const banners = [banner1, banner2, banner3, banner4];
+import { getAllBanners } from "../../../../services/client/banner";
+
 
 export default function Slider() {
   const [current, setCurrent] = useState(0);
+  const [banners, setBanners] = useState([]);
   const length = banners.length;
+
 
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % length);
@@ -17,6 +16,19 @@ export default function Slider() {
   const prevSlide = () => {
     setCurrent((prev) => (prev - 1 + length) % length);
   };
+  useEffect(()=>{
+     const fetchAllBanner = async () =>{
+          try {
+            const data = await getAllBanners();
+            setBanners(data);
+            console.log(data)
+          } catch (error){
+            console.error("Loi", error)
+            throw new error;
+          }
+        }
+        fetchAllBanner();
+  },[])
 
   // ✅ Auto slide
   useEffect(() => {
@@ -28,7 +40,7 @@ export default function Slider() {
     <div className="relative w-full h-130 overflow-hidden ">
       {/* Slide wrapper */}
       <div className="w-full h-auto relative">
-        {banners.map((img, index) => (
+        {banners?.map((item, index) => (
           <div
             key={index}
             className={`absolute inset-0 transition-opacity duration-700 ${
@@ -36,7 +48,7 @@ export default function Slider() {
             }`}
           >
             <img
-              src={img}
+              src={item.image}
               alt={`Slide ${index + 1}`}
               className="w-full h-auto object-cover"
             />

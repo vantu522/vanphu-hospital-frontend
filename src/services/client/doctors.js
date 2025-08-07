@@ -86,3 +86,13 @@ export const getDoctorsBySpecialty = async (specialtyId) => {
     throw error;
   }
 };
+
+export const getFiveDoctorsBySpecialty = async () => {
+  try {
+    const response = await axiosInstance.get('/doctors/five-doctors');
+    return response.data; // Trả về mảng doctors từ response
+  } catch (error) {
+    console.error("Error fetching five doctors by specialty:", error);
+    throw error;
+  }
+}

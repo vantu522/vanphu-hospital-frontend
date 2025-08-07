@@ -4,6 +4,7 @@ import PageBanner from "../../../components/client/PageBanner";
 import dichvu from '../../../assets/images/dichvu.png'
 import { getNewsBySlug } from "../../../services/client/news";
 import { useParams } from "react-router-dom";
+import NewsEvents from "../../../components/client/sections/Home/NewsEvents";
 
 
 export default function NewsDetail() {
@@ -221,53 +222,7 @@ export default function NewsDetail() {
               <p className="text-gray-600 text-lg">Cập nhật thêm thông tin hữu ích cho sức khỏe của bạn</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  title: "Phòng ngừa bệnh tim mạch hiệu quả",
-                  image: "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                  category: "Phòng ngừa"
-                },
-                {
-                  title: "Chế độ dinh dưỡng cho người cao tuổi",
-                  image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                  category: "Dinh dưỡng"
-                },
-                {
-                  title: "Tầm soát ung thư sớm - Chìa khóa sống khỏe",
-                  image: "https://images.unsplash.com/photo-1551190822-a9333d879b1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-                  category: "Tầm soát"
-                }
-              ].map((item, index) => (
-                <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200">
-                  <div className="h-48 overflow-hidden">
-                    <img 
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center text-sm text-blue-600 mb-3">
-                      <span className="px-2 py-1 bg-blue-100 rounded-full font-medium">
-                        {item.category}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-semibold mb-3 text-gray-900 hover:text-blue-600 transition-colors leading-tight">
-                      {item.title}
-                    </h3>
-                    <div className="flex items-center text-sm text-gray-500 mb-4">
-                      <FiCalendar className="mr-2" />
-                      20 tháng 1, 2025
-                    </div>
-                    <button className="text-blue-600 font-medium text-sm hover:text-blue-800 transition-colors flex items-center group">
-                      Đọc thêm 
-                      <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+           <NewsEvents/>
           </div>
 
           {/* Contact CTA */}

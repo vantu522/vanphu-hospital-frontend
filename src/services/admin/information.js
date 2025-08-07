@@ -39,3 +39,4 @@ export const deleteInformation = async (id) => {
         throw error;
     }
 }
+

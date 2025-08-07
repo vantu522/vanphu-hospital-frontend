@@ -1,62 +1,76 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
+import { getAllNews } from "../../../../services/client/news";
 
-const newsData = [
-  {
-    id: 1,
-    title: "Hội thảo chuyển đổi số 2025",
-    date: "2025-05-10",
-    description:
-      "Tham gia hội thảo về xu hướng chuyển đổi số trong các doanh nghiệp nhỏ và vừa.",
-    image: "https://source.unsplash.com/400x200/?conference",
-  },
-  {
-    id: 2,
-    title: "Sự kiện ra mắt sản phẩm công nghệ mới",
-    date: "2025-05-15",
-    description:
-      "Giới thiệu sản phẩm công nghệ mới nhất với nhiều cải tiến vượt bậc.",
-    image: "https://source.unsplash.com/400x200/?tech",
-  },
-  {
-    id: 3,
-    title: "Ngày hội việc làm 2025",
-    date: "2025-06-01",
-    description:
-      "Cơ hội kết nối với hàng trăm doanh nghiệp và nhà tuyển dụng uy tín.",
-    image: "https://source.unsplash.com/400x200/?jobfair",
-  },
-  {
-    id: 4,
-    title: "Hội nghị công nghệ AI",
-    date: "2025-06-10",
-    description: "Khám phá những đột phá mới trong lĩnh vực trí tuệ nhân tạo.",
-    image: "https://source.unsplash.com/400x200/?ai",
-  },
-  {
-    id: 5,
-    title: "Diễn đàn khởi nghiệp trẻ",
-    date: "2025-07-01",
-    description: "Nơi kết nối những ý tưởng sáng tạo và nhà đầu tư.",
-    image: "https://source.unsplash.com/400x200/?startup",
-  },
-  {
-    id: 6,
-    title: "Workshop phát triển kỹ năng mềm",
-    date: "2025-07-15",
-    description:
-      "Trang bị kỹ năng mềm cần thiết cho sinh viên và người đi làm.",
-    image: "https://source.unsplash.com/400x200/?workshop",
-  },
-];
+// const newsData = [
+//   {
+//     id: 1,
+//     title: "Hội thảo chuyển đổi số 2025",
+//     date: "2025-05-10",
+//     description:
+//       "Tham gia hội thảo về xu hướng chuyển đổi số trong các doanh nghiệp nhỏ và vừa.",
+//     image: "https://source.unsplash.com/400x200/?conference",
+//   },
+//   {
+//     id: 2,
+//     title: "Sự kiện ra mắt sản phẩm công nghệ mới",
+//     date: "2025-05-15",
+//     description:
+//       "Giới thiệu sản phẩm công nghệ mới nhất với nhiều cải tiến vượt bậc.",
+//     image: "https://source.unsplash.com/400x200/?tech",
+//   },
+//   {
+//     id: 3,
+//     title: "Ngày hội việc làm 2025",
+//     date: "2025-06-01",
+//     description:
+//       "Cơ hội kết nối với hàng trăm doanh nghiệp và nhà tuyển dụng uy tín.",
+//     image: "https://source.unsplash.com/400x200/?jobfair",
+//   },
+//   {
+//     id: 4,
+//     title: "Hội nghị công nghệ AI",
+//     date: "2025-06-10",
+//     description: "Khám phá những đột phá mới trong lĩnh vực trí tuệ nhân tạo.",
+//     image: "https://source.unsplash.com/400x200/?ai",
+//   },
+//   {
+//     id: 5,
+//     title: "Diễn đàn khởi nghiệp trẻ",
+//     date: "2025-07-01",
+//     description: "Nơi kết nối những ý tưởng sáng tạo và nhà đầu tư.",
+//     image: "https://source.unsplash.com/400x200/?startup",
+//   },
+//   {
+//     id: 6,
+//     title: "Workshop phát triển kỹ năng mềm",
+//     date: "2025-07-15",
+//     description:
+//       "Trang bị kỹ năng mềm cần thiết cho sinh viên và người đi làm.",
+//     image: "https://source.unsplash.com/400x200/?workshop",
+//   },
+// ];
 
 const ITEMS_PER_PAGE = 3;
 
 export default function NewsEvents() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [newsData, setNewsData] = useState([]);
 
   const totalPages = Math.ceil(newsData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentNews = newsData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  useEffect(()=>{
+    const fetchAllNew = async () =>{
+      try {
+        const data = await getAllNews();
+        setNewsData(data);
+      } catch (error){
+        console.error("Loi", error)
+        throw new error;
+      }
+    }
+    fetchAllNew();
+  }, [])
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
@@ -68,7 +82,6 @@ export default function NewsEvents() {
 
   return (
     <div id="news-section" className="p-4 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">Tin tức & Sự kiện</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentNews.map((item) => (
