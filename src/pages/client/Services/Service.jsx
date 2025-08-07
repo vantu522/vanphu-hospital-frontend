@@ -3,10 +3,11 @@ import dichvu from "../../../assets/images/dichvu.png";
 import { HiSearch } from "react-icons/hi";
 import Button from "../../../components/client/ui/button";
 import PageBanner from "../../../components/client/PageBanner";
-import { getAllServices } from "../../../services/client/services";
+import { getAllServices, getServicesBySpecialty } from "../../../services/client/services";
+import { getAllSpecialties } from "../../../services/client/specialties";
 
 const Service = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [activeIndex, setActiveIndex] = useState(0);
   const [showAllServices, setShowAllServices] = useState(false);
   const serviceList = [...Array(20)];
@@ -14,28 +15,70 @@ const Service = () => {
     ? serviceList
     : serviceList.slice(0, 9);
   const [services, setServices] = useState([]);
+  const [specialties, setSpecialties] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [filteredServices, setFilteredServices] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
-        const data = await getAllServices();
-        setServices(data);
-        console.log("Services fetched successfully:", data);
+        const [servicesData, specialtiesData] = await Promise.all([
+          getAllServices(),
+          getAllSpecialties()
+        ]);
+        setServices(servicesData);
+        setFilteredServices(servicesData);
+        setSpecialties(specialtiesData);
+        console.log("Services fetched successfully:", servicesData);
+        console.log("Specialties fetched successfully:", specialtiesData);
       } catch (error) {
-        console.error("Lỗi khi tải users:", error);
+        console.error("Lỗi khi tải data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  const categories = [
-    "Tất cả",
-    "Khoa răng hàm mặt",
-    "Khoa tim mạch",
-    "Khoa thần kinh",
-    "Khoa nhi",
-  ];
+  // Tạo categories từ API specialties với _id làm key
+  const categories = specialties.length > 0 ? [
+    { id: "all", name: "Tất cả" },
+    ...specialties.map(specialty => ({ id: specialty._id, name: specialty.name }))
+  ] : [];
+
+  // Function để lọc dịch vụ theo chuyên khoa
+  const handleCategoryChange = async (categoryId) => {
+    console.log('Clicking category with ID:', categoryId);
+    setSelectedCategory(categoryId);
+    setLoading(true);
+    
+    try {
+      if (categoryId === "all") {
+        console.log('Loading all services:', services.length);
+        setFilteredServices(services);
+      } else {
+        // Truyền trực tiếp specialtyId vào API
+        console.log('Calling API with specialtyId:', categoryId);
+        const servicesBySpecialty = await getServicesBySpecialty(categoryId);
+        console.log('API response:', servicesBySpecialty);
+        
+        // Kiểm tra nếu servicesBySpecialty là array
+        if (Array.isArray(servicesBySpecialty)) {
+          setFilteredServices(servicesBySpecialty);
+        } else {
+          console.error('API response is not an array:', servicesBySpecialty);
+          setFilteredServices([]);
+        }
+      }
+    } catch (error) {
+      console.error('Error filtering services by specialty:', error);
+      setFilteredServices([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const faqCategories = [
     { name: "Thai sản", count: 8 },
@@ -100,63 +143,76 @@ const Service = () => {
               </div>
 
               <div className="flex flex-col gap-2">
-                {categories.map((item, i) => {
-                  const isActive = selectedCategory === item;
-                  return (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setSelectedCategory(item)}
-                      className={`flex justify-between items-center px-3 py-2 border border-gray-300 rounded text-s transition cursor-pointer ${
-                        isActive
-                          ? "bg-emerald-700 text-white"
-                          : "hover:bg-gray-100 text-gray-800"
-                      }`}
-                    >
-                      <span className="font-medium">{item}</span>
-                      <div
-                        className={`px-2 py-1 rounded-full text-xs ${
-                          isActive ? "bg-white text-black" : "bg-gray-200"
+                {loading ? (
+                  <div className="text-center py-4 text-gray-500">
+                    Đang tải chuyên ngành...
+                  </div>
+                ) : (
+                  categories.map((category, i) => {
+                    const isActive = selectedCategory === category.id;
+                    return (
+                      <button
+                        key={category.id}
+                        type="button"
+                        onClick={() => handleCategoryChange(category.id)}
+                        className={`flex justify-between items-center px-3 py-2 border border-gray-300 rounded text-s transition cursor-pointer ${
+                          isActive
+                            ? "bg-emerald-700 text-white"
+                            : "hover:bg-gray-100 text-gray-800"
                         }`}
                       >
-                        9
-                      </div>
-                    </button>
-                  );
-                })}
+                        <span className="font-medium">{category.name}</span>
+                      </button>
+                    );
+                  })
+                )}
               </div>
             </form>
           </div>
 
           {/* Grid dịch vụ */}
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((item, index) => (
-              <div
-                key={index}
-                className="border border-gray-200 rounded hover:border-black transition"
-              >
-                <a href={`/dich-vu/${item.slug}`} className="block h-full">
-                  <div className="overflow-hidden rounded-t">
-                    <img
-                      src={item.avatar}
-                      alt=""
-                      className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
-                    />
-                  </div>
-                  <div className="p-3">
-                    <h2 className="font-semibold mb-2 text-base">
-                      {item.name}
-                    </h2>
-                    <div
-                      className="text-sm text-gray-600 mt-5 prose max-w-none line-clamp-4"
-                      dangerouslySetInnerHTML={{ __html: item.description }}
-                    />
-                  </div>
-                </a>
+            {loading ? (
+              <div className="col-span-full text-center py-8">
+                <div className="text-gray-500 text-lg">
+                  Đang tải danh sách dịch vụ...
+                </div>
               </div>
-            ))}
+            ) : filteredServices.length === 0 ? (
+              <div className="col-span-full text-center py-8">
+                <div className="text-gray-500 text-lg">
+                  Không có dịch vụ nào trong chuyên khoa "{categories.find(c => c.id === selectedCategory)?.name || selectedCategory}"
+                </div>
+              </div>
+            ) : (
+              filteredServices.map((item, index) => (
+                <div
+                  key={index}
+                  className="border border-gray-200 rounded hover:border-black transition"
+                >
+                  <a href={`/dich-vu/${item.slug}`} className="block h-full">
+                    <div className="overflow-hidden rounded-t">
+                      <img
+                        src={item.avatar}
+                        alt=""
+                        className="w-full h-48 object-cover transition-transform duration-500 hover:scale-110"
+                      />
+                    </div>
+                    <div className="p-3">
+                      <h2 className="font-semibold mb-2 text-base">
+                        {item.name}
+                      </h2>
+                      <div
+                        className="text-sm text-gray-600 mt-5 prose max-w-none line-clamp-4"
+                        dangerouslySetInnerHTML={{ __html: item.description }}
+                      />
+                    </div>
+                  </a>
+                </div>
+              ))
+            )}
 
-            {!showAllServices && (
+            {!showAllServices && filteredServices.length > 0 && (
               <div className="col-span-full text-center mt-4">
                 <Button
                   type="button"

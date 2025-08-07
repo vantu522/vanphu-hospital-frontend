@@ -76,3 +76,13 @@ export const getDoctorBySlug = async (slug) =>{
     throw error;
   }
 }
+
+export const getDoctorsBySpecialty = async (specialtyId) => {
+  try {
+    const response = await axiosInstance.get(`/doctors/specialty/${specialtyId}`);
+    return response.data.doctors; // Trả về mảng doctors từ response
+  } catch (error) {
+    console.error("Error fetching doctors by specialty:", error);
+    throw error;
+  }
+};

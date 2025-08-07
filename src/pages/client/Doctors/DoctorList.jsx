@@ -6,10 +6,11 @@ import dichvu from '../../../assets/images/dichvu.png'
 import PageBanner from "../../../components/client/PageBanner";
 import Pagination from "../../../components/client/Pagination";
 import HospitalBanner from "../../../components/client/sections/Home/HospitalBanner";
-import { getAllDoctors } from "../../../services/client/doctors";
+import { getAllDoctors, getDoctorsBySpecialty } from "../../../services/client/doctors";
+import { getAllSpecialties } from "../../../services/client/specialties";
 
 const DoctorList = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Tất cả");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [currentPage, setCurrentPage] = useState(3);
   const totalPages = 5;
 
@@ -17,40 +18,32 @@ const DoctorList = () => {
     const [showAllServices, setShowAllServices] = useState(false);
     const serviceList = [...Array(20)];
     const visibleServices = showAllServices ? serviceList : serviceList.slice(0, 9);
-    const [doctors, setDoctors] = useState([]);
+      const [doctors, setDoctors] = useState([]);
+  const [specialties, setSpecialties] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [filteredDoctors, setFilteredDoctors] = useState([]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const categories = [
-    "Tất cả",
-    "Đơn nguyên Chấn Thương Chỉnh Hình",
-    "Đơn nguyên Nam khoa & PT Tiết niệu",
-    "Khoa Cấp cứu - Hồi sức tích cực ICU",
-    "Khoa Chẩn đoán hình ảnh và Điện quang can thiệp",
-    "Khoa Cơ - Xương - Khớp",
-    "Khoa Da Liễu",
-    "Khoa Hô hấp",
-    "Khoa Mắt",
-    "Khoa Ngoại Tổng Hợp",
-    "Khoa Nhi",
-    "Khoa Nội tiết"
-  ];
+  // Tạo categories từ API specialties với _id làm key
+  const categories = specialties.length > 0 ? [
+    { id: "all", name: "Tất cả" },
+    ...specialties.map(specialty => ({ id: specialty._id, name: specialty.name }))
+  ] : [];
+  
+  console.log('Specialties:', specialties);
+  console.log('Categories:', categories);
+  console.log('Selected category:', selectedCategory);
 
+  // Tạo categoryCounts từ API specialties (sử dụng doctor_count nếu có, hoặc random nếu không)
   const categoryCounts = {
-    "Tất cả": 481,
-    "Đơn nguyên Chấn Thương Chỉnh Hình": 8,
-    "Đơn nguyên Nam khoa & PT Tiết niệu": 4,
-    "Khoa Cấp cứu - Hồi sức tích cực ICU": 17,
-    "Khoa Chẩn đoán hình ảnh và Điện quang can thiệp": 18,
-    "Khoa Cơ - Xương - Khớp": 22,
-    "Khoa Da Liễu": 5,
-    "Khoa Hô hấp": 6,
-    "Khoa Mắt": 14,
-    "Khoa Ngoại Tổng Hợp": 29,
-    "Khoa Nhi": 121,
-    "Khoa Nội tiết": 8
+    "Tất cả": doctors.length,
+    ...specialties.reduce((acc, specialty) => {
+      acc[specialty.name] = specialty.doctor_count || Math.floor(Math.random() * 50) + 1;
+      return acc;
+    }, {})
   };
 
   const faqCategories = [
@@ -84,16 +77,50 @@ const DoctorList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
-        const doctors = await getAllDoctors();
-        setDoctors(doctors);
-        console.log("Doctors fetched successfully:", doctors);
+        const [doctorsData, specialtiesData] = await Promise.all([
+          getAllDoctors(),
+          getAllSpecialties()
+        ]);
+        setDoctors(doctorsData);
+        setFilteredDoctors(doctorsData);
+        setSpecialties(specialtiesData);
+        console.log("Doctors fetched successfully:", doctorsData);
+        console.log("Specialties fetched successfully:", specialtiesData);
       } catch (error) {
-        console.error('Error fetching doctors:', error);
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
+
+  // Function để lọc bác sĩ theo chuyên khoa
+  const handleCategoryChange = async (categoryId) => {
+    console.log('Clicking category with ID:', categoryId);
+    setSelectedCategory(categoryId);
+    setLoading(true);
+    
+    try {
+      if (categoryId === "all") {
+        console.log('Loading all doctors:', doctors.length);
+        setFilteredDoctors(doctors);
+      } else {
+        // Truyền trực tiếp specialtyId vào API
+        console.log('Calling API with specialtyId:', categoryId);
+        const doctorsBySpecialty = await getDoctorsBySpecialty(categoryId);
+        console.log('API response:', doctorsBySpecialty);
+        setFilteredDoctors(doctorsBySpecialty);
+      }
+    } catch (error) {
+      console.error('Error filtering doctors by specialty:', error);
+      setFilteredDoctors([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -148,30 +175,29 @@ const DoctorList = () => {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  {categories.map((item, i) => {
-                    const isActive = selectedCategory === item;
-                    return (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={() => setSelectedCategory(item)}
-                        className={`flex justify-between cursor-pointer items-center px-3 py-2 border border-gray-300 rounded text-s transition ${
-                          isActive
-                            ? "bg-emerald-700 text-white"
-                            : "hover:bg-gray-100 text-gray-800"
-                        }`}
-                      >
-                        <span className="font-medium">{item}</span>
-                        <div
-                          className={`px-2 py-1 rounded-full text-xs ${
-                            isActive ? "bg-white text-black" : "bg-gray-200"
+                  {loading ? (
+                    <div className="text-center py-4 text-gray-500">
+                      Đang tải chuyên ngành...
+                    </div>
+                  ) : (
+                    categories.map((category, i) => {
+                      const isActive = selectedCategory === category.id;
+                      return (
+                        <button
+                          key={category.id}
+                          type="button"
+                          onClick={() => handleCategoryChange(category.id)}
+                          className={`flex justify-between cursor-pointer items-center px-3 py-2 border border-gray-300 rounded text-s transition ${
+                            isActive
+                              ? "bg-emerald-700 text-white"
+                              : "hover:bg-gray-100 text-gray-800"
                           }`}
                         >
-                          {categoryCounts[item]}
-                        </div>
-                      </button>
-                    );
-                  })}
+                          <span className="font-medium">{category.name}</span>
+                        </button>
+                      );
+                    })
+                  )}
                 </div>
               </form>
             </div>
@@ -179,7 +205,20 @@ const DoctorList = () => {
             {/* Right content with doctors list */}
             <div className="flex-1 md:pl-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {doctors.map((doctor) => (
+                {loading ? (
+                  <div className="col-span-2 text-center py-8">
+                    <div className="text-gray-500 text-lg">
+                      Đang tải danh sách bác sĩ...
+                    </div>
+                  </div>
+                ) : filteredDoctors.length === 0 ? (
+                  <div className="col-span-2 text-center py-8">
+                    <div className="text-gray-500 text-lg">
+                      Không có bác sĩ nào trong chuyên khoa "{categories.find(c => c.id === selectedCategory)?.name || selectedCategory}"
+                    </div>
+                  </div>
+                ) : (
+                  filteredDoctors.map((doctor) => (
                   <div key={doctor.id} className="flex bg-white rounded-lg overflow-hidden shadow-sm">
                     <div className="w-1/3">
                       <img 
@@ -204,9 +243,10 @@ const DoctorList = () => {
                         <FaMapMarkerAlt className="mr-2 mt-1 text-gray-500" />
                         <span>{doctor.hospital}</span>
                       </div>
+                                          </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
               <Pagination
               totalPages={totalPages}
