@@ -7,7 +7,7 @@ const toFormData = (data) => {
     const value = data[key];
 
     if (key === "cvFileUrl" && value instanceof File) {
-      form.append("cvFileUrl", value);
+      form.append("cvFileUrl", value); // ✅ Dùng đúng tên field backend yêu cầu
     } else if (Array.isArray(value)) {
       value.forEach((item) => {
         form.append(`${key}[]`, item);

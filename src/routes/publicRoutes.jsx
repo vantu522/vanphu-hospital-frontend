@@ -21,6 +21,9 @@ import SpecialtyDoctorSelection from "../pages/client/Books/SpecialtyDoctorSelec
 import MedicalAppointmentBooking from "../pages/client/Books/Medical";
 import RecruitmentDetail from "../pages/client/Recruitment/RecruimentDetail";
 import AdminLogin from "../pages/admin/AdminLogin";
+import HospitalRules from "../components/client/sections/Instruct/HospitalRules";
+import HospitalTrainingLanding from "../components/client/sections/Training";
+import ResearchPage from "../pages/client/About/ResearchPage";
 const publicRoutes = [
 
   {
@@ -51,7 +54,11 @@ const publicRoutes = [
       { path: "chi-tiet-bac-si", element: <DoctorDetail /> },
       { path: "gioi-thieu", element: <About /> },
       { path: "gioi-thieu/ve-hong-ngoc", element: <About /> },
-      { path: "gioi-thieu/huong-dan-khach-hang", element: <Regulation /> },
+      { path: "gioi-thieu/huong-dan-khach-hang", element: <HospitalRules /> },
+      { path: "gioi-thieu/nghien-cuu-khoa-hoc", element: <ResearchPage /> },
+      { path: "gioi-thieu/dao-tao", element: <HospitalTrainingLanding /> },
+
+
       { path: "lien-he", element: <Contact /> },
       { path: "tu-van-suc-khoe", element: <HealthAdvisory /> },
       { path: "tuyen-dung", element: <Recruitment /> },

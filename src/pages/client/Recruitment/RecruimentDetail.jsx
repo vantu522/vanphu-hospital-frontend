@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getRecruitmentBySlug } from "../../../services/client/recruitments";
 import { createApplication } from "../../../services/client/application";
-import LoadingSpinner from "../../../components/admin/ui/loading";
+import toast from "react-hot-toast";
 
 const RecruitmentDetail = () => {
   const { slug } = useParams();
@@ -16,7 +16,6 @@ const RecruitmentDetail = () => {
     coverLetter: "",
     cvFileUrl:null
   });
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchRecruitment = async () => {
@@ -34,22 +33,13 @@ const RecruitmentDetail = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("email", formData.email);
-    data.append("phone", formData.phone);
-    data.append("coverLetter", formData.coverLetter);
-    data.append("cvFile", formData.cvFileUrl); // Tên phải đúng với multer field: 'cvFile'
-
     try {
-      setLoading(true)
-      const response = await createApplication(data);
+      const response = await createApplication(formData);
       console.log("Kết quả:", response);
+      toast.success("Gửi hồ sơ thành công !")
     } catch (error) {
       console.error("Lỗi khi gửi hồ sơ:", error);
-      alert("Có lỗi xảy ra khi gửi hồ sơ!");
-    } finally{
-      setLoading(false)
+      toast.success("Gửi hồ sơ thất bại !")
     }
   };
 
@@ -72,7 +62,6 @@ const RecruitmentDetail = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 grid md:grid-cols-10 gap-10">
-      {loading &&<LoadingSpinner/>}
       {/* Công văn tuyển dụng */}
       <div className="md:col-span-7">
         <h1 className="text-3xl font-bold mb-4">{recruitment.title}</h1>

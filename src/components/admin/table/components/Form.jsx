@@ -7,6 +7,26 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
     data || fields.reduce((acc, field) => ({ ...acc, [field.key]: "" }), {})
   );
   const [previews, setPreviews] = useState({});
+  const normalizeFormData = (data, fields) => {
+  const normalized = { ...data };
+  fields.forEach((field) => {
+    if (
+      field.type === "select" &&
+      typeof data[field.key] === "object" &&
+      data[field.key]?._id
+    ) {
+      normalized[field.key] = data[field.key]._id;
+    }
+  });
+  return normalized;
+};
+useEffect(() => {
+  if (data) {
+    const normalized = normalizeFormData(data, fields);
+    setFormData(normalized);
+  }
+}, [data, fields]);
+
 
   useEffect(() => {
     const newPreviews = {};
@@ -23,6 +43,7 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
         }
       }
     });
+    
 
     setPreviews(newPreviews);
   }, [formData, fields]);
