@@ -27,7 +27,8 @@ const toFormData = (data) => {
 export const getAllServices = async () => {
   try {
     const response = await axiosInstance.get('/services');
-    return response.data;
+    // Kiểm tra nếu response có format { count, services } thì trả về services
+    return response.data.services || response.data;
   } catch (error) {
     console.error("Error fetching services:", error);
     throw error;
@@ -72,6 +73,16 @@ export const deleteService = async (id) => {
     return response.data;
   } catch (error) {
     console.error("Error deleting service:", error);
+    throw error;
+  }
+};
+
+export const getServicesBySpecialty = async (specialtyId) => {
+  try {
+    const response = await axiosInstance.get(`/services/specialty/${specialtyId}`);
+    return response.data.services; // Trả về mảng services từ response
+  } catch (error) {
+    console.error("Error fetching services by specialty:", error);
     throw error;
   }
 };
