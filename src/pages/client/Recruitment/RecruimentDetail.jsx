@@ -56,6 +56,17 @@ const RecruitmentDetail = () => {
   const handleImageError = () => {
     setImageError(true);
   };
+   function formatDateVN(isoDateString) {
+  if (!isoDateString) return '';
+
+  const date = new Date(isoDateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // tháng bắt đầu từ 0
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
 
   if (!recruitment) return <p className="p-10">Đang tải...</p>;
 
@@ -68,11 +79,7 @@ const RecruitmentDetail = () => {
         <p className="text-gray-600 mb-6">
           🕒 Hạn nộp hồ sơ:{" "}
           <span className="text-red-600 font-medium">
-            {new Date(recruitment.deadline).toLocaleDateString("vi-VN", {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric",
-            })}
+            {formatDateVN(recruitment.expiry_date)}
           </span>
         </p>
         <iframe

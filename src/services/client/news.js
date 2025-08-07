@@ -65,3 +65,13 @@ export const updateNews = async (id, newsData) => {
         throw error;
     }
 }
+
+export const getNewsBySlug = async (slug) => {
+    try {
+        const response = await axiosInstance.get(`/news/slug/${slug}`);
+        return response.data?.data;
+    } catch (error) {
+        console.error("Error fetching news by slug:", error);
+        throw error;
+    }
+}

@@ -44,9 +44,8 @@ const columns = [
 
 const formFields = [
   { key: "title", label: "Tiêu đề", type: "text", required: true },
-  { key: "slug", label: "Slug", type: "text", required: true },
   { key: "description", label: "Mô tả", type: "textarea" },
-  { key: "content", label: "Nội dung", type: "textarea" },
+  { key: "content", label: "Nội dung", type: "richtext" },
   { key: "image", label: "Hình ảnh (URL)", type: "file" },
   { key: "author", label: "Tác giả", type: "text" },
   { key: "category", label: "Chuyên mục", type: "text" },

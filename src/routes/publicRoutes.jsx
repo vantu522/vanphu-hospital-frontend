@@ -60,7 +60,7 @@ const publicRoutes = [
       { path: "tin-tuc", element: <News /> },
       {path:"dat-lich", element:<Booking/>},
       {path:"kham-bhyt", element:<MedicalAppointmentBooking/>},
-      { path: "chi-tiet-tin-tuc", element: <NewsDetail /> },
+      { path: "tin-tuc/:slug", element: <NewsDetail /> },
         { path: "dang-nhap", element: <Login />},
             { path: "dang-ky", element: <SignUp />},
     ],

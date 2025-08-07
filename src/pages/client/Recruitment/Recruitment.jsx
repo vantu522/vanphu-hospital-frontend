@@ -45,6 +45,18 @@ const Recruitment = () => {
     setFilteredRecruitments(filtered);
   }, [filters, recruitmentDetails]);
 
+  function formatDateVN(isoDateString) {
+  if (!isoDateString) return '';
+
+  const date = new Date(isoDateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // tháng bắt đầu từ 0
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
+
   return (
     <div>
       <PageBanner
@@ -95,7 +107,7 @@ const Recruitment = () => {
               <div key={idx} className="border-b pb-4">
               <a href={`/tuyen-dung/${item.slug}`}>
                               <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-gray-600 mt-1">🕒 Hạn nộp hồ sơ: <span className="text-red-500 font-medium">{item.deadline}</span></p>
+                <p className="text-gray-600 mt-1">🕒 Hạn nộp hồ sơ: <span className="text-red-500 font-medium">{formatDateVN(item.expiry_date)}</span></p>
 </a>
               </div>
             ))

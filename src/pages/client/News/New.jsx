@@ -53,10 +53,11 @@ export default function News() {
                 key={idx}
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300"
               >
+                
                 <div className="h-48 overflow-hidden">
                   <img
-                    src={news.image}
-                    alt={news.title}
+                    src={item.image}
+                    alt={item.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -69,15 +70,16 @@ export default function News() {
                   </div>
 
                   <h3 className="text-xl font-semibold text-gray-900 mb-3 hover:text-emerald-600 transition-colors">
-                    <Link to="/chi-tiet-tin-tuc">{news.title}</Link>
+                    {item.title}
                   </h3>
 
                   <p className="text-gray-600 mb-4 line-clamp-2">
-                    {news.description}
+                    {item.description}
                   </p>
 
                   <a
-                    href="/chi-tiet-tin-tuc"
+                              href={`/tin-tuc/${item.slug}`}
+
                     className="inline-flex items-center text-emerald-600 font-medium hover:text-emerald-800 transition-colors"
                   >
                     Đọc tiếp <FiArrowRight className="ml-2" />
