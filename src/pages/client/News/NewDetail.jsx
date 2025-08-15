@@ -43,19 +43,16 @@ export default function NewsDetail() {
         backgroundImage={dichvu}
         breadcrumbs={[
           { label: "Trang chủ", href: "/" },
-          { label: "Tin tức", active: true },
+          { label: "Tin tức", href: "/tin-tuc"  },
+          { label:newDetail?.title, active: true },
+
         ]}
       />
 
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           {/* Back Button */}
-          <div className="mb-8">
-            <button className="group inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-all duration-300">
-              <FiArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
-              Quay lại trang tin tức
-            </button>
-          </div>
+      
 
           {/* Main Content Card */}
           <article className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">

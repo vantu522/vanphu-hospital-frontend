@@ -5,6 +5,7 @@ import { createRecruitment, deleteRecruitment, getAllRecruitments, updateRecruit
 import LoadingSpinner from "../../components/admin/ui/loading";
 import toast from "react-hot-toast";
 import { createApplication, deleteApplication, getAllApplications, updateApplication,downloadCV } from "../../services/client/application";
+import { baseUrl,clientUrl } from "../../config/constansts";
 const RecruitmentManagement = () => {
   const [activeTab, setActiveTab] = useState("posts");
   const[loading, setLoading] = useState(false);
@@ -60,7 +61,7 @@ const RecruitmentManagement = () => {
       render: (value) =>
         value ? (
           <a
-            href={`http://localhost:5000/${value}`}
+            href={`${baseUrl}/${value}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline text-sm"

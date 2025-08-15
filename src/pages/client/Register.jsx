@@ -13,40 +13,23 @@ export default function SignUp() {
         <div className="mt-8 bg-white shadow-xl rounded-lg overflow-hidden">           
           <div className="px-8 py-10">             
             <form className="space-y-5">               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">                 
                 <div>                   
                   <label                     
-                    htmlFor="firstName"                     
+                    htmlFor="fullName"                     
                     className="block text-sm font-medium text-gray-700 mb-1"                   
                   >                     
-                    Họ *                   
+                    Họ tên                  
                   </label>                   
                   <input                     
-                    id="firstName"                     
-                    name="firstName"                     
+                    id="fullName"                     
+                    name="fullName"                     
                     type="text"                     
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"                     
-                    placeholder="Nhập họ của bạn"                     
+                    placeholder="Nhập họ tên của bạn"                     
                     required                   
                   />                 
                 </div>                 
-                <div>                   
-                  <label                     
-                    htmlFor="lastName"                     
-                    className="block text-sm font-medium text-gray-700 mb-1"                   
-                  >                     
-                    Tên *                   
-                  </label>                   
-                  <input                     
-                    id="lastName"                     
-                    name="lastName"                     
-                    type="text"                     
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition"                     
-                    placeholder="Nhập tên của bạn"                     
-                    required                   
-                  />                 
-                </div>               
-              </div>                
+                         
               <div>                 
                 <label                   
                   htmlFor="email"                   

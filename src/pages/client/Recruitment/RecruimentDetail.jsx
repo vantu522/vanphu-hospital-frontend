@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getRecruitmentBySlug } from "../../../services/client/recruitments";
 import { createApplication } from "../../../services/client/application";
 import toast from "react-hot-toast";
+import { baseUrl, clientUrl } from "../../../config/constansts";
 
 const RecruitmentDetail = () => {
   const { slug } = useParams();
@@ -37,6 +38,7 @@ const RecruitmentDetail = () => {
       const response = await createApplication(formData);
       console.log("Kết quả:", response);
       toast.success("Gửi hồ sơ thành công !")
+      
     } catch (error) {
       console.error("Lỗi khi gửi hồ sơ:", error);
       toast.success("Gửi hồ sơ thất bại !")
@@ -72,7 +74,7 @@ const RecruitmentDetail = () => {
           </span>
         </p>
         <iframe
-          src={`http://localhost:5000/${recruitment.document}`}
+          src={`${baseUrl}/${recruitment.document}`}
           width="100%"
           height="600px"
           title="PDF Viewer"

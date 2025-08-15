@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { baseUrl, clientUrl } from './constansts';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://hospital-backend-41fl.onrender.com/api', 
+  baseURL:  `${baseUrl}/api`, // Sử dụng baseUrl từ constants
   timeout: 10000, 
   headers: {
     'Content-Type': 'application/json',

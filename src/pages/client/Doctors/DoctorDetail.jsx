@@ -1,6 +1,8 @@
 // Doctor Detail Page Component
 import React, { useState, useEffect } from "react";
 import { IoMdMail, IoLogoWhatsapp } from "react-icons/io";
+import dichvu from '../../../assets/images/dichvu.png'
+
 import {
   FaCalendarAlt,
   FaPhone,
@@ -12,6 +14,7 @@ import {
 import DoctorTeam from "../../../components/client/sections/Home/DoctorTeam";
 import { useParams } from "react-router-dom";
 import { getDoctorBySlug } from "../../../services/client/doctors";
+import PageBanner from "../../../components/client/PageBanner";
 
 const DoctorDetail = () => {
   const { slug } = useParams();
@@ -32,6 +35,16 @@ const DoctorDetail = () => {
 
   return (
     <div className="bg-white">
+           <PageBanner
+      backgroundImage={dichvu}
+      title="Chi tiết bác sĩ"
+      breadcrumbs={[
+        {label:"Trang chủ", href:"/"},
+        {label:"Danh sách bác sĩ", },
+        {label:"Chi tiết bác sĩ", active:true}
+
+      ]}
+      />
       {/* Hero section with doctor's banner */}
       <div className="bg-gray-100 py-8">
         <div className="container mx-auto px-4">

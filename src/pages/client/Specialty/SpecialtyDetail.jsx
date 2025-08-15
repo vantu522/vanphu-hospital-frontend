@@ -26,11 +26,11 @@ const SpecitaltyDetail = () => {
     <div>
       <PageBanner
         backgroundImage={dichvu}
-        title="Khám sức khoẻ tổng quát"
+        title={specialtyDetail?.name}
         breadcrumbs={[
           { label: "Trang chủ", href: "/" },
           { label: "Chuyên khoa", active: false, href: "/chuyen-khoa" },
-          { label: "Khám sức khoẻ tổng quát", active: true },
+          { label: specialtyDetail?.name, active: true },
         ]}
       />
       <div className="container mx-auto px-4 py-12">
@@ -38,7 +38,7 @@ const SpecitaltyDetail = () => {
           {/* Left Content Section */}
           <div className="w-full lg:w-1/2">
             <h1 className="text-4xl font-bold text-gray-800 mb-6">
-              Khoa Ngoại Tổng Hợp
+              {specialtyDetail?.name}
             </h1>
 
             <div className="text-gray-700 space-y-6">
