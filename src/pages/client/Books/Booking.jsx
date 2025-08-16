@@ -19,37 +19,35 @@ const Booking = () => {
             {/* Đặt lịch khám bác sĩ */}
             <a href="/kham-bhyt">
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-              <div className="flex justify-center p-6">
-                <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-12 w-12 text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 4v16m8-8H4"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M18 12c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6z"
-                    />
-                  </svg>
+                <div className="flex justify-center p-6">
+                  <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-12 w-12 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 4v16m8-8H4"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M18 12c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className="text-center pb-6">
+                  <h3 className="text-green-700 font-medium">Đặt lịch khám BHYT</h3>
                 </div>
               </div>
-              <div className="text-center pb-6">
-                <h3 className="text-green-700 font-medium">Đặt lịch</h3>
-                <h3 className="text-green-700 font-medium">khám BHYT</h3>
-              </div>
-            </div>
             </a>
-            
 
             {/* Đặt lịch khám chuyên khoa */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -72,10 +70,36 @@ const Booking = () => {
                 </div>
               </div>
               <div className="text-center pb-6">
-                <h3 className="text-green-700 font-medium">Đặt lịch khám</h3>
-                <h3 className="text-green-700 font-medium">dịch vụ</h3>
+                <h3 className="text-green-700 font-medium">Đặt lịch khám dịch vụ</h3>
               </div>
             </div>
+            {/* Check in */}
+            <a href="/check-in">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div className="flex justify-center p-6">
+                  <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
+                    {/* Icon QR Code */}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-12 w-12 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 4h4v4H3V4zm0 12h4v4H3v-4zm14-12h4v4h-4V4zm0 8h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 4h4v-4h-2v2h-2v2zm-8-8h2v2H9v-2zm0 4h2v2H9v-2z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                <div className="text-center pb-6">
+                  <h3 className="text-green-700 font-medium">Check In</h3>
+                </div>
+              </div>
+            </a>
 
             {/* Đặt lịch xét nghiệm */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -98,8 +122,7 @@ const Booking = () => {
                 </div>
               </div>
               <div className="text-center pb-6">
-                <h3 className="text-green-700 font-medium">Đặt lịch</h3>
-                <h3 className="text-green-700 font-medium">xét nghiệm</h3>
+                <h3 className="text-green-700 font-medium">Đặt lịch xét nghiệm</h3>
               </div>
             </div>
 
@@ -128,6 +151,8 @@ const Booking = () => {
                 <h3 className="text-green-700 font-medium">điện tử</h3>
               </div>
             </div>
+
+            
           </div>
         </div>
 
