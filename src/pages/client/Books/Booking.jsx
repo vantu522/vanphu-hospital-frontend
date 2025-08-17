@@ -49,7 +49,9 @@ const Booking = () => {
               </div>
             </a>
 
-            {/* Đặt lịch khám chuyên khoa */}
+           
+            <a href="/kham-dich-vu">
+                 {/* Đặt lịch dịch vụ */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="flex justify-center p-6">
                 <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
@@ -73,6 +75,9 @@ const Booking = () => {
                 <h3 className="text-green-700 font-medium">Đặt lịch khám dịch vụ</h3>
               </div>
             </div>
+
+            </a>
+
             {/* Check in */}
             <a href="/check-in">
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">

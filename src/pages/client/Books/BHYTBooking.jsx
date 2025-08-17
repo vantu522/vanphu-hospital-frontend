@@ -93,9 +93,9 @@ const BHYTBooking = () => {
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           {/* Header */}
           <div className="bg-green-50 px-4 sm:px-6 py-3 sm:py-4 border-b">
-            <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-green-700">
-              Thông tin đặt lịch khám
-            </h2>
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold text-green-700">
+              Thông tin đặt lịch khám Bảo hiểm y tế
+            </h1>
             <p className="text-xs sm:text-sm text-gray-600 mt-1">
               Vui lòng điền đầy đủ thông tin để đặt lịch khám
             </p>
