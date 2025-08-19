@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import uh from "../../../assets/images/dvt_2.png";
 import { FiChevronDown, FiSearch, FiX } from "react-icons/fi";
-import { TfiHeadphoneAlt } from "react-icons/tfi";
-import { FaAmbulance } from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa"; // Để biểu tượng đăng xuất
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,6 +10,22 @@ const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef(null);
   const [languageOpen, setLanguageOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData)); // Lấy dữ liệu người dùng từ localStorage
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+    setUserData(null); // Đặt lại dữ liệu người dùng về null sau khi đăng xuất
+    window.location.href ='/';
+  };
 
   const toggleLanguageMenu = () => {
     setLanguageOpen(!languageOpen);
@@ -21,7 +37,6 @@ const Header = () => {
 
   const toggleSearch = () => {
     setSearchOpen(!searchOpen);
-    // Focus the input when search popup opens
     if (!searchOpen) {
       setTimeout(() => {
         searchInputRef.current?.focus();
@@ -49,49 +64,47 @@ const Header = () => {
     };
   }, [searchOpen]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const topBarHeight = document.querySelector(".topbar")?.offsetHeight || 0;
-      setIsScrolled(window.scrollY > topBarHeight);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <header className="w-full font-sans">
-      {/* Topbar */}
       <div className="bg-gradient-to-r from-green-700 to-green-600 text-white topbar">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center py-3 px-4 gap-3 sm:gap-0">
           <div className="flex gap-5 sm:gap-8 items-center text-xs sm:text-sm">
-            <button className="flex cursor-pointer items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md">
-              <span className="text-base sm:text-lg text-green-100">📞</span>
-              Hotline: <strong className="tracking-wide">0277 3630 000</strong>
-            </button>
-            <button className="flex cursor-pointer items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md">
-              <span className="text-base sm:text-lg text-green-100">🚑</span>
-              Cấp cứu: <strong className="tracking-wide">0900 555 555</strong>
-            </button>
-          </div>
+            {/* Các nút như hotline */}
+            <button className="flex cursor-pointer items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md"> <span className="text-base sm:text-lg text-green-100">📞</span> Hotline: <strong className="tracking-wide">0277 3630 000</strong> </button> <button className="flex cursor-pointer items-center gap-2 font-medium hover:scale-105 transition-transform duration-300 bg-green-600 text-white py-2 px-4 rounded-md"> <span className="text-base sm:text-lg text-green-100">🚑</span> Cấp cứu: <strong className="tracking-wide">0900 555 555</strong> </button> </div>
 
           <div className="flex items-center gap-4 text-xs sm:text-sm">
-            <a href="/dang-nhap">
-              <button className="bg-white text-green-700 hover:bg-green-100 px-4 py-2 rounded-md font-medium transition-colors duration-300">
-                Đăng nhập
-              </button>
-            </a>
-            <a href="dang-ky">
-              <button className="bg-green-800 text-white hover:bg-green-900 px-4 py-2 rounded-md font-medium transition-colors duration-300">
-                Đăng ký
-              </button>
-            </a>
-
+            {userData ? (
+              <div className="flex items-center gap-3">
+                <img
+                  src= "https://img.lovepik.com/png/20231028/Social-media-male-college-student-user-avatar-japan-chemical_394430_wh860.png" // Hiển thị avatar của người dùng, nếu không có thì sử dụng avatar mặc định
+                  alt="Avatar"
+                  className="w-8 h-8 rounded-full"
+                />
+                <span>{userData.role}</span>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center bg-white text-green-700 hover:bg-green-100 px-4 py-2 rounded-md font-medium transition-colors duration-300"
+                >
+                  <FaSignOutAlt className="mr-2" />
+                  Đăng xuất
+                </button>
+              </div>
+            ) : (
+              <>
+                <a href="/dang-nhap">
+                  <button className="bg-white text-green-700 hover:bg-green-100 px-4 py-2 rounded-md font-medium transition-colors duration-300">
+                    Đăng nhập
+                  </button>
+                </a>
+                <a href="/dang-ky">
+                  <button className="bg-green-800 text-white hover:bg-green-900 px-4 py-2 rounded-md font-medium transition-colors duration-300">
+                    Đăng ký
+                  </button>
+                </a>
+              </>
+            )}
             <span className="text-green-300">|</span>
-
-            <div
-              className="relative cursor-pointer"
-              onClick={toggleLanguageMenu}
-            >
+            <div className="relative cursor-pointer" onClick={toggleLanguageMenu}>
               <button className="flex items-center gap-1 hover:text-white-200 hover:font-bold transition-colors duration-300">
                 Tiếng Việt
                 <span className="ml-1">▼</span>
@@ -128,6 +141,8 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+
 
       {/* Main header */}
       <div

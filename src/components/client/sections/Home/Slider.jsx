@@ -21,7 +21,6 @@ export default function Slider() {
         setLoading(true);
         const data = await getAllBanners();
         setBanners(data);
-        console.log("Banners data:", data);
       } catch (error) {
         console.error("Loi fetch banners:", error);
       } finally {
@@ -74,7 +73,7 @@ export default function Slider() {
                 e.target.style.display = 'none';
               }}
               onLoad={() => {
-                console.log(`Loaded banner ${index}:`, item.image);
+                // console.log(`Loaded banner ${index}:`, item.image);
               }}
             />
           </div>

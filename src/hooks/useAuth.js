@@ -116,8 +116,10 @@ export const useLogin = () => {
 
       // Hiển thị thông báo toast thành công
       toast.success("Đăng nhập thành công!");
+        localStorage.setItem('token', result.data.token);
+         localStorage.setItem('userData', JSON.stringify(result.data.customer)); 
+      window.location.href = '/';
 
-      // Điều hướng tới trang chính hoặc trang dashboard sau khi đăng nhập thành công
       navigate('/'); // Đổi thành đường dẫn bạn muốn chuyển hướng
 
     } catch (error) {

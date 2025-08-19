@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, User, Plus, Check } from "lucide-react";
+import { ChevronLeft, ChevronRight, User, Plus, Check, X, Edit3 } from "lucide-react";
 
 const BHYTBooking = () => {
   const [step, setStep] = useState(1);
@@ -12,6 +12,8 @@ const BHYTBooking = () => {
   const [qrCode, setQrCode] = useState("");
   const [completedSteps, setCompletedSteps] = useState([]);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [showEditPopup, setShowEditPopup] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
 
   // Sample user data
   const sampleUsers = [
@@ -113,6 +115,22 @@ const BHYTBooking = () => {
     }
   };
 
+  const openEditPopup = (userData) => {
+    setEditingUser({ ...userData });
+    setShowEditPopup(true);
+  };
+
+  const closeEditPopup = () => {
+    setShowEditPopup(false);
+    setEditingUser(null);
+  };
+
+  const saveUserEdit = () => {
+    // Here you would normally save to your data source
+    console.log("Saving user data:", editingUser);
+    closeEditPopup();
+  };
+
   // Step indicator component
   const StepIndicator = () => {
     const steps = [
@@ -180,19 +198,160 @@ const BHYTBooking = () => {
     );
   };
 
+  // Edit User Popup
+  const EditUserPopup = () => {
+    if (!showEditPopup || !editingUser) return null;
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 animate-fadeIn">
+        <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto transform animate-slideUp">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-gray-800 flex items-center">
+                <Edit3 className="w-5 h-5 mr-2 text-green-600" />
+                Chỉnh sửa thông tin
+              </h3>
+              <button 
+                onClick={closeEditPopup}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">
+                  Họ và tên <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={editingUser.name || ""}
+                  onChange={(e) => setEditingUser({...editingUser, name: e.target.value})}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none transition-colors"
+                  placeholder="Nhập họ và tên"
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">
+                  Ngày sinh <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={editingUser.dob || ""}
+                  onChange={(e) => setEditingUser({...editingUser, dob: e.target.value})}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none transition-colors"
+                  placeholder="dd/mm/yyyy"
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">
+                  Số điện thoại <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="tel"
+                  value={editingUser.phone || ""}
+                  onChange={(e) => setEditingUser({...editingUser, phone: e.target.value})}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none transition-colors"
+                  placeholder="Nhập số điện thoại"
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">
+                  Số CCCD/CMND
+                </label>
+                <input
+                  type="text"
+                  value={editingUser.idNumber || ""}
+                  onChange={(e) => setEditingUser({...editingUser, idNumber: e.target.value})}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none transition-colors"
+                  placeholder="Nhập số CCCD/CMND"
+                />
+              </div>
+
+              <div>
+                <label className="block text-gray-700 font-medium mb-2">
+                  Địa chỉ
+                </label>
+                <textarea
+                  value={editingUser.address || ""}
+                  onChange={(e) => setEditingUser({...editingUser, address: e.target.value})}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none transition-colors resize-none"
+                  rows="3"
+                  placeholder="Nhập địa chỉ hiện tại"
+                />
+              </div>
+
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="isAccountHolder"
+                  checked={editingUser.isAccountHolder || false}
+                  onChange={(e) => setEditingUser({...editingUser, isAccountHolder: e.target.checked})}
+                  className="mr-3 w-4 h-4 text-green-600"
+                />
+                <label htmlFor="isAccountHolder" className="text-gray-700 font-medium">
+                  Chủ tài khoản
+                </label>
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-8">
+              <button
+                onClick={closeEditPopup}
+                className="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+              >
+                Hủy
+              </button>
+              <button
+                onClick={saveUserEdit}
+                className="flex-1 px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-medium"
+              >
+                Lưu thay đổi
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const morningTimes = ["08:00", "09:00", "10:00", "11:00"];
   const afternoonTimes = ["14:00", "15:00", "16:00", "17:00"];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-green-50">
-    
-      
+      <style jsx>{`
+        .animate-fadeIn {
+          animation: fadeIn 0.3s ease-out;
+        }
+        .animate-slideUp {
+          animation: slideUp 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes slideUp {
+          from { 
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+          }
+          to { 
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+      `}</style>
 
       <div className="max-w-4xl mx-auto px-4 py-8">
         
         <StepIndicator />
 
-            {/* Navigation Footer */}
+        {/* Navigation Footer */}
         <div className="flex justify-between mt-8">
           {step > 1 && !qrCode && (
             <button 
@@ -235,7 +394,7 @@ const BHYTBooking = () => {
                   
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-gray-800">{userData.name}</h3>
-                    <p className="text-gray-600">Ngày sinh: {userData.dob}</p>
+                    <p className="text-gray-600 text-xs">Ngày sinh: {userData.dob}</p>
                     <p className="text-gray-600">SĐT: {userData.phone}</p>
                     {userData.isAccountHolder && (
                       <span className="inline-block bg-green-100 text-green-600 text-xs px-2 py-1 rounded-full mt-2">
@@ -245,7 +404,13 @@ const BHYTBooking = () => {
                   </div>
                   
                   <div className="text-right">
-                    <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openEditPopup(userData);
+                      }}
+                      className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors"
+                    >
                       Chỉnh sửa
                     </button>
                     <ChevronRight className="w-5 h-5 text-gray-400 mt-2 ml-auto" />
@@ -445,7 +610,7 @@ const BHYTBooking = () => {
           </div>
         )}
 
-        {/* Step 3: Department and Time Selection */}
+        {/* Step 3: Department and Time Selection - Removed background colors */}
         {step === 3 && (
           <div className="bg-white rounded-2xl shadow-lg p-6">
             <h2 className="text-2xl font-bold text-center text-green-600 mb-8">
@@ -480,7 +645,7 @@ const BHYTBooking = () => {
                 
                 {/* Morning Session */}
                 <div className="mb-6">
-                  <h4 className="text-md font-medium mb-3 text-blue-600"> Buổi sáng</h4>
+                  <h4 className="text-md font-medium mb-3 text-gray-700">🌅 Buổi sáng</h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {morningTimes.map((time) => (
                       <button
@@ -501,7 +666,7 @@ const BHYTBooking = () => {
 
                 {/* Afternoon Session */}
                 <div className="mb-6">
-                  <h4 className="text-md font-medium mb-3 text-orange-600"> Buổi chiều</h4>
+                  <h4 className="text-md font-medium mb-3 text-gray-700">🌇 Buổi chiều</h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {afternoonTimes.map((time) => (
                       <button
@@ -601,9 +766,10 @@ const BHYTBooking = () => {
             </div>
           </div>
         )}
-
-    
       </div>
+
+      {/* Edit User Popup */}
+      <EditUserPopup />
     </div>
   );
 };
