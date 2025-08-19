@@ -107,7 +107,7 @@ const Booking = () => {
             </a>
 
             {/* Đặt lịch xét nghiệm */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            {/* <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <div className="flex justify-center p-6">
                 <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
                   <svg
@@ -129,7 +129,7 @@ const Booking = () => {
               <div className="text-center pb-6">
                 <h3 className="text-green-700 font-medium">Đặt lịch xét nghiệm</h3>
               </div>
-            </div>
+            </div> */}
 
             {/* Đặt lịch tiêm chủng */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -152,8 +152,7 @@ const Booking = () => {
                 </div>
               </div>
               <div className="text-center pb-6">
-                <h3 className="text-green-700 font-medium">Sổ y bạ</h3>
-                <h3 className="text-green-700 font-medium">điện tử</h3>
+                <h3 className="text-green-700 font-medium">Sổ y bạ điện tử</h3>
               </div>
             </div>
 

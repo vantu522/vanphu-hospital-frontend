@@ -8,4 +8,6 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  base: './',   // rất quan trọng
+  build: { outDir: 'dist/renderer', emptyOutDir: true }
 })

@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from "react";
 import { FiCalendar, FiClock, FiShare2, FiFacebook, FiTwitter, FiLinkedin, FiArrowLeft, FiEye, FiTag, FiHeart, FiActivity, FiShield } from "react-icons/fi";
 import PageBanner from "../../../components/client/PageBanner";
 import dichvu from '../../../assets/images/dichvu.png'
-import { getNewsBySlug } from "../../../services/client/news";
 import { useParams } from "react-router-dom";
 import NewsEvents from "../../../components/client/sections/Home/NewsEvents";
+import { useNewsDetail } from "../../../hooks/useNews";
 
 
 export default function NewsDetail() {
   // Dữ liệu tin tức bệnh viện
-  const [newDetail,setNewDetail] = useState({});
   const {slug} = useParams();
-  
- 
-   useEffect(() => {
-     const fetchNewDetail = async () => {
-       try {
-         const response = await getNewsBySlug(slug);
-         setNewDetail(response);
-         console.log(response);
-       } catch (error) {
-         console.error("Error fetching service details:", error);
-       }
-     };
-     fetchNewDetail();
-   }, [slug]);
+  const {newDetail, loading, error} = useNewsDetail(slug);
   // Format date
   const formatDate = (dateObj) => {
     const date = new Date(dateObj);

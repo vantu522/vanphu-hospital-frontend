@@ -1,30 +1,14 @@
-import React, { useState,useEffect } from "react";
 import PageBanner from "../../../components/client/PageBanner";
 import dichvu from "../../../assets/images/dichvu.png";
 import { FiCalendar, FiArrowRight } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import { getAllNews } from "../../../services/client/news";
+
 import { format } from "date-fns";
+import { useNews } from "../../../hooks/useNews";
 
 
 
 export default function News() {
-  const [news, setNews] = useState([]);
-
-
-  useEffect(() =>{
-    const fetchNews = async () => {
-      try {
-        const newsList = await getAllNews(); 
-        console.log(newsList)
-        setNews(newsList);
-      } catch (error) {
-        console.error("Error fetching news:", error);
-      }
-    };
-
-    fetchNews();
-  },[])
+  const {news, loading, error} = useNews();
 
   return (
     <div className="relative">
