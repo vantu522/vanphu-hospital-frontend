@@ -1,7 +1,34 @@
 import PageBanner from "../../../components/client/PageBanner";
 import dichvu from "../../../assets/images/dichvu.png";
+import { useState ,useEffect} from "react";
 
 const Booking = () => {
+    const [isPopupOpen, setIsPopupOpen] = useState(false); // Quản lý popup
+  const [isPopupVisible, setIsPopupVisible] = useState(false); // Quản lý hiệu ứng fade-in
+
+  // Mở popup khi click vào Đón tiếp
+  const openPopup = () => {
+    setIsPopupOpen(true);
+    setTimeout(() => setIsPopupVisible(true), 50); // Đảm bảo hiệu ứng fade-in
+  };
+
+  // Đóng popup với hiệu ứng fade-out
+  const closePopup = () => {
+    setIsPopupVisible(false);
+    setTimeout(() => setIsPopupOpen(false), 300); // Thời gian hiệu ứng fade-out
+  };
+
+    // Khóa cuộn trang khi popup mở
+  useEffect(() => {
+    if (isPopupOpen) {
+      document.body.style.overflow = "hidden"; // Khóa cuộn
+    } else {
+      document.body.style.overflow = "auto"; // Mở cuộn khi popup đóng
+    }
+    return () => {
+      document.body.style.overflow = "auto"; // Đảm bảo mở cuộn khi component unmount
+    };
+  }, [isPopupOpen]);
   return (
     <div>
       <PageBanner
@@ -48,6 +75,73 @@ const Booking = () => {
                 </div>
               </div>
             </a>
+
+            
+                 {/* Đón tiếp*/}
+            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300" onClick={openPopup}>
+              <div className="flex justify-center p-6">
+                <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-12 w-12 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-center pb-6">
+                <h3 className="text-green-700 font-medium">Đón tiếp</h3>
+              </div>
+            </div>
+
+            
+      {/* Popup Đón tiếp với hiệu ứng fade-in */}
+        {isPopupOpen && (
+          <div
+            className={`fixed inset-0  bg-opacity-100 flex justify-center items-center z-50 transition-opacity duration-300 ${
+              isPopupVisible ? "opacity-100" : "opacity-0"
+            } backdrop-blur-sm`} // Thêm backdrop-blur để làm mờ nền
+          >
+            <div className="bg-white rounded-lg shadow-lg p-8 w-100 sm:w-96 transition-transform duration-300 relative">
+                <button
+                onClick={closePopup}
+                className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 font-semibold"
+              >
+                X
+              </button>
+              <h3 className="text-xl font-semibold mb-6 text-center text-green-700">Chọn hình thức khám</h3>
+              <div className="flex justify-around">
+                <a href="/kham-bhyt">
+                  <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors duration-300">
+                    Khám BHYT
+                  </button>
+                </a>
+                <a href="/kham-dich-vu">
+                  <button className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors duration-300">
+                    Khám Dịch Vụ
+                  </button>
+                </a>
+              </div>
+              <div className="mt-6 text-center">
+                <button
+                  onClick={closePopup}
+                  className="text-gray-600 hover:text-gray-800 underline"
+                >
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+            
 
            
             <a href="/kham-dich-vu">

@@ -23,8 +23,7 @@ import HospitalRules from "../components/client/sections/Instruct/HospitalRules"
 import HospitalTrainingLanding from "../components/client/sections/Training";
 import ResearchPage from "../pages/client/About/ResearchPage";
 import BHYTBooking from "../pages/client/Books/BHYTBooking";
-import CheckinKiosk from "../pages/client/Books/CheckinKiosk";
-import ServiceBooking from "../pages/client/Books/ServiceBooking";
+
 const publicRoutes = [
 
   {
@@ -68,8 +67,8 @@ const publicRoutes = [
       { path: "tin-tuc", element: <News /> },
       {path:"dat-lich", element:<Booking/>},
       {path:"kham-bhyt", element:<BHYTBooking/>},
-      {path:"check-in", element:<CheckinKiosk/>},
-      {path:"kham-dich-vu", element:<ServiceBooking/>},
+      // {path:"check-in", element:<CheckinKiosk/>},
+      // {path:"kham-dich-vu", element:<ServiceBooking/>},
 
       { path: "tin-tuc/:slug", element: <NewsDetail /> },
         { path: "dang-nhap", element: <Login />},

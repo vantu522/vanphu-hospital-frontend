@@ -48,7 +48,7 @@ const Doctors = () => {
     },
     
     { key: "degree", label: "Học vị" },
-    { key: "email", label: "Email" },
+    // { key: "email", label: "Email" },
     { key: "phone_number", label: "SĐT" },
     // { key: "work_address", label: "Nơi làm việc" },
     // { key: "hospital", label: "Bệnh viện" },
