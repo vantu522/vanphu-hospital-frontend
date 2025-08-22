@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 const Booking = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Quản lý popup
   const [isPopupVisible, setIsPopupVisible] = useState(false); // Quản lý hiệu ứng fade-in
-  // ...existing code...
 
   const [authType, setAuthType] = useState(""); // Loại xác thực
   const [isAuthPopupOpen, setIsAuthPopupOpen] = useState(false); // Popup xác thực
@@ -23,11 +22,6 @@ const Booking = () => {
     setAuthType(type);
   };
 
-  // Đóng popup xác thực
-  const closeAuthPopup = () => {
-    setIsAuthPopupOpen(false);
-    setAuthType("");
-  };
 
   // Mở popup khi click vào Đón tiếp
   const openPopup = () => {
