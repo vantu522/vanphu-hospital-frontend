@@ -19,7 +19,8 @@
     "dev:electron": "cross-env VITE_DEV_SERVER=http://localhost:5173 wait-on http://localhost:5173 && electron .",
   
   "deploy": "npm run build && vercel --prod",
-  "dev":"vite"
+  "dev":"vite",
+  "vercel-build": "vite build"
 
   },
   "dependencies": {
