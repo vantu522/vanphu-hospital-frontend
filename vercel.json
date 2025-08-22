@@ -8,7 +8,12 @@
     {
       "src": "vite.config.js",
       "use": "@vercel/vite"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
     }
+    
   ],
   "routes": [
     {
