@@ -6,6 +6,8 @@ import BookingConfirmation from "../components/BookingConfirm";
 import DepartmentTimeStep from "../components/Department";
 import Confirm from "../components/Confirm";
 import KioskInterface from "./components/KioskInterface";
+import DepartmentSelector from "../components/Department";
+import TimeSelector from "../components/TimeSelection";
 
 const BHYT = () => {
   const [step, setStep] = useState(1);
@@ -15,6 +17,7 @@ const BHYT = () => {
   const [selectedSession, setSelectedSession] = useState("");
   const [qrCode, setQrCode] = useState("");
   const [completedSteps, setCompletedSteps] = useState([]);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const sampleUsers = [
     { name: "DƯƠNG VĂN TÚ", dob: "23/05/2005", phone: "0393264758", isAccountHolder: true }
@@ -23,7 +26,7 @@ const BHYT = () => {
   const steps = [
     { number: 1, title: "Xác thực thông tin" },
     { number: 2, title: "Chọn phòng khám" },
-    { number: 3, title: " thời gian" },
+    { number: 3, title: "Chọn thời gian khám" },
     { number: 4, title: "Xác nhận đặt lịch" }
   ];
 
@@ -38,11 +41,25 @@ const BHYT = () => {
   
   const handleDepartmentSelection = (dept) => { 
     setSelectedDepartment(dept); 
+    setTimeout(()=>{
+      if(!completedSteps.includes(2)){
+        setCompletedSteps([...completedSteps,2]);
+
+      }
+      setStep(3);
+    },500)
   };
   
   const handleTimeSelection = (time, session) => { 
     setSelectedTime(time); 
     setSelectedSession(session); 
+
+    setTimeout(()=>{
+      if(!completedSteps.includes(3)){
+        setCompletedSteps([...completedSteps,3]);
+      }
+      setStep(4)
+    },500)
   };
   
   const generateQRCode = () => { 
@@ -77,6 +94,9 @@ const BHYT = () => {
       setStep(stepNumber);
     }
   };
+  const handleConfirmBooking =()=>{
+    setIsSuccess(true);
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -124,29 +144,42 @@ const BHYT = () => {
           
           {/* Step 2: BHYT Verification */}
           {step === 2 && (
-            <BHYTVerification 
-              healthCard={healthCard} 
-              isCardValid={true} 
-              isVerifying={false} 
-              handleBHYTInput={handleBHYTInput} 
-              verifyBHYT={() => {}}
-            />
+          <DepartmentSelector
+            selectedDepartment={selectedDepartment}
+            handleDepartmentSelection={handleDepartmentSelection}
+          />
           )}
           
           {/* Step 3: Department & Time Selection */}
           {step === 3 && (
-            <DepartmentTimeStep 
-              selectedDepartment={selectedDepartment} 
-              selectedTime={selectedTime} 
-              selectedSession={selectedSession} 
-              handleDepartmentSelection={handleDepartmentSelection} 
-              handleTimeSelection={handleTimeSelection}
+            <TimeSelector
+            selectedTime={selectedTime}
+            handleTimeSelection={handleTimeSelection}
+            selectedSession={selectedSession}
             />
           )}
           
-          {/* Step 4: Booking Confirmation */}
           {step === 4 && (
-            <Confirm/>
+            <>
+              <Confirm />
+              {!isSuccess ? (
+                <button
+                  onClick={handleConfirmBooking}
+                  className="mt-6 w-full px-6 py-3 bg-green-600 text-white rounded-md font-semibold hover:bg-green-700 transition-colors duration-300"
+                >
+                  Xác nhận
+                </button>
+              ) : (
+                <div className="mt-6 text-center">
+                  <div className="inline-flex items-center space-x-2 bg-green-100 px-4 py-2 rounded-full">
+                    <span className="text-green-700 text-lg font-bold">✔</span>
+                    <span className="text-green-700 text-base font-medium">
+                      Đặt lịch thành công!
+                    </span>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
 
