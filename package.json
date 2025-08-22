@@ -17,7 +17,10 @@
     "preview:electron": "cross-env NODE_ENV=production electron .",
     "dev:react": "cross-env BROWSER=none vite --host 0.0.0.0 --port 5173",
     "dev:electron": "cross-env VITE_DEV_SERVER=http://localhost:5173 wait-on http://localhost:5173 && electron .",
-    "dev": "concurrently -k \"npm:dev:react\" \"npm:dev:electron\""
+  
+  "deploy": "npm run build && vercel --prod",
+  "dev":"vite"
+
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.3",
