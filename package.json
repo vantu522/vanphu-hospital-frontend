@@ -22,6 +22,10 @@
   "dev:electron": "cross-env VITE_DEV_SERVER=http://localhost:5173 wait-on http://localhost:5173 && electron .",
   "deploy": "npm run build:web && vercel --prod"
 },
+"resolutions": {
+  "rollup": "4.24.0"
+}
+,
 
   "dependencies": {
     "@tailwindcss/vite": "^4.1.3",
