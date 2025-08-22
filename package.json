@@ -7,22 +7,22 @@
   "version": "0.0.0",
   "type": "module",
   "main": "electron/main.cjs",
-  "scripts": {
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "npm run build && electron-forge make",
-    "preview:electron": "cross-env NODE_ENV=production electron .",
-    "dev:react": "cross-env BROWSER=none vite --host 0.0.0.0 --port 5173",
-    "dev:electron": "cross-env VITE_DEV_SERVER=http://localhost:5173 wait-on http://localhost:5173 && electron .",
-  
-  "deploy": "npm run build && vercel --prod",
-  "dev":"vite",
-  "vercel-build": "vite build"
+ "scripts": {
+  "build": "vite build",         
+  "build:web": "vite build --config vite.web.config.js", 
+  "vercel-build": "npm run build:web",
+  "dev": "vite",
+  "preview": "vite preview",
 
-  },
+  "start": "electron-forge start",
+  "package": "electron-forge package",
+  "make": "npm run build && electron-forge make",
+  "preview:electron": "cross-env NODE_ENV=production electron .",
+  "dev:react": "cross-env BROWSER=none vite --host 0.0.0.0 --port 5173",
+  "dev:electron": "cross-env VITE_DEV_SERVER=http://localhost:5173 wait-on http://localhost:5173 && electron .",
+  "deploy": "npm run build:web && vercel --prod"
+},
+
   "dependencies": {
     "@tailwindcss/vite": "^4.1.3",
     "@tinymce/tinymce-react": "^6.3.0",
