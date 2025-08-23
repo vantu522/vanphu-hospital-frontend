@@ -7,18 +7,25 @@
   "version": "0.0.0",
   "type": "module",
   "main": "electron/main.cjs",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
+    "build:web": "vite build",
+    "start:web": "node server.cjs",
+    "preview:web": "vite preview",
+
+    "dev:web": "cross-env BROWSER=none vite --host 0.0.0.0 --port 5173",
+    "dev:electron": "cross-env VITE_DEV_SERVER=http://localhost:5173 wait-on http://localhost:5173 && electron .",
+    "dev": "concurrently -k \"npm:dev:web\" \"npm:dev:electron\"", 
+
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "npm run build && electron-forge make",
-    "preview:electron": "cross-env NODE_ENV=production electron .",
-    "dev:react": "cross-env BROWSER=none vite --host 0.0.0.0 --port 5173",
-    "dev:electron": "cross-env VITE_DEV_SERVER=http://localhost:5173 wait-on http://localhost:5173 && electron .",
-    "dev": "concurrently -k \"npm:dev:react\" \"npm:dev:electron\""
+    "make": "npm run build:web && electron-forge make",
+
+    "lint": "eslint ."
   },
+
   "dependencies": {
     "@tailwindcss/vite": "^4.1.3",
     "@tinymce/tinymce-react": "^6.3.0",
