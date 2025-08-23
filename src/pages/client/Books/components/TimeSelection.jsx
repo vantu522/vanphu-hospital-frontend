@@ -10,7 +10,7 @@ const TimeSelector = ({
   const afternoonTimes = ["14:00", "15:00", "16:00", "17:00"];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-4">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8">
           
@@ -32,7 +32,7 @@ const TimeSelector = ({
           {/* Time Selection */}
           <div className="mb-8">
             <div className="flex items-center mb-8">
-              <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-cyan-600 rounded-full mr-4"></div>
+              <div className="w-1 h-8 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full mr-4"></div>
               <h3 className="text-2xl font-bold text-gray-800">Chọn khung giờ khám</h3>
             </div>
             
@@ -53,13 +53,13 @@ const TimeSelector = ({
                     onClick={() => handleTimeSelection(time, "morning")}
                     className={`group relative p-5 border-2 rounded-2xl transition-all duration-300 text-center overflow-hidden ${
                       selectedTime === time && selectedSession === "morning"
-                        ? 'border-blue-500 bg-gradient-to-br from-blue-50 to-cyan-50 shadow-xl scale-105 transform' 
-                        : 'border-gray-200 hover:border-blue-300 hover:bg-gradient-to-br hover:from-blue-50 hover:to-white hover:shadow-lg hover:scale-102 hover:transform'
+                        ? 'border-green-500 bg-gradient-to-br from-blue-50 to-cyan-50 shadow-xl scale-105 transform' 
+                        : 'border-gray-200 hover:border-green-300 hover:bg-gradient-to-br hover:from-blue-50 hover:to-white hover:shadow-lg hover:scale-102 hover:transform'
                     }`}
                   >
                     <div className="relative z-10">
                       <div className={`font-bold text-xl mb-2 ${
-                        selectedTime === time && selectedSession === "morning" ? 'text-blue-700' : 'text-gray-800'
+                        selectedTime === time && selectedSession === "morning" ? 'text-green-700' : 'text-gray-800'
                       }`}>{time}</div>
                       <div className="flex items-center justify-center">
               
@@ -68,7 +68,7 @@ const TimeSelector = ({
                     
                     {/* Selected indicator */}
                     {selectedTime === time && selectedSession === "morning" && (
-                      <div className="absolute top-3 right-3 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                      <div className="absolute top-3 right-3 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                         </svg>
@@ -76,7 +76,7 @@ const TimeSelector = ({
                     )}
                     
                     {/* Background glow */}
-                    <div className={`absolute inset-0 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl transition-all duration-300 ${
+                    <div className={`absolute inset-0 bg-gradient-to-br from-green-100 to-emerald-100 rounded-2xl transition-all duration-300 ${
                       selectedTime === time && selectedSession === "morning" ? 'opacity-30' : 'opacity-0 group-hover:opacity-20'
                     }`}></div>
                   </button>

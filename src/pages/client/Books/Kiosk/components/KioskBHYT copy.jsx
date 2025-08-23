@@ -23,16 +23,15 @@ const KioskInterface = () => {
 
   const closePopup = () => {
     setShowPopup(false);
-    // navigate("/dat-lich"); // Uncomment when using react-router-dom
+    window.location.href ="/dat-lich";
   };
-  
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto">
+    <div className="relative">
+      <div className="w-full">
         {/* Popup Modal */}
         {showPopup && (
-          <div className="fixed inset-0  bg-opacity-50 flex justify-center items-center z-50 p-4">
+          <div className="fixed inset-0 z-[9999] bg-black/70 backdrop-blur-sm flex justify-center items-center">
             <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-2xl relative">
               <button
                 onClick={closePopup}
@@ -41,7 +40,9 @@ const KioskInterface = () => {
               >
                 ×
               </button>
-              <h2 className="text-2xl font-semibold text-center mb-8 text-gray-800">Chọn loại thông tin</h2>
+              <h2 className="text-2xl font-semibold text-center mb-8 text-gray-800">
+                Chọn loại thông tin
+              </h2>
               <div className="grid grid-cols-4 gap-4 mb-4">
                 <button
                   onClick={() => handleButtonClick("CCCD")}
@@ -75,12 +76,9 @@ const KioskInterface = () => {
           </div>
         )}
 
-   
-
-
         {/* Main Content */}
         {!showPopup && (
-          <div className="bg-white rounded-xl p-6">
+          <div className="w-full">
             {/* Header text */}
             <div className="text-center mb-6">
               <p className="text-lg text-green-600 font-semibold">
@@ -105,7 +103,6 @@ const KioskInterface = () => {
                       <input
                         type="text"
                         className="w-full p-3 border border-gray-300 rounded-md bg-gray-50"
-                      
                       />
                     </div>
 
@@ -116,7 +113,6 @@ const KioskInterface = () => {
                       <input
                         type="text"
                         className="w-full p-3 border border-gray-300 rounded-md bg-gray-50"
-                      
                       />
                     </div>
 
@@ -125,9 +121,8 @@ const KioskInterface = () => {
                         Giới tính:
                       </label>
                       <input
-                        type="select"
+                        type="text"
                         className="w-full p-3 border border-gray-300 rounded-md bg-gray-50"
-                      
                       />
                     </div>
 
@@ -138,7 +133,6 @@ const KioskInterface = () => {
                       <input
                         type="text"
                         className="w-full p-3 border border-gray-300 rounded-md bg-gray-50"
-                      
                       />
                     </div>
                   </div>
@@ -157,7 +151,6 @@ const KioskInterface = () => {
                       <input
                         type="text"
                         className="w-full p-3 border border-gray-300 rounded-md bg-gray-50"
-                      
                       />
                     </div>
 
@@ -168,7 +161,6 @@ const KioskInterface = () => {
                       <input
                         type="text"
                         className="w-full p-3 border border-gray-300 rounded-md bg-gray-50"
-                      
                       />
                     </div>
 
@@ -179,7 +171,6 @@ const KioskInterface = () => {
                       <input
                         type="text"
                         className="w-full p-3 border border-gray-300 rounded-md bg-gray-50"
-                      
                       />
                     </div>
 
@@ -190,7 +181,6 @@ const KioskInterface = () => {
                       <input
                         type="text"
                         className="w-full p-3 border border-gray-300 rounded-md bg-gray-50"
-                      
                       />
                     </div>
                   </div>
@@ -222,7 +212,7 @@ const KioskInterface = () => {
 
             {/* Scan Button */}
             <div className="mt-8">
-              <button className="w-full p-4 bg-green-600 text-white font-bold text-lg rounded-lg shadow-lg hover:bg-green-700 transition-colors flex items-center justify-center space-x-3">
+              <button className="w-full p-4 bg-gray-600 text-white font-bold text-lg rounded-lg shadow-lg hover:bg-gray-700 transition-colors flex items-center justify-center space-x-3">
                 <div className="flex items-center space-x-2">
                   <div className="w-3 h-3 bg-white rounded-full animate-pulse"></div>
                   <span>MỜI BẠN QUÉT MÃ CĂN CƯỚC CÔNG DÂN</span>

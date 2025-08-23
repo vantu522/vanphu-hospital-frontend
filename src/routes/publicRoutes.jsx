@@ -22,8 +22,9 @@ import AdminLogin from "../pages/admin/AdminLogin";
 import HospitalRules from "../components/client/sections/Instruct/HospitalRules";
 import HospitalTrainingLanding from "../components/client/sections/Training";
 import ResearchPage from "../pages/client/About/ResearchPage";
-import BHYTBooking from "../pages/client/Books/BHYTBooking";
+import BHYTBooking from "../pages/client/Books/BookingOnline/BHYTBooking";
 import BHYT from "../pages/client/Books/Kiosk/BHYT";
+import ServiceReception from "../pages/client/Books/Kiosk/ServiceReception/";
 
 const publicRoutes = [
 
@@ -69,6 +70,7 @@ const publicRoutes = [
       {path:"dat-lich", element:<Booking/>},
       {path:"dat-lich-kham-bhyt", element:<BHYTBooking/>},
       {path:"kham-bhyt", element:<BHYT/>},
+      {path:"kham-dich-vu", element:<ServiceReception/>},
 
       // {path:"check-in", element:<CheckinKiosk/>},
       // {path:"kham-dich-vu", element:<ServiceBooking/>},

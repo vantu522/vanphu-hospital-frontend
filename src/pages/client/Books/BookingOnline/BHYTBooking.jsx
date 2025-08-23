@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import StepIndicator from "./components/StepIndicator";
-import UserSelection from "./components/UserSelection";
-import BHYTVerification from "./components/BHYTVerification";
-import BookingConfirmation from "./components/BookingConfirm";
-import DepartmentTimeStep from "./components/Department";
+import StepIndicator from "../components/StepIndicator";
+import UserSelection from "../components/UserSelection";
+import BHYTVerification from "../components/BHYTVerification";
+import BookingConfirmation from "../components/BookingConfirm";
+import DepartmentTimeStep from "../components/Department";
 
 const BHYTBooking = () => {
   const [step, setStep] = useState(1);

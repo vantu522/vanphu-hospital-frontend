@@ -66,7 +66,10 @@ const Header = () => {
 
   return (
     <header className="w-full font-sans">
-      {/* Top bar - Ẩn trên mobile */}
+      {/* {
+        userData && userData.role !== "receptionist" && (
+          <> */}
+           {/* Top bar - Ẩn trên mobile */}
       <div className="bg-gradient-to-r from-green-700 to-green-600 text-white topbar hidden md:block">
         <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center py-3 px-4 gap-3 sm:gap-0">
           <div className="flex gap-5 sm:gap-8 items-center text-xs sm:text-sm">
@@ -137,7 +140,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-
+            
       {/* Main header */}
       <div
         className={`bg-white w-full border-b border-gray-100 ${
@@ -298,6 +301,11 @@ const Header = () => {
           </div>
         )}
       </div>
+          {/* </>
+        )
+      } */}
+     
+
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (

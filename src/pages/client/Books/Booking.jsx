@@ -65,6 +65,17 @@ const Booking = () => {
       document.body.style.paddingRight = "0px";
     };
   }, [isPopupOpen]);
+  // Thêm useEffect này sau các useEffect hiện có
+useEffect(() => {
+  // Kiểm tra xem có cần tự động click "Đón tiếp" không  
+  const shouldAutoClick = localStorage.getItem('autoClickDonTiep');
+  if (shouldAutoClick === 'true') {
+    localStorage.removeItem('autoClickDonTiep');
+    setTimeout(() => {
+      openPopup();
+    }, 100);
+  }
+}, []);
 
   return (
     <div>

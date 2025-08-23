@@ -9,7 +9,7 @@ import DepartmentSelector from "../components/Department";
 import TimeSelector from "../components/TimeSelection";
 import KioskBHYT from "./components/KioskBHYT";
 
-const BHYT = () => {
+const ServiceReception = () => {
   const [step, setStep] = useState(1);
   const [healthCard, setHealthCard] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -192,4 +192,4 @@ const BHYT = () => {
   );
 };
 
-export default BHYT;
+export default ServiceReception;
