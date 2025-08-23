@@ -6,6 +6,9 @@
       "use": "@vercel/static-build"
     }
   ],
+  "env": {
+    "NPM_CONFIG_IGNORE_OPTIONAL": "false"
+  },
   "routes": [
     {
       "src": "/(.*)",
