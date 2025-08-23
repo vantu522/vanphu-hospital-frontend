@@ -12,6 +12,7 @@ import BookingManagement from "../pages/admin/BookingManagement";
 import RecruitmentManagement from "../pages/admin/RecruitmentManagement";
 import DoctorSchedule from "../pages/admin/Schedule";
 import HealthConsultations from "../pages/admin/HealthConsultation";
+import ReceptionManagement from "../pages/admin/ReceptionManagerment";
 
 const privateRoutes = [
     {
@@ -76,6 +77,11 @@ const privateRoutes = [
                 index:true,
                 path:"/admin/health-consultations",
                 element:<HealthConsultations/>
+            },
+             {
+                index:true,
+                path:"/admin/receptions",
+                element:<ReceptionManagement/>
             }
         ]
     }

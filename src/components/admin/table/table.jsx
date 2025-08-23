@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import DataForm from "./components/Form";
 import Modal from "./components/Modal";
+import ToggleSwitch from "../ui/ToggleSwitch";
 
 
 
@@ -26,10 +27,11 @@ const TableBase = ({
   onEdit,
   onDelete,
   onView,
+  onToggle, // New toggle handler
   searchable = true,
   paginated = true,
   pageSize = 10,
-  actions = { add: true, edit: true, delete: true, view: false },
+  actions = { add: true, edit: true, delete: true, view: false, toggle: false },
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,12 +84,30 @@ const TableBase = ({
     setSelectedItem(null);
   };
 
+  const handleToggle = (item) => {
+    onToggle?.(item._id, !item.isActive);
+  };
+
   const renderCellValue = (item, column) => {
     const value = item[column.key];
 
     // Ưu tiên dùng hàm render nếu có
     if (column.render) {
       return column.render(value, item);
+    }
+
+    // Nếu là toggle switch
+    if (column.type === "toggle") {
+      return (
+        <ToggleSwitch
+          checked={!!value}
+          onChange={(newValue) => {
+            if (onToggle) {
+              onToggle(item._id, newValue);
+            }
+          }}
+        />
+      );
     }
 
     // Nếu là badge
@@ -173,7 +193,7 @@ const TableBase = ({
                   {column.label}
                 </th>
               ))}
-              {(actions.edit || actions.delete || actions.view) && (
+              {(actions.edit || actions.delete || actions.view || actions.toggle) && (
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Hành động
                 </th>
@@ -201,13 +221,14 @@ const TableBase = ({
                       {renderCellValue(item, column)}
                     </td>
                   ))}
-                  {(actions.edit || actions.delete || actions.view) && (
+                  {(actions.edit || actions.delete || actions.view || actions.toggle) && (
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         {actions.view && (
                           <button
                             onClick={() => onView?.(item)}
                             className="text-blue-600 hover:text-blue-900"
+                            title="Xem chi tiết"
                           >
                             <Eye size={16} />
                           </button>
@@ -219,9 +240,18 @@ const TableBase = ({
                               setShowEditModal(true);
                             }}
                             className="text-indigo-600 hover:text-indigo-900"
+                            title="Chỉnh sửa"
                           >
                             <Edit2 size={16} />
                           </button>
+                        )}
+                        {actions.toggle && (
+                          <div className="flex items-center" title="Bật/Tắt hoạt động">
+                            <ToggleSwitch
+                              checked={!!item.isActive}
+                              onChange={() => handleToggle(item)}
+                            />
+                          </div>
                         )}
                         {actions.delete && (
                           <button
@@ -230,6 +260,7 @@ const TableBase = ({
                               setShowDeleteModal(true);
                             }}
                             className="text-red-600 hover:text-red-900"
+                            title="Xóa"
                           >
                             <Trash2 size={16} />
                           </button>

@@ -19,6 +19,7 @@ import {
   UserCheck,
   Settings,
   Building,
+  
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -56,6 +57,25 @@ const Sidebar = ({ collapsed }) => {
         },
       ],
     },
+     {
+      title: "ĐÓN TIẾP & ĐẶT LỊCH",
+      items: [
+        {
+          name: "Quản lý đón tiếp",
+          icon: Calendar,
+          path: "/admin/receptions",
+          badge: "12",
+        },
+          {
+          name: "Quản lý đặt lịch",
+          icon: Calendar,
+          path: "/admin/appointments",
+          badge: "12",
+        },
+        
+       
+      ],
+    },
 
     {
       title: "QUẢN LÝ Y TẾ",
@@ -84,22 +104,7 @@ const Sidebar = ({ collapsed }) => {
       ],
     },
 
-    {
-      title: "LỊCH HẸN & TƯ VẤN",
-      items: [
-        {
-          name: "Quản lý đặt lịch",
-          icon: Calendar,
-          path: "/admin/appointments",
-          badge: "12",
-        },
-        {
-          name: "Tư vấn sức khỏe",
-          icon: MessageCircle,
-          path: "/admin/health-consultations",
-        },
-      ],
-    },
+   
 
     {
       title: "NỘI DUNG & TRUYỀN THÔNG",
@@ -113,6 +118,11 @@ const Sidebar = ({ collapsed }) => {
           name: "Quản lý tuyển dụng",
           icon: UserCheck,
           path: "/admin/recruitments",
+        },
+         {
+          name: "Tư vấn sức khỏe",
+          icon: MessageCircle,
+          path: "/admin/health-consultations",
         },
       ],
     },
