@@ -144,7 +144,7 @@ const BHYT = () => {
         </div>
 
         {/* Step Content */}
-        <div className=" rounded-xl shadow-sm p-6">
+        <div className=" rounded-xl shadow-lg p-6">
           {step === 1 && <KioskBHYT />}
 
           {/* Step 2: BHYT Verification */}
@@ -167,23 +167,7 @@ const BHYT = () => {
           {step === 4 && (
             <>
               <Confirm />
-              {!isSuccess ? (
-                <button
-                  onClick={handleConfirmBooking}
-                  className="mt-6 w-full px-6 py-3 bg-green-600 text-white rounded-md font-semibold hover:bg-green-700 transition-colors duration-300"
-                >
-                  Xác nhận
-                </button>
-              ) : (
-                <div className="mt-6 text-center">
-                  <div className="inline-flex items-center space-x-2 bg-green-100 px-4 py-2 rounded-full">
-                    <span className="text-green-700 text-lg font-bold">✔</span>
-                    <span className="text-green-700 text-base font-medium">
-                      Đặt lịch thành công!
-                    </span>
-                  </div>
-                </div>
-              )}
+              
             </>
           )}
         </div>

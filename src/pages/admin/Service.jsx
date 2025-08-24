@@ -53,7 +53,16 @@ const Services = () => {
       {
       key: "specialties",
       label: "Chuyên khoa",
-      render: (val) => val?.name || "N/A" // hiển thị tên chuyên khoa
+      render: (val) => {
+        if(val && typeof val === 'object' && val.name){
+          return val.name;
+        }
+        if(val && typeof val === 'string'){
+          const foundSpecialty = specialty.find(s => s.value === val);
+          return foundSpecialty ? foundSpecialty.label : "N/A";
+        }
+        return "N/A";
+      }
     },
 
     {
@@ -86,7 +95,7 @@ const Services = () => {
   ];
 
   const formFields = [
-    { key: "name", label: "Họ tên", type: "text", required: true },
+    { key: "name", label: "Tên dịch vụ", type: "text", required: true },
     {
       key: "description",
       label: "Mô tả",
@@ -147,6 +156,26 @@ const Services = () => {
     }
   };
 
+  const handleEditAlternative = async (id, formData)=>{
+    try{
+      setLoading(true);
+       await updateService(id,formData);
+
+       const response = await getAllServices();
+       setServices(response);
+        toast.success("Dịch vụ đã được cập nhật thành công!");
+
+
+    }
+    catch(error){
+      console.error("Failed to update service:", error);
+      toast.error("Cập nhật dịch vụ thất bại!");
+    }
+    finally{
+      setLoading(false);
+    }
+  }
+
   const handleDelete = async (id) => {
     try {
       setLoading(true);
@@ -173,7 +202,7 @@ const Services = () => {
         formFields={formFields}
         title="Quản lý dịch vụ"
         onAdd={handleAdd}
-        onEdit={handleEdit}
+        onEdit={handleEditAlternative}
         onDelete={handleDelete}
         onView={handleView}
         actions={{ add: true, edit: true, delete: true, view: true }}

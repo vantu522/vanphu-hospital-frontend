@@ -14,16 +14,20 @@ const Specialties = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getAllSpecialties();
-        setSpecialties(res);
-      } catch (error) {
-        console.error("Failed to load specialties:", error);
-      }
-    };
-    fetchData();
-  }, []);
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const res = await getAllSpecialties();
+      setSpecialties(res);
+    } catch (error) {
+      console.error("Không thể tải chuyên khoa:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchData();
+}, []);
+
 
   const columns = [
     { key: "name", label: "Tên chuyên khoa" },
@@ -64,7 +68,7 @@ const Specialties = () => {
     try {
       setLoading(true);
       const result = await createSpecialty(formData);
-      setSpecialties([...specialties, result]);
+      setSpecialties(prevSpecialties =>[...prevSpecialties,result]);
       toast.success("Tạo chuyên khoa thành công!");
     } catch (err) {
       toast.error("Tạo chuyên khoa thất bại!");
@@ -77,7 +81,9 @@ const Specialties = () => {
     try {
       setLoading(true);
       const updated = await updateSpecialty(id, formData);
-      setSpecialties(specialties.map((item) => (item._id === id ? updated : item)));
+     setSpecialties(prevSpecialties =>
+      prevSpecialties.map((item) => (item._id === id ? updated : item))
+    );
       toast.success("Cập nhật chuyên khoa thành công!");
     } catch (err) {
       toast.error("Cập nhật chuyên khoa thất bại!");

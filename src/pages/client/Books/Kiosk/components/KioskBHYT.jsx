@@ -82,10 +82,10 @@ const KioskBHYT = () => {
             <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-2xl relative">
               <button
                 onClick={closePopup}
-                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 text-xl font-bold transition-colors"
+                className="absolute top-4 right-4 w-15 h-15 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-200 text-gray-600 text-xl font-bold transition-colors"
                 aria-label="Đóng"
               >
-                ×
+                X
               </button>
               <h2 className="text-2xl font-semibold text-center mb-8 text-gray-800">
                 Chọn loại thông tin

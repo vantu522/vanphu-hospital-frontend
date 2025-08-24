@@ -5,9 +5,8 @@ export default function Confirm() {
   const [activeTab, setActiveTab] = useState('service');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br ">
+    <div className=" bg-gradient-to-br ">
       {/* Header */}
-
       {/* Main Content */}
       <div className="flex min-h-[500px]">
         {/* Left Panel - Appointment Details */}
@@ -69,7 +68,7 @@ export default function Confirm() {
           
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br  rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
                 <User className="text-white" size={20} />
               </div>
               <div>
@@ -78,7 +77,7 @@ export default function Confirm() {
               </div>
             </div>
             
-            <div className="space-y-3 text-sm">
+            <div className="space-y-3 text-sm mb-6">
               <div className="flex items-center gap-2">
                 <Calendar size={16} className="text-gray-400" />
                 <span>Sinh: 23/05/2005</span>
@@ -92,16 +91,15 @@ export default function Confirm() {
                 <span>Khám lúc 08:50</span>
               </div>
             </div>
-          </div>
 
-          <div className="mt-6 bg-white rounded-lg p-4 shadow-sm">
-            <h4 className="font-medium mb-2 text-gray-800">Lịch sử khám</h4>
-            <div className="text-sm text-gray-600">
-              <p>• Khám định kỳ - 15/07/2025</p>
-              <p>• Khám tai mũi họng - 10/06/2025</p>
-              <p>• Tổng quát - 05/05/2025</p>
-            </div>
+          
           </div>
+            {/* Confirmation Button */}
+            <div className="flex justify-center mt-6">
+              <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-8 rounded-full shadow-2xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
+                Xác nhận
+              </button>
+            </div>
 
           
         </div>

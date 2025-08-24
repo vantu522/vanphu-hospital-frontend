@@ -116,7 +116,7 @@ const New = () => {
           : item
       ));
       
-      toast.success(`Tin tức đã được ${newStatus ? 'kích hoạt' : 'tắt'}!`);
+      toast.success(`Tin tức đã được ${newStatus ? 'kích hoạt' : 'tắt;'}!`);
     } catch (error) {
       console.error("Failed to toggle news status:", error);
       toast.error("Cập nhật trạng thái thất bại!");

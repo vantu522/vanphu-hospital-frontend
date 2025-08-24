@@ -18,10 +18,13 @@ const Doctors = () => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
+        setLoading(true);
         const response = await getAllDoctors();
         setDoctors(response);
       } catch (error) {
         console.error("Failed to fetch doctors:", error);
+      } finally{
+        setLoading(false);
       }
     };
       const fetchSpecialties = async () => {
@@ -44,7 +47,18 @@ const Doctors = () => {
       {
       key: "specialties",
       label: "Chuyên khoa",
-      render: (val) => val?.name || "N/A" // hiển thị tên chuyên khoa
+      render: (val) => {
+        // Nếu val là object có name thì hiển thị name
+        if (val && typeof val === 'object' && val.name) {
+          return val.name;
+        }
+        // Nếu val là string (ID), tìm tên từ specialty array
+        if (val && typeof val === 'string') {
+          const foundSpecialty = specialty.find(s => s.value === val);
+          return foundSpecialty ? foundSpecialty.label : "N/A";
+        }
+        return "N/A";
+      }
     },
     
     { key: "degree", label: "Học vị" },
@@ -124,7 +138,37 @@ const Doctors = () => {
     try {
       setLoading(true);
       const updated = await updateDoctor(id, formData);
+      
+      // CÁCH 1: Enhance dữ liệu trả về với thông tin specialty
+      if (updated.specialties && typeof updated.specialties === 'string') {
+        const foundSpecialty = specialty.find(s => s.value === updated.specialties);
+        if (foundSpecialty) {
+          updated.specialties = {
+            _id: updated.specialties,
+            name: foundSpecialty.label
+          };
+        }
+      }
+      
       setDoctors(doctors.map((item) => (item._id === id ? updated : item)));
+      toast.success("Cập nhật bác sĩ thành công!");
+    } catch (error) {
+      toast.error("Cập nhật bác sĩ thất bại!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // CÁCH 2: Thêm function để refresh lại toàn bộ danh sách sau khi update
+  const handleEditAlternative = async (id, formData) => {
+    try {
+      setLoading(true);
+      await updateDoctor(id, formData);
+      
+      // Refresh lại toàn bộ danh sách để có đủ thông tin
+      const response = await getAllDoctors();
+      setDoctors(response);
+      
       toast.success("Cập nhật bác sĩ thành công!");
     } catch (error) {
       toast.error("Cập nhật bác sĩ thất bại!");
@@ -159,7 +203,7 @@ const Doctors = () => {
         formFields={formFields}
         title="Quản lý bác sĩ"
         onAdd={handleAdd}
-        onEdit={handleEdit}
+        onEdit={handleEdit} // Hoặc dùng handleEditAlternative
         onDelete={handleDelete}
         onView={handleView}
         actions={{ add: true, edit: true, delete: true, view: true }}

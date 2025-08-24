@@ -1,33 +1,14 @@
-import PageBanner from "../../../components/client/PageBanner";
-import dichvu from "../../../assets/images/dichvu.png";
 import { useState, useEffect } from "react";
 
 const Booking = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false); // Quản lý popup
   const [isPopupVisible, setIsPopupVisible] = useState(false); // Quản lý hiệu ứng fade-in
-  // ...existing code...
 
-  const [authType, setAuthType] = useState(""); // Loại xác thực
-  const [isAuthPopupOpen, setIsAuthPopupOpen] = useState(false); // Popup xác thực
   const [userData, setUserData] = useState(null);
 
-  // Khi chọn Khám BHYT
-  const handleSelectBHYT = () => {
-    setIsPopupOpen(false);
-    setIsAuthPopupOpen(true);
-    setAuthType(""); // Reset loại xác thực
-  };
 
-  // Khi chọn loại xác thực
-  const handleAuthType = (type) => {
-    setAuthType(type);
-  };
 
-  // Đóng popup xác thực
-  const closeAuthPopup = () => {
-    setIsAuthPopupOpen(false);
-    setAuthType("");
-  };
+ 
 
   // Mở popup khi click vào Đón tiếp
   const openPopup = () => {
@@ -65,38 +46,53 @@ const Booking = () => {
       document.body.style.paddingRight = "0px";
     };
   }, [isPopupOpen]);
+
   // Thêm useEffect này sau các useEffect hiện có
-useEffect(() => {
-  // Kiểm tra xem có cần tự động click "Đón tiếp" không  
-  const shouldAutoClick = localStorage.getItem('autoClickDonTiep');
-  if (shouldAutoClick === 'true') {
-    localStorage.removeItem('autoClickDonTiep');
-    setTimeout(() => {
-      openPopup();
-    }, 100);
-  }
-}, []);
+  useEffect(() => {
+    // Kiểm tra xem có cần tự động click "Đón tiếp" không
+    const shouldAutoClick = localStorage.getItem("autoClickDonTiep");
+    if (shouldAutoClick === "true") {
+      localStorage.removeItem("autoClickDonTiep");
+      setTimeout(() => {
+        openPopup();
+      }, 100);
+    }
+  }, []);
 
   return (
     <div>
-      <PageBanner
-        title="Đặt lịch"
-        backgroundImage={dichvu}
-        breadcrumbs={[
-          { label: "Trang chủ", href: "/" },
-          { label: "Đặt lịch", active: true },
-        ]}
-      />
+      {/* Custom Banner thay thế PageBanner */}
+      <div className="relative bg-gradient-to-r from-green-600 via-green-700 to-green-600 text-white py-16 px-4">
+        {/* Background pattern overlay */}
+        <div className="absolute inset-0 bg-green bg-opacity-20"></div>
+        <div className="absolute inset-0 opacity-10"></div>
+
+        <div className="relative max-w-6xl mx-auto text-center">
+          {/* Main Title */}
+          <div className="mb-6">
+            <h3 className="text-xl md:text-6xl lg:text-4xl font-bold mb-4 text-white drop-shadow-lg">
+              BỆNH VIỆN ĐA KHOA VĂN PHÚ
+            </h3>
+          </div>
+
+          {/* Subtitle */}
+          <div className="mb-8">
+            <p className="text-xl md:text-2xl lg:text-xl font-semibold text-blue-100 drop-shadow-md">
+              Hệ thống đón tiếp khách hàng
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="bg-gray-50 min-h-screen">
         {/* Các dịch vụ */}
         <div className="max-w-5xl mx-auto py-10 px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-           
             {userData?.role === "receptionist" && (
               <>
                 {/* Check in */}
-                <a href="/check-in">
-                  <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                  <a href="/check-in">
                     <div className="flex justify-center p-6">
                       <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
                         {/* Icon QR Code */}
@@ -119,8 +115,8 @@ useEffect(() => {
                     <div className="text-center pb-6">
                       <h3 className="text-green-700 font-medium">Check In</h3>
                     </div>
-                  </div>
-                </a>
+                  </a>
+                </div>
 
                 {/* Đón tiếp*/}
                 <div
@@ -154,7 +150,7 @@ useEffect(() => {
                 {isPopupOpen && (
                   <div
                     className={`fixed inset-0  bg-opacity-50 flex justify-center items-center z-50 transition-opacity duration-300 px-4 ${
-                      isPopupVisible ? "opacity-100" : "opacity-0"
+                      isPopupVisible ? "opacity-100 bg-black/70" : "opacity-0"
                     } backdrop-blur-sm`}
                     onClick={closePopup} // Đóng popup khi click vào overlay
                   >
@@ -165,9 +161,9 @@ useEffect(() => {
                       {/* Nút đóng cải tiến */}
                       <button
                         onClick={closePopup}
-                        className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-800 transition-colors duration-200 text-xl font-bold"
+                        className="absolute top-4 right-4  w-15 h-15 flex items-center justify-center rounded-full bg-gray-100 hover:bg-green-200 text-gray-600 hover:text-gray-800 transition-colors duration-200 text-xl font-bold"
                       >
-                        ×
+                        X
                       </button>
 
                       {/* Tiêu đề */}
@@ -245,99 +241,84 @@ useEffect(() => {
                           </div>
                         </a>
                       </div>
-
-                      {/* Nút đóng bổ sung ở dưới */}
-                      <div className="text-center">
-                        <button
-                          onClick={closePopup}
-                          className="text-gray-500 hover:text-gray-700 underline text-sm sm:text-base transition-colors duration-200"
-                        >
-                          Đóng cửa sổ
-                        </button>
-                      </div>
                     </div>
                   </div>
                 )}
               </>
             )}
+
             {userData?.role !== "receptionist" && (
               <>
-                 {/* Đặt lịch khám bác sĩ */}
-            <a href="/dat-lich-kham-bhyt">
-              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div className="flex justify-center p-6">
-                  <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-12 w-12 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 4v16m8-8H4"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M18 12c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6z"
-                      />
-                    </svg>
+                {/* Đặt lịch khám bác sĩ */}
+                <a href="/dat-lich-kham-bhyt">
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex justify-center p-6">
+                      <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-12 w-12 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 4v16m8-8H4"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M18 12c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="text-center pb-6">
+                      <h3 className="text-green-700 font-medium">
+                        Đặt lịch khám BHYT
+                      </h3>
+                    </div>
                   </div>
-                </div>
-                <div className="text-center pb-6">
-                  <h3 className="text-green-700 font-medium">
-                    Đặt lịch khám BHYT
-                  </h3>
-                </div>
-              </div>
-            </a>
+                </a>
 
-            <a href="/kham-dich-vu">
-              {/* Đặt lịch dịch vụ */}
-              <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div className="flex justify-center p-6">
-                  <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-12 w-12 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                      />
-                    </svg>
+                <a href="/kham-dich-vu">
+                  {/* Đặt lịch dịch vụ */}
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                    <div className="flex justify-center p-6">
+                      <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-12 w-12 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="text-center pb-6">
+                      <h3 className="text-green-700 font-medium">
+                        Đặt lịch khám dịch vụ
+                      </h3>
+                    </div>
                   </div>
-                </div>
-                <div className="text-center pb-6">
-                  <h3 className="text-green-700 font-medium">
-                    Đặt lịch khám dịch vụ
-                  </h3>
-                </div>
-              </div>
-            </a>
-
-              
+                </a>
               </>
-              )}
-            
-          
-
-            
+            )}
           </div>
         </div>
 
         {/* Thông báo và liên hệ */}
-        <div className="max-w-5xl mx-auto px-4 ">
+        <div className="max-w-6xl mx-auto px-4 ">
           <div className="border border-green-500 border-dashed rounded-lg p-6">
             <p className="font-medium text-gray-800 mb-2">
               Ngoài ra để đặt lịch khám chữa bệnh theo yêu cầu quý khách vui

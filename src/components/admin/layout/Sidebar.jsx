@@ -55,6 +55,11 @@ const Sidebar = ({ collapsed }) => {
           icon: LayoutDashboard,
           path: "/admin/dashboard",
         },
+        {
+          name: "Quản lý bệnh nhân",
+          icon: LayoutDashboard,
+          path: "/admin/patients",
+        },
       ],
     },
      {

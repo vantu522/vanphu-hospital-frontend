@@ -13,6 +13,7 @@ import RecruitmentManagement from "../pages/admin/RecruitmentManagement";
 import DoctorSchedule from "../pages/admin/Schedule";
 import HealthConsultations from "../pages/admin/HealthConsultation";
 import ReceptionManagement from "../pages/admin/ReceptionManagerment";
+import PatientManagement from "../pages/admin/PatientManagement";
 
 const privateRoutes = [
     {
@@ -82,6 +83,11 @@ const privateRoutes = [
                 index:true,
                 path:"/admin/receptions",
                 element:<ReceptionManagement/>
+            },
+              {
+                index:true,
+                path:"/admin/patients",
+                element:<PatientManagement/>
             }
         ]
     }
