@@ -20,12 +20,14 @@ const New = () => {
     publish_date: "",
     is_active: true,
   });
+  
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
         setLoading(true);
         const response = await getAllNews();
+        console.log("Fetched news:", response);
         setNews(response);
       } catch (error) {
         console.error("Failed to fetch ", error);
@@ -56,7 +58,7 @@ const New = () => {
     { key: "author", label: "Tác giả", type: "text" },
     { key: "category", label: "Chuyên mục", type: "text" },
     { key: "tags", label: "Thẻ (phân cách bằng dấu phẩy)", type: "text" },
-    { key: "publish_date", label: "Ngày đăng", type: "date" },
+    { key: "publish_date", label: "Ngày đăng", type: "datetime" },
     { key: "is_active", label: "Hoạt động", type: "toggle" },
   ];
 

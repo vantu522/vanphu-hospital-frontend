@@ -1,33 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MyEditor from "../../tinymce";
 import TagsInput from "../../TagInput";
-
-// Toggle Switch Component for Forms
-const FormToggleSwitch = ({ checked, onChange, label }) => {
-  return (
-    <div className="flex items-center space-x-3">
-      <button
-        type="button"
-        onClick={() => onChange(!checked)}
-        className={`
-          relative inline-flex h-6 w-11 items-center rounded-full transition-colors
-          ${checked ? 'bg-green-600' : 'bg-gray-300'}
-          cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2
-        `}
-      >
-        <span
-          className={`
-            inline-block h-4 w-4 transform rounded-full bg-white transition-transform
-            ${checked ? 'translate-x-6' : 'translate-x-1'}
-          `}
-        />
-      </button>
-      <span className="text-sm text-gray-700">
-        {checked ? 'Hoạt động' : 'Không hoạt động'}
-      </span>
-    </div>
-  );
-};
+import FormToggleSwitch from "../../ui/ToggleSwitch";
 
 const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
   const [formData, setFormData] = useState(
@@ -38,23 +12,29 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
   );
   const [previews, setPreviews] = useState({});
   
-  const normalizeFormData = (data, fields) => {
-    const normalized = { ...data };
-    fields.forEach((field) => {
-      if (
-        field.type === "select" &&
-        typeof data[field.key] === "object" &&
-        data[field.key]?._id
-      ) {
-        normalized[field.key] = data[field.key]._id;
-      }
-      // Normalize toggle field
-      if (field.type === "toggle") {
-        normalized[field.key] = !!data[field.key];
-      }
-    });
-    return normalized;
-  };
+const normalizeFormData = (data, fields) => {
+  const normalized = { ...data };
+  fields.forEach((field) => {
+    if (
+      field.type === "select" &&
+      typeof data[field.key] === "object" &&
+      data[field.key]?._id
+    ) {
+      normalized[field.key] = data[field.key]._id;
+    }
+    if (field.type === "toggle") {
+      normalized[field.key] = !!data[field.key];
+    }
+    // Kiểm tra và chuyển đổi publish_date nếu có
+    if (field.type === "datetime" && data[field.key]) {
+      const date = new Date(data[field.key]);
+      // Chuyển đổi thành định dạng "yyyy-mm-ddThh:mm"
+      normalized[field.key] = date.toISOString().slice(0, 16); 
+    }
+  });
+  return normalized;
+};
+
 
   useEffect(() => {
     if (data) {
@@ -225,14 +205,14 @@ const DataForm = ({ data, fields, onSubmit, onCancel, isEdit = false }) => {
                 </div>
               ) : null}
             </>
-          ) : field.type === "date" ? (
-            <input
-              type="date"
-              value={formData[field.key] || ""}
-              onChange={(e) => handleChange(field.key, e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            />
-          ) : (
+          ) : field.type === "datetime" ? (
+  <input
+    type="datetime-local"
+    value={formData[field.key] || ""}
+    onChange={(e) => handleChange(field.key, e.target.value)}
+    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+  />
+): (
             <input
               type={field.type || "text"}
               value={formData[field.key] || ""}

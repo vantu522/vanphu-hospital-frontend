@@ -102,7 +102,7 @@ const RecruitmentManagement = () => {
     {
       key: "expiry_date",
       label: "Ngày hết hạn",
-      type: "date",
+      type: "datetime",
     },
   ];
     // Handle functions for recruitment posts
