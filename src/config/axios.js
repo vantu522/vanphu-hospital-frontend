@@ -2,7 +2,7 @@ import axios from 'axios';
 import { baseUrl, clientUrl } from './constansts';
 
 const axiosInstance = axios.create({
-  baseURL:  `${baseUrl}/api`, // Sử dụng baseUrl từ constants
+  baseURL:  `${clientUrl}/api`, // Sử dụng baseUrl từ constants
   timeout: 10000, 
   headers: {
     'Content-Type': 'application/json',
